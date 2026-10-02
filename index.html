@@ -2,33 +2,32 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TAKI AGENDA 5.0</title>
+<title>TAKI AGENDA 5.1</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Arial}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,Arial}
 body{background:#000;color:#fff;padding:16px}
-h1{text-align:center;padding:16px;font-size:13px;letter-spacing:4px;font-weight:300;color:#666}
+h1{text-align:center;padding:16px;font-size:12px;letter-spacing:4px;color:#444}
 .card{background:#111;border:1px solid #1f1f1f;border-radius:20px;padding:18px;margin:12px 0}
 label{font-size:10px;color:#555;letter-spacing:2px;margin:8px 0 4px 4px;display:block}
 input,select{width:100%;padding:14px;background:#0a0a0a;border:1px solid #222;border-radius:12px;color:#fff;font-size:14px;margin-bottom:4px}
-button{background:#fff;color:#000;border:none;padding:14px;border-radius:12px;font-weight:600;width:100%;margin-top:12px;font-size:13px;letter-spacing:1px}
-.tabs{display:flex;gap:6px;margin:14px 0;background:#0a0a0a;padding:5px;border-radius:12px;border:1px solid #1a1a1a}
-.tab{flex:1;padding:10px;text-align:center;font-size:11px;color:#555;border-radius:8px;letter-spacing:1px}
+button{background:#fff;color:#000;border:none;padding:14px;border-radius:12px;font-weight:600;width:100%;margin-top:12px}
+.tabs{display:flex;gap:4px;margin:14px 0;background:#0a0a0a;padding:5px;border-radius:12px;border:1px solid #1a1a1a}
+.tab{flex:1;padding:9px;text-align:center;font-size:10px;color:#555;border-radius:8px}
 .tab.active{background:#1f1f1f;color:#fff}
-.top{display:flex;gap:8px}
-.box{flex:1;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:14px;padding:12px;text-align:center}
-.box b{color:#fff;font-size:16px;font-weight:500;display:block}.box small{color:#444;font-size:9px;letter-spacing:1.5px}
+.top{display:flex;gap:6px;flex-wrap:wrap}
+.box{flex:1;min-width:70px;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:14px;padding:10px;text-align:center}
+.box b{color:#fff;font-size:14px;display:block}.box small{color:#444;font-size:8px;letter-spacing:1px}
 .event{background:#0e0e0e;border:1px solid #1a1a1a;padding:14px;margin:8px 0;border-radius:14px}
-.event b{font-size:14px;font-weight:600}.muted{color:#555;font-size:11px;margin-top:4px}
-.valor{color:#fff;font-weight:600;font-size:13px}
-.line{height:1px;background:#1a1a1a;margin:12px 0}
+.muted{color:#555;font-size:11px;margin-top:4px}
 </style>
 </head>
 <body>
-<h1>TAKI AGENDA</h1>
+<h1>TAKI AGENDA 5.1</h1>
 <div class="top">
-<div class="box"><b id="tMes">R$ 0</b><small>MÊS</small></div>
+<div class="box"><b id="tDia">R$ 0</b><small>DIA</small></div>
 <div class="box"><b id="tSem">R$ 0</b><small>SEMANA</small></div>
-<div class="box"><b id="tHoje">R$ 0</b><small>HOJE</small></div>
+<div class="box"><b id="tQui">R$ 0</b><small>QUINZENA</small></div>
+<div class="box"><b id="tMes">R$ 0</b><small>MÊS</small></div>
 </div>
 <div class="card">
 <label>ESCALA</label>
@@ -58,7 +57,7 @@ button{background:#fff;color:#000;border:none;padding:14px;border-radius:12px;fo
 <option value="DOUGLAS">DOUGLAS — R$ 300</option>
 <option value="ANDRÉ TAKI">ANDRÉ TAKI — R$ 300</option>
 </select>
-<label>VALOR</label>
+<label>VALOR AUTO</label>
 <input type="number" id="valor" placeholder="—">
 <button onclick="add()">SALVAR</button>
 </div>
@@ -66,22 +65,22 @@ button{background:#fff;color:#000;border:none;padding:14px;border-radius:12px;fo
 <div class="tabs">
 <div class="tab active" onclick="setTab('dia')" id="tab-dia">DIA</div>
 <div class="tab" onclick="setTab('sem')" id="tab-sem">SEMANA</div>
+<div class="tab" onclick="setTab('qui')" id="tab-qui">QUINZ</div>
 <div class="tab" onclick="setTab('mes')" id="tab-mes">MÊS</div>
 <div class="tab" onclick="setTab('all')" id="tab-all">TUDO</div>
 </div>
 <input type="date" id="filtroData" onchange="render()">
-<div class="line"></div>
 <div id="lista"></div>
 </div>
 <script>
 let precos={"ANDERSON":300,"VAT 60":450,"VAT 60 DUO":400,"RICK DUO":400,"RICK TRIO":450,"RICK SOLO":300,"GERVÁSIO":200,"EDILL":300,"LUCIANO":300,"YGOR":300,"MARTIN":300,"ISRAEL":300,"ROBSON":300,"ROBSON DUO":400,"DUO CLASSIC ROCK":450,"DOUGLAS":300,"ANDRÉ TAKI":300};
-let ev=JSON.parse(localStorage.getItem('taki5')||'[]');let tab='dia';
+let ev=JSON.parse(localStorage.getItem('taki51')||'[]');let tab='dia';
 function setValor(){let m=musico.value;if(precos[m])valor.value=precos[m];}
-function add(){let d=data.value,t=turno.value,l=local.value,m=musico.value,v=parseFloat(valor.value)||0;if(!d||!m||!v){alert('Preencha');return}ev.push({id:Date.now(),d,t,l,m,v});localStorage.setItem('taki5',JSON.stringify(ev));render();}
+function add(){let d=data.value,t=turno.value,l=local.value,m=musico.value,v=parseFloat(valor.value)||0;if(!d||!m||!v){alert('Preencha');return}ev.push({id:Date.now(),d,t,l,m,v});localStorage.setItem('taki51',JSON.stringify(ev));render();}
 function setTab(s){tab=s;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+s).classList.add('active');render()}
-function substituir(id){let n=prompt('Substituir por:\n'+Object.keys(precos).join('\n'));if(!n||!precos[n.toUpperCase()])return;let it=ev.find(x=>x.id==id);it.m=n.toUpperCase();it.v=precos[it.m];localStorage.setItem('taki5',JSON.stringify(ev));render()}
-function del(id){if(confirm('Excluir?')){ev=ev.filter(x=>x.id!=id);localStorage.setItem('taki5',JSON.stringify(ev));render()}}
-function render(){let hoje=new Date().toISOString().split('T')[0];let filtro=filtroData.value||hoje;let lista=ev.slice();if(tab==='dia')lista=lista.filter(x=>x.d===filtro);if(tab==='sem'){let d=new Date(filtro);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='mes'){let m=filtro.slice(0,7);lista=lista.filter(x=>x.d.startsWith(m));}lista.sort((a,b)=>a.d.localeCompare(b.d));let sH=ev.filter(x=>x.d===hoje).reduce((s,x)=>s+x.v,0);let ini=new Date(hoje);ini.setDate(new Date(hoje).getDate()-new Date(hoje).getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);let sS=ev.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim}).reduce((s,x)=>s+x.v,0);let sM=ev.filter(x=>x.d.startsWith(hoje.slice(0,7))).reduce((s,x)=>s+x.v,0);tHoje.innerText='R$ '+sH;tSem.innerText='R$ '+sS;tMes.innerText='R$ '+sM;let soma=lista.reduce((s,x)=>s+x.v,0);let html=`<div style="text-align:right;color:#333;font-size:11px;letter-spacing:1px">R$ ${soma} • ${lista.length}</div>`;html+=lista.map(x=>`<div class="event"><div style="display:flex;justify-content:space-between"><b>${x.m}</b><span class="valor">R$ ${x.v}</span></div><div class="muted">${x.d.split('-').reverse().join('/')} • ${x.t} • ${x.l}</div><div style="display:flex;gap:8px;margin-top:10px"><div style="flex:1;font-size:11px;color:#666;padding:8px;text-align:center;border:1px solid #1a1a1a;border-radius:8px" onclick="substituir(${x.id})">SUBSTITUIR</div><div style="padding:8px 14px;color:#333;border:1px solid #1a1a1a;border-radius:8px" onclick="del(${x.id})">✕</div></div></div>`).join('');if(!lista.length)html+='<p style="text-align:center;color:#222;padding:30px;font-size:12px;letter-spacing:2px">VAZIO</p>';document.getElementById('lista').innerHTML=html;}
+function substituir(id){let n=prompt('Substituir por:\n'+Object.keys(precos).join('\n'));if(!n||!precos[n.toUpperCase()])return;let it=ev.find(x=>x.id==id);it.m=n.toUpperCase();it.v=precos[it.m];localStorage.setItem('taki51',JSON.stringify(ev));render()}
+function del(id){if(confirm('Excluir?')){ev=ev.filter(x=>x.id!=id);localStorage.setItem('taki51',JSON.stringify(ev));render()}}
+function render(){let hoje=new Date().toISOString().split('T')[0];let filtro=filtroData.value||hoje;let lista=ev.slice();if(tab==='dia')lista=lista.filter(x=>x.d===filtro);if(tab==='sem'){let d=new Date(filtro);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='qui'){let d=new Date(filtro);let dia=d.getDate();let ini=new Date(d);let fim=new Date(d);if(dia<=15){ini.setDate(1);fim.setDate(15);}else{ini.setDate(16);fim.setMonth(fim.getMonth()+1);fim.setDate(0);}lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='mes'){let m=filtro.slice(0,7);lista=lista.filter(x=>x.d.startsWith(m));}lista.sort((a,b)=>a.d.localeCompare(b.d));let calc=(f)=>ev.filter(f).reduce((s,x)=>s+x.v,0);let sDia=calc(x=>x.d===hoje);let ini=new Date(hoje);ini.setDate(new Date(hoje).getDate()-new Date(hoje).getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);let sSem=calc(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});let d=new Date(hoje);let iniQ=new Date(d),fimQ=new Date(d);if(d.getDate()<=15){iniQ.setDate(1);fimQ.setDate(15);}else{iniQ.setDate(16);fimQ.setMonth(fimQ.getMonth()+1);fimQ.setDate(0);}let sQui=calc(x=>{let dx=new Date(x.d);return dx>=iniQ&&dx<=fimQ});let sMes=calc(x=>x.d.startsWith(hoje.slice(0,7)));tDia.innerText='R$ '+sDia;tSem.innerText='R$ '+sSem;tQui.innerText='R$ '+sQui;tMes.innerText='R$ '+sMes;let soma=lista.reduce((s,x)=>s+x.v,0);let html=`<div style="text-align:right;color:#333;font-size:11px;margin:8px 0">R$ ${soma} • ${lista.length} shows</div>`;html+=lista.map(x=>`<div class="event"><div style="display:flex;justify-content:space-between"><b>${x.m}</b><span style="color:#fff">R$ ${x.v}</span></div><div class="muted">${x.d.split('-').reverse().join('/')} • ${x.t} • ${x.l}</div><div style="display:flex;gap:8px;margin-top:10px"><div style="flex:1;font-size:11px;color:#666;padding:8px;text-align:center;border:1px solid #1a1a1a;border-radius:8px" onclick="substituir(${x.id})">SUBSTITUIR</div><div style="padding:8px 14px;color:#333;border:1px solid #1a1a1a;border-radius:8px" onclick="del(${x.id})">✕</div></div></div>`).join('');if(!lista.length)html+='<p style="text-align:center;color:#222;padding:30px;font-size:11px">VAZIO</p>';document.getElementById('lista').innerHTML=html;}
 filtroData.valueAsDate=new Date();data.valueAsDate=new Date();render();
 </script>
 </body>
