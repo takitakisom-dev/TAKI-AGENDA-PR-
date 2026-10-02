@@ -1,9 +1,0 @@
-{
-  "name": "TAKI AGENDA PRO",
-  "short_name": "TAKI AGENDA",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#FFD700",
-  "icons": []
-}
