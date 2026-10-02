@@ -1,38 +1,113 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TAKI 7.2 BONITO</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#000;color:#fff;padding:14px;padding-bottom:90px}h1{text-align:center;padding:12px;font-size:11px;letter-spacing:4px;color:#333}.card{background:#101010;border:1px solid #222;border-radius:18px;padding:16px;margin:10px 0}label{font-size:9px;color:#666;letter-spacing:2px;margin:6px 0 4px 4px;display:block}input,select{width:100%;padding:13px;background:#0a0a0a;border:1px solid #222;border-radius:12px;color:#fff;font-size:14px}button{background:#fff;color:#000;border:none;padding:13px;border-radius:12px;font-weight:700;width:100%;margin-top:8px;font-size:12px}button.sec{background:#181818;color:#ccc;border:1px solid #222}button.green{background:#25D366;color:#000}button.blue{background:#fff;color:#000}button.purple{background:#7c3aed;color:#fff}.tabs{display:flex;gap:4px;margin:12px 0;background:#0a0a0a;padding:4px;border-radius:12px;border:1px solid #1a1a1a}.tab{flex:1;padding:9px;text-align:center;font-size:10px;color:#555;border-radius:8px}.tab.active{background:#222;color:#fff}.top{display:flex;gap:6px;flex-wrap:wrap}.box{flex:1;min-width:60px;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:12px;padding:9px;text-align:center}.box b{font-size:12px;display:block}.box small{color:#444;font-size:8px}.event{background:#0e0e0e;border:1px solid #1a1a1a;padding:13px;margin:8px 0;border-radius:14px}.muted{color:#555;font-size:11px;margin-top:4px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:18px;z-index:99}.modal.show{display:flex}.modal .card{width:100%;max-width:340px;background:#111}
-#preview{position:fixed;inset:0;background:#000;display:none;z-index:100;overflow:auto;padding:10px}#preview.show{display:block}
-.report{background:#fff;color:#000;border-radius:16px;padding:18px;max-width:400px;margin:0 auto}.report h2{font-size:16px;text-align:center;letter-spacing:2px}.report table{width:100%;border-collapse:collapse;margin-top:10px} .report th{font-size:9px;color:#888;text-align:left;padding:6px 4px;border-bottom:2px solid #000}.report td{font-size:12px;padding:8px 4px;border-bottom:1px solid #eee}
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TAKI 8.0 CRONOGRAMA</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}body{background:#000;color:#fff;padding:10px;padding-bottom:90px}h1{text-align:center;padding:10px;font-size:10px;letter-spacing:3px;color:#444}.card{background:#101010;border:1px solid #222;border-radius:16px;padding:14px;margin:8px 0}label{font-size:9px;color:#666;letter-spacing:1px;margin:5px 0 3px 4px;display:block}input,select{width:100%;padding:12px;background:#0a0a0a;border:1px solid #222;border-radius:10px;color:#fff;font-size:14px}button{background:#fff;color:#000;border:none;padding:12px;border-radius:10px;font-weight:700;width:100%;margin-top:6px;font-size:12px}button.sec{background:#181818;color:#ccc;border:1px solid #222}button.yellow{background:#ffb700;color:#000}button.green{background:#25D366;color:#000}button.blue{background:#111;color:#777;border:1px solid #222}.tabs{display:flex;gap:3px;margin:10px 0;background:#0a0a0a;padding:3px;border-radius:10px;border:1px solid #1a1a1a}.tab{flex:1;padding:8px;text-align:center;font-size:10px;color:#555;border-radius:7px}.tab.active{background:#222;color:#fff}.top{display:flex;gap:5px}.box{flex:1;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:10px;padding:8px;text-align:center}.box b{font-size:11px;display:block}.box small{color:#444;font-size:8px}.event{background:#0e0e0e;border:1px solid #1a1a1a;padding:10px;margin:6px 0;border-radius:12px}.muted{color:#555;font-size:11px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:18px;z-index:99}.modal.show{display:flex}.modal.card{width:100%;max-width:340px;background:#111}
+#cronograma{position:fixed;inset:0;background:#f2f2f2;display:none;z-index:200;overflow:auto}#cronograma.show{display:block}
+.crono-header{background:#0f1f35;padding:14px 16px;border-bottom:4px solid #ffb700}
+.crono-header h2{color:#ffb700;font-size:18px;font-weight:900;letter-spacing:.5px;margin:0}
+.crono-header p{color:#8aa0b8;font-size:12px;margin:2px 0 0 0}
+.dia-header{background:#1a2f4a;color:#fff;padding:8px 12px;font-weight:800;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.dia-header.sabdom{background:#ffb700;color:#000}
+.dia-header small{font-size:10px;font-weight:700}
+.linha{background:#fff;color:#000;display:flex;align-items:center;padding:7px 10px;border-bottom:1px solid #e8e8e8;font-size:13px}
+.linha:nth-child(even){background:#fafafa}
+.pbox{background:#1a1a1a;color:#fff;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:900;margin-right:8px;min-width:28px;text-align:center}
+.pbox.sabdom{background:#b86a00;color:#fff}
+.linha.nome{flex:1;font-weight:600}
+.linha.turno{font-size:10px;color:#888}
 </style></head><body>
-<h1>TAKI AGENDA 7.2 - BONITO</h1>
-<div class="top"><div class="box"><b id="tDia">R$ 0</b><small>DIA</small></div><div class="box"><b id="tSem">R$ 0</b><small>SEMANA</small></div><div class="box"><b id="tQui">R$ 0</b><small>QUINZENA</small></div><div class="box"><b id="tMes">R$ 0</b><small>MÊS</small></div></div>
-<div class="card"><label>NOVA ESCALA</label><input type="date" id="data"><div style="display:flex;gap:8px"><div style="flex:1"><label>TURNO</label><select id="turno"><option>ALMOÇO</option><option>JANTAR</option></select></div><div style="flex:1"><label>LOCAL</label><select id="local"><option>P1</option><option>P2</option><option>P3</option><option>P4</option><option>P5</option><option>P6</option></select></div></div><label>MÚSICO (A-Z)</label><select id="musico"></select><label>VALOR (SÓ VOCÊ)</label><input type="number" id="valor"><button onclick="add()">SALVAR</button><button class="sec" onclick="openAdd()">+ ADD MÚSICO</button>
-<div style="height:1px;background:#222;margin:12px 0"></div>
-<button class="purple" onclick="previewBonito()">📸 VER RELATÓRIO BONITO (SEM VALOR)</button>
-<button class="green" onclick="zapBonito()">💬 ENVIAR BONITO NO ZAP</button>
-<button class="blue" onclick="pdfAdmin()">🔒 MEU CONTROLE (COM VALOR)</button></div>
-<div class="card"><div class="tabs"><div class="tab active" onclick="setTab('dia')" id="tab-dia">DIA</div><div class="tab" onclick="setTab('sem')" id="tab-sem">SEMANA</div><div class="tab" onclick="setTab('qui')" id="tab-qui">QUINZ</div><div class="tab" onclick="setTab('mes')" id="tab-mes">MÊS</div><div class="tab" onclick="setTab('all')" id="tab-all">TUDO</div></div><input type="date" id="filtroData" onchange="render()"><div id="lista"></div></div>
+<h1>TAKI 8.0 - CRONOGRAMA COMPLETO</h1>
+<div class="top"><div class="box"><b id="tDia">R$0</b><small>DIA</small></div><div class="box"><b id="tSem">R$0</b><small>SEM</small></div><div class="box"><b id="tQui">R$0</b><small>QUINZ</small></div><div class="box"><b id="tMes">R$0</b><small>MÊS</small></div></div>
+<div class="card"><label>NOVA ESCALA</label><input type="date" id="data"><div style="display:flex;gap:6px"><div style="flex:1"><label>TURNO</label><select id="turno"><option>ALMOÇO</option><option>JANTAR</option></select></div><div style="flex:1"><label>LOCAL</label><select id="local"><option>P1</option><option>P2</option><option>P3</option><option>P4</option><option>P5</option><option>P6</option></select></div></div><label>MÚSICO A-Z</label><select id="musico"></select><label>VALOR SÓ VOCÊ</label><input type="number" id="valor"><button onclick="add()">SALVAR</button>
+<div style="height:1px;background:#222;margin:10px 0"></div>
+<button class="yellow" onclick="abrirCronograma()">📋 CRONOGRAMA COMPLETO - IGUAL A FOTO</button>
+<button class="green" onclick="zapCronograma()">💬 ENVIAR CRONOGRAMA NO ZAP</button>
+<button class="blue" onclick="pdfAdmin()">🔒 MEU FINANCEIRO COM VALOR</button></div>
+<div class="card"><div class="tabs"><div class="tab" onclick="setTab('dia')" id="tab-dia">DIA</div><div class="tab active" onclick="setTab('sem')" id="tab-sem">SEMANA</div><div class="tab" onclick="setTab('qui')" id="tab-qui">QUINZ</div><div class="tab" onclick="setTab('mes')" id="tab-mes">MÊS</div><div class="tab" onclick="setTab('all')" id="tab-all">TUDO</div></div><input type="date" id="filtroData" onchange="render()"><div id="lista"></div></div>
 <div id="modalSub" class="modal"><div class="card"><label>SUBSTITUIR</label><select id="subMusico"></select><button onclick="confirmaSub()">CONFIRMAR</button><button class="sec" onclick="closeM('modalSub')">CANCELAR</button></div></div>
-<div id="modalAdd" class="modal"><div class="card"><label>NOME</label><input id="novoNome"><label>VALOR</label><input id="novoValor" type="number"><button onclick="addMusico()">ADD</button><button class="sec" onclick="closeM('modalAdd')">CANCELAR</button></div></div>
-<div id="preview"><div class="report" id="reportBox"></div><button onclick="document.getElementById('preview').classList.remove('show')" style="max-width:400px;margin:12px auto;display:block">FECHAR</button><button class="green" onclick="compartilharImagem()" style="max-width:400px;margin:0 auto;display:block">📤 COMPARTILHAR ESSA IMAGEM NO ZAP</button><p style="text-align:center;color:#555;font-size:11px;margin-top:8px">Dica: tire print dessa tela bonita e mande no grupo, fica profissional!</p></div>
+<div id="cronograma"><div id="cronoContent"></div><div style="padding:12px;display:flex;gap:8px;max-width:500px;margin:0 auto"><button onclick="document.getElementById('cronograma').classList.remove('show')" style="background:#222;color:#fff;flex:1">FECHAR</button><button onclick="window.print()" style="background:#000;color:#fff;flex:1">🖨️ IMPRIMIR / SALVAR PDF</button></div><p style="text-align:center;color:#888;font-size:11px;padding:8px">Dica: Clique em Imprimir > Salvar como PDF > Mande no grupo dos músicos. Fica igual a foto!</p></div>
 <script>
 let precosPadrao={"ANDERSON":300,"ANDRÉ TAKI":300,"DOUGLAS":300,"DUO CLASSIC ROCK":450,"EDILL":300,"GERVÁSIO":200,"ISRAEL":300,"LUCIANO":300,"MARTIN":300,"ROBSON":300,"ROBSON DUO":400,"RICK DUO":400,"RICK SOLO":300,"RICK TRIO":450,"VAT 60":450,"VAT 60 DUO":400,"YGOR":300};
 let precos=JSON.parse(localStorage.getItem('taki_precos')||'null')||precosPadrao;
-let ev=JSON.parse(localStorage.getItem('taki72')||localStorage.getItem('taki71')||localStorage.getItem('taki70')||'[]');let tab='dia';let subId=null;
-function refresh(){let keys=Object.keys(precos).sort((a,b)=>a.localeCompare(b,'pt-BR'));let h='<option value="">— SELECIONE —</option>';for(let k of keys)h+=`<option value="${k}">${k} — R$ ${precos[k]}</option>`;musico.innerHTML=h;subMusico.innerHTML=h;}
-refresh();musico.addEventListener('change',()=>{if(precos[musico.value])valor.value=precos[musico.value]});
-function openAdd(){modalAdd.classList.add('show')}function closeM(id){document.getElementById(id).classList.remove('show')}
-function addMusico(){let n=novoNome.value.trim().toUpperCase();let v=parseFloat(novoValor.value);if(!n||!v)return alert('Preencha');precos[n]=v;localStorage.setItem('taki_precos',JSON.stringify(precos));refresh();closeM('modalAdd');novoNome.value='';novoValor.value='';}
-function add(){let d=data.value,t=turno.value,l=local.value,m=musico.value,v=parseFloat(valor.value)||0;if(!d||!m||!v)return alert('Selecione');ev.push({id:Date.now(),d,t,l,m,v});localStorage.setItem('taki72',JSON.stringify(ev));render();}
+let ev=JSON.parse(localStorage.getItem('taki80')||localStorage.getItem('taki74')||localStorage.getItem('taki73')||'[]');let tab='sem';let subId=null;
+function refresh(){let k=Object.keys(precos).sort((a,b)=>a.localeCompare(b,'pt-BR'));let h='<option value="">— SELECIONE —</option>';for(let x of k)h+=`<option value="${x}">${x} — R$ ${precos[x]}</option>`;musico.innerHTML=h;subMusico.innerHTML=h;}
+refresh();musico.onchange=()=>{if(precos[musico.value])valor.value=precos[musico.value]};
+function closeM(id){document.getElementById(id).classList.remove('show')}
+function add(){let d=data.value,t=turno.value,l=local.value,m=musico.value,v=parseFloat(valor.value)||0;if(!d||!m||!v)return alert('Preencha');ev.push({id:Date.now(),d,t,l,m,v});localStorage.setItem('taki80',JSON.stringify(ev));render();}
 function setTab(s){tab=s;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+s).classList.add('active');render()}
-function abrirSub(id){subId=id;modalSub.classList.add('show');}
-function confirmaSub(){let novo=subMusico.value;if(!novo)return;let it=ev.find(x=>x.id==subId);it.m=novo;it.v=precos[novo];localStorage.setItem('taki72',JSON.stringify(ev));closeM('modalSub');render();}
-function del(id){if(confirm('Excluir?')){ev=ev.filter(x=>x.id!=id);localStorage.setItem('taki72',JSON.stringify(ev));render()}}
-function getLista(){let filtro=filtroData.value||new Date().toISOString().split('T')[0];let lista=ev.slice();if(tab==='dia')lista=lista.filter(x=>x.d===filtro);if(tab==='sem'){let d=new Date(filtro);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='qui'){let d=new Date(filtro);let ini=new Date(d),fim=new Date(d);if(d.getDate()<=15){ini.setDate(1);fim.setDate(15);}else{ini.setDate(16);fim.setMonth(fim.getMonth()+1);fim.setDate(0);}lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='mes')lista=lista.filter(x=>x.d.startsWith(filtro.slice(0,7)));lista.sort((a,b)=>a.d.localeCompare(b.d));return {lista,filtro};}
-function previewBonito(){let {lista,filtro}=getLista();if(!lista.length)return alert('Vazio');let html=`<div style="text-align:center"><div style="font-size:10px;letter-spacing:3px;color:#888">TAKI AGENDA</div><h2>ESCALA ${tab.toUpperCase()}</h2><div style="font-size:11px;color:#666;margin-top:4px">${filtro.split('-').reverse().join('/')} • ${lista.length} shows</div></div><table><tr><th>DATA</th><th>TURNO</th><th>LOCAL</th><th>MÚSICO</th></tr>${lista.map(x=>`<tr><td><b>${x.d.split('-').reverse().join('/').slice(0,5)}</b><div style="font-size:10px;color:#888">${new Date(x.d+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'short'})}</div></td><td>${x.t}</td><td><span style="background:#000;color:#fff;padding:2px 6px;border-radius:6px;font-size:11px">${x.l}</span></td><td><b>${x.m}</b></td></tr>`).join('')}</table><div style="margin-top:12px;font-size:10px;color:#888;text-align:center">Escala sujeita a alteração • Confirmar presença</div>`;document.getElementById('reportBox').innerHTML=html;document.getElementById('preview').classList.add('show');}
-function zapBonito(){let {lista,filtro}=getLista();if(!lista.length)return alert('Vazio');let texto=`┏━━━━━━━━━━━━━━━━━━┓\n┃  🎵 *TAKI AGENDA*  ┃\n┃  ESCALA ${tab.toUpperCase()}  ┃\n┗━━━━━━━━━━━━━━━━━━┛\n\n📅 ${filtro.split('-').reverse().join('/')} • ${lista.length} shows\n━━━━━━━━━━━━━━━━━━\n\n`;lista.forEach(x=>{let dia=new Date(x.d+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'short'}).toUpperCase();let data=x.d.split('-').reverse().join('/');texto+=`🗓️ *${data} ${dia}*\n   ⏰ ${x.t} | 📍 ${x.l}\n   🎤 *${x.m}*\n\n`});texto+=`━━━━━━━━━━━━━━━━━━\n⚠️ _Confirmar presença_`;window.open("https://wa.me/?text="+encodeURIComponent(texto),'_blank');}
-function compartilharImagem(){alert('Agora tira um PRINT dessa tela bonita! No seu celular, aperta botão de volume + power juntos, depois vai no WhatsApp e manda a imagem no grupo dos músicos. Vai ficar profissional!');}
-function pdfAdmin(){let {lista,filtro}=getLista();let total=lista.reduce((s,x)=>s+x.v,0);let html=`<html><head><meta charset="UTF-8"><style>body{font-family:Arial;padding:20px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #000;padding:6px;font-size:12px}th{background:#eee}</style></head><body><h2>TAKI FINANCEIRO ${tab.toUpperCase()} ${filtro}</h2><table><tr><th>DATA</th><th>TURNO</th><th>LOCAL</th><th>MÚSICO</th><th>VALOR</th></tr>${lista.map(x=>`<tr><td>${x.d.split('-').reverse().join('/')}</td><td>${x.t}</td><td>${x.l}</td><td>${x.m}</td><td>R$ ${x.v}</td></tr>`).join('')}</table><h3>TOTAL R$ ${total}</h3><script>window.print()<\/script></body></html>`;let w=window.open('','_blank');w.document.write(html);w.document.close();}
-function render(){let hoje=new Date().toISOString().split('T')[0];let filtro=filtroData.value||hoje;let lista=ev.slice();if(tab==='dia')lista=lista.filter(x=>x.d===filtro);if(tab==='sem'){let d=new Date(filtro);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='qui'){let d=new Date(filtro);let ini=new Date(d),fim=new Date(d);if(d.getDate()<=15){ini.setDate(1);fim.setDate(15);}else{ini.setDate(16);fim.setMonth(fim.getMonth()+1);fim.setDate(0);}lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='mes'){let m=filtro.slice(0,7);lista=lista.filter(x=>x.d.startsWith(m));}lista.sort((a,b)=>a.d.localeCompare(b.d));let calc=(f)=>ev.filter(f).reduce((s,x)=>s+x.v,0);let ini=new Date(hoje);ini.setDate(new Date(hoje).getDate()-new Date(hoje).getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);let d=new Date(hoje);let iniQ=new Date(d),fimQ=new Date(d);if(d.getDate()<=15){iniQ.setDate(1);fimQ.setDate(15);}else{iniQ.setDate(16);fimQ.setMonth(fimQ.getMonth()+1);fimQ.setDate(0);}tDia.innerText='R$ '+calc(x=>x.d===hoje);tSem.innerText='R$ '+calc(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});tQui.innerText='R$ '+calc(x=>{let dx=new Date(x.d);return dx>=iniQ&&dx<=fimQ});tMes.innerText='R$ '+calc(x=>x.d.startsWith(hoje.slice(0,7)));let soma=lista.reduce((s,x)=>s+x.v,0);let h=`<div style="text-align:right;color:#555;font-size:11px;margin:8px 0">R$ ${soma} • ${lista.length}</div>`;h+=lista.map(x=>`<div class="event"><div style="display:flex;justify-content:space-between"><b>${x.m}</b><span>R$ ${x.v}</span></div><div class="muted">${x.d.split('-').reverse().join('/')} • ${x.t} • ${x.l}</div><div style="display:flex;gap:8px;margin-top:10px"><div style="flex:1;padding:10px;text-align:center;border:1px solid #222;border-radius:10px;font-size:11px;color:#aaa" onclick="abrirSub(${x.id})">SUBSTITUIR</div><div style="padding:10px 14px;border:1px solid #222;border-radius:10px;color:#555" onclick="del(${x.id})">✕</div></div></div>`).join('');if(!lista.length)h+='<p style="text-align:center;color:#222;padding:20px">VAZIO</p>';document.getElementById('lista').innerHTML=h;}
+function abrirSub(id){subId=id;modalSub.classList.add('show')}
+function confirmaSub(){let n=subMusico.value;if(!n)return;let it=ev.find(x=>x.id==subId);it.m=n;it.v=precos[n];localStorage.setItem('taki80',JSON.stringify(ev));closeM('modalSub');render();}
+function del(id){if(confirm('Excluir?')){ev=ev.filter(x=>x.id!=id);localStorage.setItem('taki80',JSON.stringify(ev));render()}}
+function getLista(){let f=filtroData.value||new Date().toISOString().split('T')[0];let lista=ev.slice();if(tab==='dia')lista=lista.filter(x=>x.d===f);if(tab==='sem'){let d=new Date(f);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='qui'){let d=new Date(f);let ini=new Date(d),fim=new Date(d);if(d.getDate()<=15){ini.setDate(1);fim.setDate(15);}else{ini.setDate(16);fim.setMonth(fim.getMonth()+1);fim.setDate(0);}lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='mes')lista=lista.filter(x=>x.d.startsWith(f.slice(0,7)));lista.sort((a,b)=>a.d.localeCompare(b.d)||a.l.localeCompare(b.l));return {lista,filtro:f};}
+function buildCronogramaHTML(){
+let {lista,filtro}=getLista();if(!lista.length)return '<div style="padding:20px;text-align:center">VAZIO - Adicione escalas na semana</div>';
+// Agrupa por data
+let porData={};lista.forEach(x=>{if(!porData[x.d])porData[x.d]=[];porData[x.d].push(x);});
+let datas=Object.keys(porData).sort();
+let primeira=datas[0];let ultima=datas[datas.length-1];
+let fmt=d=>d.split('-').reverse().slice(0,2).join('/');
+let range=`${fmt(primeira)} a ${fmt(ultima)} - Musical ao Vivo`;
+let html=`<div class="crono-header"><h2>CRONOGRAMA COMPLETO</h2><p>${range}</p></div>`;
+datas.forEach(data=>{
+let eventos=porData[data];
+let dt=new Date(data+'T12:00:00');
+let diaSem=dt.toLocaleDateString('pt-BR',{weekday:'long'}).toUpperCase();
+let diaNum=String(dt.getDate()).padStart(2,'0');
+let mesNum=String(dt.getMonth()+1).padStart(2,'0');
+let isSabDom=dt.getDay()===6||dt.getDay()===0;
+let classe=isSabDom?'sabdom':'';
+let labelSabDom=isSabDom?'ALMOÇO E JANTAR':'';
+// Ordena P1..P6
+eventos.sort((a,b)=>a.l.localeCompare(b.l));
+// Agrupa por local P
+let porLocal={};
+eventos.forEach(e=>{
+if(!porLocal[e.l])porLocal[e.l]=[];
+porLocal[e.l].push(e);
+});
+html+=`<div class="dia-header ${classe}"><span>${diaSem} - ${diaNum}/${mesNum}</span>${isSabDom?`<small>${labelSabDom}</small>`:''}</div>`;
+['P1','P2','P3','P4','P5','P6'].forEach(p=>{
+if(porLocal[p]){
+let evs=porLocal[p];
+let nome=evs[0].m;
+let turnoTxt='';
+if(evs.length>=2)turnoTxt='Almoço e Jantar';
+else{
+let t=evs[0].t;
+if(isSabDom)turnoTxt=t==='ALMOÇO'&&evs.length===1? (p==='P6'?'Almoço':'Almoço e Jantar') : (evs[0].t==='ALMOÇO'?'Almoço':'Almoço e Jantar');
+else turnoTxt='';
+if(isSabDom && evs.length===1 && evs[0].t==='ALMOÇO' && p!=='P6')turnoTxt='Almoço e Jantar';
+if(isSabDom && evs.length===1 && evs[0].t==='JANTAR')turnoTxt='Almoço e Jantar';
+}
+let showTurno=isSabDom?`<span class="turno">${turnoTxt||'Almoço e Jantar'}</span>`:'';
+html+=`<div class="linha"><span class="pbox ${classe}">${p}</span><span class="nome">${nome}</span>${showTurno}</div>`;
+}
+});
+});
+return html;
+}
+function abrirCronograma(){let html=buildCronogramaHTML();document.getElementById('cronoContent').innerHTML=html;document.getElementById('cronograma').classList.add('show');window.scrollTo(0,0);}
+function zapCronograma(){
+let {lista}=getLista();if(!lista.length)return alert('Vazio');
+let porData={};lista.forEach(x=>{if(!porData[x.d])porData[x.d]=[];porData[x.d].push(x);});
+let datas=Object.keys(porData).sort();
+let primeira=datas[0];let ultima=datas[datas.length-1];
+let fmt=d=>d.split('-').reverse().slice(0,2).join('/');
+let texto=`*CRONOGRAMA COMPLETO*\n${fmt(primeira)} a ${fmt(ultima)} - Musical ao Vivo\n\n`;
+datas.forEach(data=>{
+let dt=new Date(data+'T12:00:00');
+let diaSem=dt.toLocaleDateString('pt-BR',{weekday:'long'}).toUpperCase();
+let diaNum=String(dt.getDate()).padStart(2,'0');
+let mesNum=String(dt.getMonth()+1).padStart(2,'0');
+let evs=porData[data].sort((a,b)=>a.l.localeCompare(b.l));
+texto+=`*${diaSem} - ${diaNum}/${mesNum}*\n`;
+evs.forEach(e=>{
+texto+=`${e.l} ${e.m}\n`;
+});
+texto+=`\n`;
+});
+window.open("https://wa.me/?text="+encodeURIComponent(texto),'_blank');
+}
+function pdfAdmin(){let {lista,filtro}=getLista();let tot=lista.reduce((s,x)=>s+x.v,0);let h=`<html><head><meta charset="UTF-8"><style>body{font-family:Arial;padding:20px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #000;padding:6px;font-size:12px}</style></head><body><h2>FINANCEIRO ${filtro} TOTAL R$ ${tot}</h2><table><tr><th>DATA</th><th>TURNO</th><th>LOCAL</th><th>MÚSICO</th><th>VALOR</th></tr>${lista.map(x=>`<tr><td>${x.d.split('-').reverse().join('/')}</td><td>${x.t}</td><td>${x.l}</td><td>${x.m}</td><td>R$ ${x.v}</td></tr>`).join('')}</table><script>window.print()<\/script></body></html>`;let w=window.open('','_blank');w.document.write(h);w.document.close();}
+function render(){let hoje=new Date().toISOString().split('T')[0];let f=filtroData.value||hoje;let lista=ev.slice();if(tab==='dia')lista=lista.filter(x=>x.d===f);if(tab==='sem'){let d=new Date(f);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='qui'){let d=new Date(f);let ini=new Date(d),fim=new Date(d);if(d.getDate()<=15){ini.setDate(1);fim.setDate(15);}else{ini.setDate(16);fim.setMonth(fim.getMonth()+1);fim.setDate(0);}lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='mes')lista=lista.filter(x=>x.d.startsWith(f.slice(0,7)));lista.sort((a,b)=>a.d.localeCompare(b.d));let calc=(fn)=>ev.filter(fn).reduce((s,x)=>s+x.v,0);let ini=new Date(hoje);ini.setDate(new Date(hoje).getDate()-new Date(hoje).getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);let d=new Date(hoje);let iniQ=new Date(d),fimQ=new Date(d);if(d.getDate()<=15){iniQ.setDate(1);fimQ.setDate(15);}else{iniQ.setDate(16);fimQ.setMonth(fimQ.getMonth()+1);fimQ.setDate(0);}tDia.innerText='R$'+calc(x=>x.d===hoje);tSem.innerText='R$'+calc(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});tQui.innerText='R$'+calc(x=>{let dx=new Date(x.d);return dx>=iniQ&&dx<=fimQ});tMes.innerText='R$'+calc(x=>x.d.startsWith(hoje.slice(0,7)));let soma=lista.reduce((s,x)=>s+x.v,0);let h=`<div style="text-align:right;color:#555;font-size:11px">R$ ${soma} • ${lista.length}</div>`;h+=lista.map(x=>`<div class="event"><div style="display:flex;justify-content:space-between"><b>${x.m}</b><span>R$ ${x.v}</span></div><div class="muted">${x.d.split('-').reverse().join('/')} • ${x.t} • ${x.l}</div><div style="display:flex;gap:8px;margin-top:8px"><div style="flex:1;padding:10px;text-align:center;border:1px solid #222;border-radius:10px;font-size:11px;color:#aaa" onclick="abrirSub(${x.id})">SUBSTITUIR</div><div style="padding:10px 14px;border:1px solid #222;border-radius:10px" onclick="del(${x.id})">✕</div></div></div>`).join('');if(!lista.length)h+='<p style="text-align:center;color:#222;padding:20px">VAZIO - Use aba SEMANA</p>';document.getElementById('lista').innerHTML=h;}
 filtroData.valueAsDate=new Date();data.valueAsDate=new Date();render();
 </script></body></html>
