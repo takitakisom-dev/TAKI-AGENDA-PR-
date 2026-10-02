@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TAKI 6.0</title>
+<title>TAKI 6.1</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,Arial}
 body{background:#000;color:#fff;padding:14px;padding-bottom:80px}
@@ -23,18 +23,17 @@ button.green{background:#1a1a1a;color:#fff;border:1px solid #333}
 .muted{color:#555;font-size:11px;margin-top:4px}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;padding:18px;z-index:99}
 .modal.show{display:flex}
-.modal.card{width:100%;max-width:340px;background:#111}
+.modal .card{width:100%;max-width:340px;background:#111}
 </style>
 </head>
 <body>
-<h1>TAKI AGENDA 6.0</h1>
+<h1>TAKI AGENDA 6.1</h1>
 <div class="top">
 <div class="box"><b id="tDia">R$ 0</b><small>DIA</small></div>
 <div class="box"><b id="tSem">R$ 0</b><small>SEMANA</small></div>
 <div class="box"><b id="tQui">R$ 0</b><small>QUINZENA</small></div>
 <div class="box"><b id="tMes">R$ 0</b><small>MÊS</small></div>
 </div>
-
 <div class="card">
 <label>NOVA ESCALA</label>
 <input type="date" id="data">
@@ -42,7 +41,7 @@ button.green{background:#1a1a1a;color:#fff;border:1px solid #333}
 <div style="flex:1"><label>TURNO</label><select id="turno"><option>ALMOÇO</option><option>JANTAR</option></select></div>
 <div style="flex:1"><label>LOCAL</label><select id="local"><option>P1</option><option>P2</option><option>P3</option><option>P4</option><option>P5</option><option>P6</option></select></div>
 </div>
-<label>MÚSICO</label>
+<label>MÚSICO (A-Z)</label>
 <select id="musico"></select>
 <label>VALOR (AUTO)</label>
 <input type="number" id="valor">
@@ -50,7 +49,6 @@ button.green{background:#1a1a1a;color:#fff;border:1px solid #333}
 <button class="sec" onclick="openAdd()">+ ADICIONAR NOVO MÚSICO</button>
 <button class="green" onclick="gerarPDF()">📄 IMPRIMIR / SALVAR PDF</button>
 </div>
-
 <div class="card">
 <div class="tabs">
 <div class="tab active" onclick="setTab('dia')" id="tab-dia">DIA</div>
@@ -62,55 +60,28 @@ button.green{background:#1a1a1a;color:#fff;border:1px solid #333}
 <input type="date" id="filtroData" onchange="render()">
 <div id="lista"></div>
 </div>
-
-<!-- MODAL SUBSTITUIR -->
-<div id="modalSub" class="modal">
-<div class="card">
-<label>SUBSTITUIR POR:</label>
-<select id="subMusico"></select>
-<button onclick="confirmaSub()">CONFIRMAR TROCA</button>
-<button class="sec" onclick="closeModal('modalSub')">CANCELAR</button>
-</div>
-</div>
-
-<!-- MODAL ADD MUSICO -->
-<div id="modalAdd" class="modal">
-<div class="card">
-<label>NOME DO MÚSICO</label>
-<input id="novoNome" placeholder="Ex: JOÃO DUO">
-<label>VALOR</label>
-<input id="novoValor" type="number" placeholder="Ex: 350">
-<button onclick="addMusico()">ADICIONAR</button>
-<button class="sec" onclick="closeModal('modalAdd')">CANCELAR</button>
-</div>
-</div>
-
+<div id="modalSub" class="modal"><div class="card"><label>SUBSTITUIR POR (A-Z):</label><select id="subMusico"></select><button onclick="confirmaSub()">CONFIRMAR TROCA</button><button class="sec" onclick="closeModal('modalSub')">CANCELAR</button></div></div>
+<div id="modalAdd" class="modal"><div class="card"><label>NOME DO MÚSICO</label><input id="novoNome" placeholder="Ex: JOÃO DUO"><label>VALOR</label><input id="novoValor" type="number" placeholder="350"><button onclick="addMusico()">ADICIONAR</button><button class="sec" onclick="closeModal('modalAdd')">CANCELAR</button></div></div>
 <script>
 let precos=JSON.parse(localStorage.getItem('taki_precos')||'{"ANDERSON":300,"VAT 60":450,"VAT 60 DUO":400,"RICK DUO":400,"RICK TRIO":450,"RICK SOLO":300,"GERVÁSIO":200,"EDILL":300,"LUCIANO":300,"YGOR":300,"MARTIN":300,"ISRAEL":300,"ROBSON":300,"ROBSON DUO":400,"DUO CLASSIC ROCK":450,"DOUGLAS":300,"ANDRÉ TAKI":300}');
 let ev=JSON.parse(localStorage.getItem('taki60')||'[]');let tab='dia';let subId=null;
-
-function refreshSelects(){let h='<option value="">— SELECIONE —</option>';for(let k in precos)h+=`<option value="${k}">${k} — R$ ${precos[k]}</option>`;musico.innerHTML=h;subMusico.innerHTML=h; musico.value=""; valor.value="";}
+function refreshSelects(){
+let keys=Object.keys(precos).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+let h='<option value="">— SELECIONE —</option>';
+for(let k of keys)h+=`<option value="${k}">${k} — R$ ${precos[k]}</option>`;
+musico.innerHTML=h;subMusico.innerHTML=h;
+}
 refreshSelects();
 musico.addEventListener('change',()=>{if(precos[musico.value])valor.value=precos[musico.value]});
-
 function openAdd(){document.getElementById('modalAdd').classList.add('show')}
 function closeModal(id){document.getElementById(id).classList.remove('show')}
-function addMusico(){let n=novoNome.value.trim().toUpperCase();let v=parseFloat(novoValor.value);if(!n||!v){alert('Preencha nome e valor');return}precos[n]=v;localStorage.setItem('taki_precos',JSON.stringify(precos));refreshSelects();novoNome.value='';novoValor.value='';closeModal('modalAdd');alert(n+' adicionado!')}
-
-function add(){let d=data.value,t=turno.value,l=local.value,m=musico.value,v=parseFloat(valor.value)||0;if(!d||!m||!v){alert('Selecione músico');return}ev.push({id:Date.now(),d,t,l,m,v});localStorage.setItem('taki60',JSON.stringify(ev));render();}
+function addMusico(){let n=novoNome.value.trim().toUpperCase();let v=parseFloat(novoValor.value);if(!n||!v){alert('Preencha');return}precos[n]=v;localStorage.setItem('taki_precos',JSON.stringify(precos));refreshSelects();novoNome.value='';novoValor.value='';closeModal('modalAdd');alert(n+' adicionado!')}
+function add(){let d=data.value,t=turno.value,l=local.value,m=musico.value,v=parseFloat(valor.value)||0;if(!d||!m||!v){alert('Selecione');return}ev.push({id:Date.now(),d,t,l,m,v});localStorage.setItem('taki60',JSON.stringify(ev));render();}
 function setTab(s){tab=s;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+s).classList.add('active');render()}
 function abrirSub(id){subId=id;document.getElementById('modalSub').classList.add('show');}
 function confirmaSub(){let novo=subMusico.value;if(!novo)return;let it=ev.find(x=>x.id==subId);it.m=novo;it.v=precos[novo];localStorage.setItem('taki60',JSON.stringify(ev));closeModal('modalSub');render();}
 function del(id){if(confirm('Excluir?')){ev=ev.filter(x=>x.id!=id);localStorage.setItem('taki60',JSON.stringify(ev));render()}}
-
-function gerarPDF(){
-let filtro=filtroData.value||new Date().toISOString().split('T')[0];
-let lista=ev.slice();if(tab==='dia')lista=lista.filter(x=>x.d===filtro);if(tab==='sem'){let d=new Date(filtro);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='qui'){let d=new Date(filtro);let ini=new Date(d),fim=new Date(d);if(d.getDate()<=15){ini.setDate(1);fim.setDate(15);}else{ini.setDate(16);fim.setMonth(fim.getMonth()+1);fim.setDate(0);}lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='mes'){lista=lista.filter(x=>x.d.startsWith(filtro.slice(0,7)));}lista.sort((a,b)=>a.d.localeCompare(b.d));
-let total=lista.reduce((s,x)=>s+x.v,0);
-let html=`<html><head><meta charset="UTF-8"><title>Relatório TAKI</title><style>body{font-family:Arial;padding:20px;color:#000}h1{font-size:18px}table{width:100%;border-collapse:collapse;margin-top:10px}th,td{border:1px solid #000;padding:8px;font-size:12px;text-align:left}th{background:#eee}.total{font-weight:bold;font-size:14px;margin-top:12px}</style></head><body><h1>TAKI AGENDA - Relatório</h1><p>Período: ${filtro} | Aba: ${tab.toUpperCase()} | Gerado: ${new Date().toLocaleString('pt-BR')}</p><table><tr><th>DATA</th><th>TURNO</th><th>LOCAL</th><th>MÚSICO</th><th>VALOR</th></tr>${lista.map(x=>`<tr><td>${x.d.split('-').reverse().join('/')}</td><td>${x.t}</td><td>${x.l}</td><td>${x.m}</td><td>R$ ${x.v}</td></tr>`).join('')}</table><p class="total">TOTAL: R$ ${total} - ${lista.length} shows</p><script>window.onload=()=>window.print()<\/script></body></html>`;
-let w=window.open('','_blank');w.document.write(html);w.document.close();
-}
-
+function gerarPDF(){let filtro=filtroData.value||new Date().toISOString().split('T')[0];let lista=ev.slice();if(tab==='dia')lista=lista.filter(x=>x.d===filtro);if(tab==='sem'){let d=new Date(filtro);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='qui'){let d=new Date(filtro);let ini=new Date(d),fim=new Date(d);if(d.getDate()<=15){ini.setDate(1);fim.setDate(15);}else{ini.setDate(16);fim.setMonth(fim.getMonth()+1);fim.setDate(0);}lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='mes'){lista=lista.filter(x=>x.d.startsWith(filtro.slice(0,7)));}lista.sort((a,b)=>a.d.localeCompare(b.d));let total=lista.reduce((s,x)=>s+x.v,0);let html=`<html><head><meta charset="UTF-8"><title>Relatório TAKI</title><style>body{font-family:Arial;padding:20px;color:#000}h1{font-size:18px}table{width:100%;border-collapse:collapse;margin-top:10px}th,td{border:1px solid #000;padding:8px;font-size:12px;text-align:left}th{background:#eee}.total{font-weight:bold;margin-top:12px}</style></head><body><h1>TAKI AGENDA - Relatório ${tab.toUpperCase()}</h1><p>${filtro} - ${lista.length} shows - Total R$ ${total}</p><table><tr><th>DATA</th><th>TURNO</th><th>LOCAL</th><th>MÚSICO</th><th>VALOR</th></tr>${lista.map(x=>`<tr><td>${x.d.split('-').reverse().join('/')}</td><td>${x.t}</td><td>${x.l}</td><td>${x.m}</td><td>R$ ${x.v}</td></tr>`).join('')}</table><p class="total">TOTAL: R$ ${total}</p><script>window.onload=()=>window.print()<\/script></body></html>`;let w=window.open('','_blank');w.document.write(html);w.document.close();}
 function render(){let hoje=new Date().toISOString().split('T')[0];let filtro=filtroData.value||hoje;let lista=ev.slice();if(tab==='dia')lista=lista.filter(x=>x.d===filtro);if(tab==='sem'){let d=new Date(filtro);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='qui'){let d=new Date(filtro);let ini=new Date(d),fim=new Date(d);if(d.getDate()<=15){ini.setDate(1);fim.setDate(15);}else{ini.setDate(16);fim.setMonth(fim.getMonth()+1);fim.setDate(0);}lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='mes'){let m=filtro.slice(0,7);lista=lista.filter(x=>x.d.startsWith(m));}lista.sort((a,b)=>a.d.localeCompare(b.d));let calc=(f)=>ev.filter(f).reduce((s,x)=>s+x.v,0);let sDia=calc(x=>x.d===hoje);let ini=new Date(hoje);ini.setDate(new Date(hoje).getDate()-new Date(hoje).getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);let sSem=calc(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});let d=new Date(hoje);let iniQ=new Date(d),fimQ=new Date(d);if(d.getDate()<=15){iniQ.setDate(1);fimQ.setDate(15);}else{iniQ.setDate(16);fimQ.setMonth(fimQ.getMonth()+1);fimQ.setDate(0);}let sQui=calc(x=>{let dx=new Date(x.d);return dx>=iniQ&&dx<=fimQ});let sMes=calc(x=>x.d.startsWith(hoje.slice(0,7)));tDia.innerText='R$ '+sDia;tSem.innerText='R$ '+sSem;tQui.innerText='R$ '+sQui;tMes.innerText='R$ '+sMes;let soma=lista.reduce((s,x)=>s+x.v,0);let html=`<div style="text-align:right;color:#444;font-size:11px;margin:8px 0">R$ ${soma} • ${lista.length}</div>`;html+=lista.map(x=>`<div class="event"><div style="display:flex;justify-content:space-between"><b>${x.m}</b><span>R$ ${x.v}</span></div><div class="muted">${x.d.split('-').reverse().join('/')} • ${x.t} • ${x.l}</div><div style="display:flex;gap:8px;margin-top:10px"><div style="flex:1;font-size:11px;color:#aaa;padding:10px;text-align:center;border:1px solid #222;border-radius:10px" onclick="abrirSub(${x.id})">SUBSTITUIR</div><div style="padding:10px 14px;color:#555;border:1px solid #222;border-radius:10px" onclick="del(${x.id})">✕</div></div></div>`).join('');if(!lista.length)html+='<p style="text-align:center;color:#222;padding:30px;font-size:11px">VAZIO</p>';document.getElementById('lista').innerHTML=html;}
 filtroData.valueAsDate=new Date();data.valueAsDate=new Date();render();
 </script>
