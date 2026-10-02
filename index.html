@@ -1,1 +1,72 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>TAKI</title></head><body style="background:#000;color:#FFD700;text-align:center;padding:50px"><h1>⚡ TAKI AGENDA PRO ⚡</h1><h2>Funcionou!</h2><p>Seu app tá no ar!</p></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAKI AGENDA PRO</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FFD700">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#000;color:#fff;padding:15px;padding-bottom:80px}
+h1{color:#FFD700;text-align:center;padding:15px 0;font-size:22px;letter-spacing:2px;text-shadow:0 0 10px #FFD700}
+.card{background:#111;border:1px solid #FFD700;border-radius:15px;padding:15px;margin:12px 0;box-shadow:0 0 15px rgba(255,215,0,0.2)}
+input,textarea,select{width:100%;padding:13px;margin:7px 0;background:#1e1e1e;border:1px solid #333;border-radius:10px;color:#fff;font-size:16px}
+button{background:linear-gradient(45deg,#FFD700,#FFA500);color:#000;border:none;padding:13px 20px;border-radius:10px;font-weight:bold;width:100%;margin:6px 0;cursor:pointer;font-size:16px}
+.event{border-left:4px solid #FFD700;padding:12px;margin:10px 0;background:#1a1a1a;border-radius:8px}
+.top-stats{display:flex;gap:10px}
+.stat{flex:1;background:#111;border:1px solid #333;border-radius:10px;padding:10px;text-align:center}
+.stat b{color:#FFD700;font-size:20px;display:block}
+</style>
+</head>
+<body>
+<h1>⚡ TAKI AGENDA PRO ⚡</h1>
+
+<div class="top-stats">
+<div class="stat"><b id="total">0</b>Eventos</div>
+<div class="stat"><b id="hoje">0</b>Hoje</div>
+<div class="stat"><b style="color:#0f0" id="status">ON</b>Sistema</div>
+</div>
+
+<div class="card">
+<h3 style="color:#FFD700;margin-bottom:8px">+ Novo Compromisso</h3>
+<input type="text" id="titulo" placeholder="Ex: Show na Praia">
+<input type="date" id="data">
+<input type="time" id="hora">
+<select id="tipo"><option>🎤 Show</option><option>📅 Reunião</option><option>💰 Pagamento</option><option>🎂 Aniversário</option><option>📌 Outro</option></select>
+<textarea id="desc" placeholder="Detalhes, local, valor..."></textarea>
+<button onclick="add()">💾 SALVAR NA AGENDA</button>
+</div>
+
+<div class="card">
+<h3 style="color:#FFD700">📅 Minha Agenda</h3>
+<div id="lista" style="margin-top:10px"></div>
+<button onclick="if(confirm('Apagar tudo?')){localStorage.clear();ev=[];render()}" style="background:#222;color:#888;margin-top:15px;border:1px solid #333">🗑️ Limpar Tudo</button>
+</div>
+
+<script>
+let ev=JSON.parse(localStorage.getItem('taki_pro')||'[]');
+function add(){
+ let t=titulo.value.trim(), d=data.value, h=hora.value, tp=tipo.value, de=desc.value.trim();
+ if(!t||!d){alert('Coloca título e data!');return}
+ ev.push({id:Date.now(),t,d,h,tp,de});
+ localStorage.setItem('taki_pro',JSON.stringify(ev));
+ titulo.value='';desc.value='';data.value='';hora.value='';
+ render();
+ alert('Salvo! 🔥');
+}
+function render(){
+ let l=document.getElementById('lista');
+ let hoje=new Date().toISOString().split('T')[0];
+ document.getElementById('total').innerText=ev.length;
+ document.getElementById('hoje').innerText=ev.filter(x=>x.d===hoje).length;
+ if(!ev.length){l.innerHTML='<p style="color:#666;text-align:center;padding:20px">Nenhum compromisso.<br>Adicione seu primeiro show!</p>';return}
+ ev.sort((a,b)=>a.d.localeCompare(b.d));
+ l.innerHTML=ev.map(x=>`<div class="event"><div style="display:flex;justify-content:space-between"><b style="color:#FFD700">${x.tp} - ${x.t}</b><span style="font-size:12px;color:#888">${x.d.split('-').reverse().join('/') } ${x.h||''}</span></div><div style="margin-top:6px;color:#ccc">${x.de||''}</div><button onclick="del(${x.id})" style="width:auto;padding:6px 12px;margin-top:8px;background:#ff2222;color:#fff;font-size:12px">Excluir</button></div>`).join('');
+}
+function del(id){ev=ev.filter(x=>x.id!=id);localStorage.setItem('taki_pro',JSON.stringify(ev));render()}
+render();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
+</script>
+</body>
+</html>
