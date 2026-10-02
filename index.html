@@ -2,43 +2,48 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TAKI AGENDA PRO 3.0</title>
+<title>TAKI AGENDA 4.0</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#000;color:#fff;padding:12px;padding-bottom:90px}
-h1{color:#FFD700;text-align:center;padding:10px;font-size:19px}
-.card{background:#111;border:1px solid #FFD700;border-radius:14px;padding:14px;margin:10px 0}
-input,select{width:100%;padding:12px;margin:6px 0;background:#1e1e1e;border:1px solid #333;border-radius:10px;color:#fff;font-size:15px}
-button{background:linear-gradient(45deg,#FFD700,#FFA500);color:#000;border:none;padding:12px;border-radius:10px;font-weight:bold;width:100%;margin:5px 0;cursor:pointer}
-.tabs{display:flex;gap:6px;margin:10px 0}
-.tab{flex:1;padding:10px;background:#222;border:1px solid #333;border-radius:8px;text-align:center;font-size:12px}
-.tab.active{background:#FFD700;color:#000;font-weight:bold}
-.event{background:#1a1a1a;border-left:4px solid #FFD700;padding:10px;margin:8px 0;border-radius:8px;font-size:13px}
-.badge{display:inline-block;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:bold;margin-right:4px}
-.b-almoco{background:#0066ff;color:#fff}.b-jantar{background:#ff6600;color:#fff}
-.valor{color:#0f0;font-weight:bold}
-.top{display:flex;gap:6px}
-.box{flex:1;background:#111;border:1px solid #333;border-radius:10px;padding:8px;text-align:center;font-size:11px}
-.box b{color:#FFD700;font-size:17px;display:block}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif}
+body{background:#0a0a0a;color:#e5e5e5;padding:14px;padding-bottom:90px}
+h1{text-align:center;padding:14px;font-size:20px;letter-spacing:2px;font-weight:800;color:#fff}
+h1 span{color:#FFD700}
+.card{background:#151515;border:1px solid #2a2a2a;border-radius:16px;padding:16px;margin:12px 0}
+label{font-size:11px;color:#888;letter-spacing:1px;margin-left:4px}
+input,select{width:100%;padding:13px;margin:6px 0 12px 0;background:#1e1e1e;border:1px solid #2a2a2a;border-radius:10px;color:#fff;font-size:14px}
+input:focus,select:focus{border-color:#FFD700;outline:none}
+button{background:#fff;color:#000;border:none;padding:14px;border-radius:12px;font-weight:800;width:100%;margin:6px 0;cursor:pointer;letter-spacing:1px}
+button.sec{background:#1e1e1e;color:#aaa;border:1px solid #2a2a2a}
+.tabs{display:flex;gap:8px;margin:12px 0;background:#151515;padding:6px;border-radius:12px;border:1px solid #2a2a2a}
+.tab{flex:1;padding:10px;background:transparent;border-radius:8px;text-align:center;font-size:12px;color:#777;font-weight:600;cursor:pointer}
+.tab.active{background:#fff;color:#000}
+.top{display:flex;gap:8px}
+.box{flex:1;background:#151515;border:1px solid #2a2a2a;border-radius:12px;padding:10px;text-align:center}
+.box b{color:#fff;font-size:18px;display:block}.box small{color:#777;font-size:10px;letter-spacing:1px}
+.event{background:#1a1a1a;border:1px solid #262626;padding:12px;margin:8px 0;border-radius:12px}
+.event b{color:#fff}
+.muted{color:#777;font-size:12px}
+.valor{color:#fff;font-weight:800;background:#262626;padding:4px 8px;border-radius:6px}
 </style>
 </head>
 <body>
-<h1>⚡ TAKI AGENDA PRO 3.0 ⚡</h1>
+<h1>TAKI <span>AGENDA</span></h1>
 <div class="top">
-<div class="box"><b id="tMes">R$ 0</b>MÊS TOTAL</div>
-<div class="box"><b id="tSem">R$ 0</b>SEMANA</div>
-<div class="box"><b id="tHoje">R$ 0</b>HOJE</div>
+<div class="box"><b id="tMes">R$ 0</b><small>MÊS</small></div>
+<div class="box"><b id="tSem">R$ 0</b><small>SEMANA</small></div>
+<div class="box"><b id="tHoje">R$ 0</b><small>HOJE</small></div>
 </div>
 
 <div class="card">
-<h3 style="color:#FFD700">+ Novo Show</h3>
+<label>NOVA ESCALA</label>
 <input type="date" id="data">
-<div style="display:flex;gap:6px">
-<select id="turno" style="flex:1"><option value="ALMOÇO">☀️ ALMOÇO</option><option value="JANTAR">🌙 JANTAR</option></select>
-<select id="local" style="flex:1"><option>P1</option><option>P2</option><option>P3</option><option>P4</option><option>P5</option><option>P6</option></select>
+<div style="display:flex;gap:8px">
+<div style="flex:1"><label>TURNO</label><select id="turno"><option value="ALMOÇO">ALMOÇO</option><option value="JANTAR">JANTAR</option></select></div>
+<div style="flex:1"><label>LOCAL</label><select id="local"><option>P1</option><option>P2</option><option>P3</option><option>P4</option><option>P5</option><option>P6</option></select></div>
 </div>
+<label>MÚSICO</label>
 <select id="musico" onchange="setValor()">
-<option value="">ESCOLHA O MÚSICO</option>
+<option value="">Selecione</option>
 <option value="ANDERSON">ANDERSON - R$ 300</option>
 <option value="VAT 60">VAT 60 - R$ 450</option>
 <option value="VAT 60 DUO">VAT 60 DUO - R$ 400</option>
@@ -57,16 +62,17 @@ button{background:linear-gradient(45deg,#FFD700,#FFA500);color:#000;border:none;
 <option value="DOUGLAS">DOUGLAS - R$ 300</option>
 <option value="ANDRÉ TAKI">ANDRÉ TAKI - R$ 300</option>
 </select>
-<input type="number" id="valor" placeholder="Valor automático">
-<button onclick="add()">💾 SALVAR NA AGENDA</button>
+<label>VALOR</label>
+<input type="number" id="valor" placeholder="Auto">
+<button onclick="add()">SALVAR ESCALA</button>
 </div>
 
 <div class="card">
 <div class="tabs">
-<div class="tab active" onclick="setTab('dia')" id="tab-dia">DIÁRIO</div>
-<div class="tab" onclick="setTab('sem')" id="tab-sem">SEMANAL</div>
-<div class="tab" onclick="setTab('mes')" id="tab-mes">MENSAL</div>
-<div class="tab" onclick="setTab('all')" id="tab-all">TODOS</div>
+<div class="tab active" onclick="setTab('dia')" id="tab-dia">DIA</div>
+<div class="tab" onclick="setTab('sem')" id="tab-sem">SEMANA</div>
+<div class="tab" onclick="setTab('mes')" id="tab-mes">MÊS</div>
+<div class="tab" onclick="setTab('all')" id="tab-all">TUDO</div>
 </div>
 <input type="date" id="filtroData" onchange="render()">
 <div id="lista"></div>
@@ -74,45 +80,14 @@ button{background:linear-gradient(45deg,#FFD700,#FFA500);color:#000;border:none;
 
 <script>
 let precos={"ANDERSON":300,"VAT 60":450,"VAT 60 DUO":400,"RICK DUO":400,"RICK TRIO":450,"RICK SOLO":300,"GERVÁSIO":200,"EDILL":300,"LUCIANO":300,"YGOR":300,"MARTIN":300,"ISRAEL":300,"ROBSON":300,"ROBSON DUO":400,"DUO CLASSIC ROCK":450,"DOUGLAS":300,"ANDRÉ TAKI":300};
-let ev=JSON.parse(localStorage.getItem('taki3')||'[]');
+let ev=JSON.parse(localStorage.getItem('taki4')||'[]');
 let tab='dia';
 function setValor(){let m=musico.value;if(precos[m])valor.value=precos[m];}
-function add(){
- let d=data.value,t=turno.value,l=local.value,m=musico.value,v=parseFloat(valor.value)||0;
- if(!d||!m||!v){alert('Escolhe data, músico e valor!');return}
- ev.push({id:Date.now(),d,t,l,m,v});
- localStorage.setItem('taki3',JSON.stringify(ev));render();
-}
+function add(){let d=data.value,t=turno.value,l=local.value,m=musico.value,v=parseFloat(valor.value)||0;if(!d||!m||!v){alert('Preencha data e músico');return}ev.push({id:Date.now(),d,t,l,m,v});localStorage.setItem('taki4',JSON.stringify(ev));render();}
 function setTab(s){tab=s;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+s).classList.add('active');render()}
-function substituir(id){
- let op=Object.keys(precos).join('\n');
- let novo=prompt('SUBSTITUIR POR QUEM?\n\n'+op);
- if(!novo||!precos[novo.toUpperCase()]){alert('Nome inválido!');return}
- let item=ev.find(x=>x.id==id);
- if(item){let antigo=item.m;item.m=novo.toUpperCase();item.v=precos[item.m];item.sub=`Substituiu ${antigo}`;localStorage.setItem('taki3',JSON.stringify(ev));render()}
-}
-function del(id){if(confirm('Excluir show?')){ev=ev.filter(x=>x.id!=id);localStorage.setItem('taki3',JSON.stringify(ev));render()}}
-function render(){
- let hoje=new Date().toISOString().split('T')[0];
- let filtro=document.getElementById('filtroData').value||hoje;
- let lista=ev.slice();
- if(tab==='dia') lista=lista.filter(x=>x.d===filtro);
- if(tab==='sem'){let d=new Date(filtro);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}
- if(tab==='mes'){let m=filtro.slice(0,7);lista=lista.filter(x=>x.d.startsWith(m));}
- lista.sort((a,b)=>a.d.localeCompare(b.d));
- let somaHoje=ev.filter(x=>x.d===hoje).reduce((s,x)=>s+x.v,0);
- let ini=new Date(hoje);ini.setDate(new Date(hoje).getDate()-new Date(hoje).getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);
- let somaSem=ev.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim}).reduce((s,x)=>s+x.v,0);
- let somaMes=ev.filter(x=>x.d.startsWith(hoje.slice(0,7))).reduce((s,x)=>s+x.v,0);
- document.getElementById('tHoje').innerText='R$ '+somaHoje;
- document.getElementById('tSem').innerText='R$ '+somaSem;
- document.getElementById('tMes').innerText='R$ '+somaMes;
- let somaLista=lista.reduce((s,x)=>s+x.v,0);
- let html=`<div style="text-align:right;color:#0f0;margin:8px 0;font-weight:bold">Total: R$ ${somaLista} | ${lista.length} shows</div>`;
- html+=lista.map(x=>`<div class="event"><div style="display:flex;justify-content:space-between"><b style="color:#FFD700">${x.m}</b><span class="valor">R$ ${x.v}</span></div><div style="margin:5px 0"><span class="badge ${x.t==='ALMOÇO'?'b-almoco':'b-jantar'}">${x.t}</span><span class="badge" style="background:#333">${x.l}</span> ${x.d.split('-').reverse().join('/')} ${x.sub?`<span style="color:orange;font-size:11px">[${x.sub}]</span>`:''}</div><div style="display:flex;gap:6px;margin-top:6px"><button onclick="substituir(${x.id})" style="flex:1;background:#222;color:#FFD700;border:1px solid #FFD700;padding:6px;font-size:11px">🔄 SUBSTITUIR MÚSICO</button><button onclick="del(${x.id})" style="flex:0.3;background:#300;color:#f55;padding:6px;font-size:11px">X</button></div></div>`).join('');
- if(!lista.length) html+='<p style="text-align:center;color:#555;padding:20px">Nenhum show neste filtro.</p>';
- document.getElementById('lista').innerHTML=html;
-}
+function substituir(id){let novo=prompt('Substituir por:\n'+Object.keys(precos).join('\n'));if(!novo||!precos[novo.toUpperCase()])return;let it=ev.find(x=>x.id==id);it.m=novo.toUpperCase();it.v=precos[it.m];localStorage.setItem('taki4',JSON.stringify(ev));render()}
+function del(id){if(confirm('Excluir?')){ev=ev.filter(x=>x.id!=id);localStorage.setItem('taki4',JSON.stringify(ev));render()}}
+function render(){let hoje=new Date().toISOString().split('T')[0];let filtro=document.getElementById('filtroData').value||hoje;let lista=ev.slice();if(tab==='dia')lista=lista.filter(x=>x.d===filtro);if(tab==='sem'){let d=new Date(filtro);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='mes'){let m=filtro.slice(0,7);lista=lista.filter(x=>x.d.startsWith(m));}lista.sort((a,b)=>a.d.localeCompare(b.d));let sH=ev.filter(x=>x.d===hoje).reduce((s,x)=>s+x.v,0);let ini=new Date(hoje);ini.setDate(new Date(hoje).getDate()-new Date(hoje).getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);let sS=ev.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim}).reduce((s,x)=>s+x.v,0);let sM=ev.filter(x=>x.d.startsWith(hoje.slice(0,7))).reduce((s,x)=>s+x.v,0);document.getElementById('tHoje').innerText='R$ '+sH;document.getElementById('tSem').innerText='R$ '+sS;document.getElementById('tMes').innerText='R$ '+sM;let soma=lista.reduce((s,x)=>s+x.v,0);let html=`<div style="text-align:right;color:#555;margin:8px 0;font-size:12px">R$ ${soma} • ${lista.length} shows</div>`;html+=lista.map(x=>`<div class="event"><div style="display:flex;justify-content:space-between;align-items:center"><b>${x.m}</b><span class="valor">R$ ${x.v}</span></div><div class="muted" style="margin:6px 0">${x.d.split('-').reverse().join('/')} • ${x.t} • ${x.l}</div><div style="display:flex;gap:6px;margin-top:8px"><button class="sec" style="flex:1;padding:8px;font-size:11px" onclick="substituir(${x.id})">SUBSTITUIR</button><button class="sec" style="flex:0.3;padding:8px" onclick="del(${x.id})">X</button></div></div>`).join('');if(!lista.length)html+='<p style="text-align:center;color:#333;padding:20px">Sem escalas</p>';document.getElementById('lista').innerHTML=html;}
 document.getElementById('filtroData').valueAsDate=new Date();data.valueAsDate=new Date();render();
 </script>
 </body>
