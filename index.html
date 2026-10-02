@@ -1,72 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TAKI AGENDA PRO</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAKI AGENDA PRO 2.0</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#FFD700">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#000;color:#fff;padding:15px;padding-bottom:80px}
-h1{color:#FFD700;text-align:center;padding:15px 0;font-size:22px;letter-spacing:2px;text-shadow:0 0 10px #FFD700}
-.card{background:#111;border:1px solid #FFD700;border-radius:15px;padding:15px;margin:12px 0;box-shadow:0 0 15px rgba(255,215,0,0.2)}
-input,textarea,select{width:100%;padding:13px;margin:7px 0;background:#1e1e1e;border:1px solid #333;border-radius:10px;color:#fff;font-size:16px}
-button{background:linear-gradient(45deg,#FFD700,#FFA500);color:#000;border:none;padding:13px 20px;border-radius:10px;font-weight:bold;width:100%;margin:6px 0;cursor:pointer;font-size:16px}
-.event{border-left:4px solid #FFD700;padding:12px;margin:10px 0;background:#1a1a1a;border-radius:8px}
-.top-stats{display:flex;gap:10px}
-.stat{flex:1;background:#111;border:1px solid #333;border-radius:10px;padding:10px;text-align:center}
-.stat b{color:#FFD700;font-size:20px;display:block}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#000;color:#fff;padding:12px;padding-bottom:90px}
+h1{color:#FFD700;text-align:center;padding:12px;font-size:20px;text-shadow:0 0 10px #FFD700}
+.card{background:#111;border:1px solid #FFD700;border-radius:14px;padding:14px;margin:10px 0}
+input,select,textarea{width:100%;padding:12px;margin:6px 0;background:#1e1e1e;border:1px solid #333;border-radius:10px;color:#fff;font-size:15px}
+button{background:linear-gradient(45deg,#FFD700,#FFA500);color:#000;border:none;padding:12px;border-radius:10px;font-weight:bold;width:100%;margin:5px 0;cursor:pointer}
+.tabs{display:flex;gap:6px;margin:10px 0}
+.tab{flex:1;padding:10px;background:#222;border:1px solid #333;border-radius:8px;text-align:center;font-size:13px;cursor:pointer}
+.tab.active{background:#FFD700;color:#000;font-weight:bold}
+.event{background:#1a1a1a;border-left:4px solid #FFD700;padding:10px;margin:8px 0;border-radius:8px;font-size:13px}
+.badge{display:inline-block;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:bold;margin-right:4px}
+.b-almoco{background:#0066ff;color:#fff}.b-jantar{background:#ff6600;color:#fff}
+.valor{color:#0f0;font-weight:bold;font-size:14px}
+.top{display:flex;gap:8px}
+.box{flex:1;background:#111;border:1px solid #333;border-radius:10px;padding:8px;text-align:center;font-size:12px}
+.box b{color:#FFD700;font-size:18px;display:block}
 </style>
 </head>
 <body>
-<h1>⚡ TAKI AGENDA PRO ⚡</h1>
-
-<div class="top-stats">
-<div class="stat"><b id="total">0</b>Eventos</div>
-<div class="stat"><b id="hoje">0</b>Hoje</div>
-<div class="stat"><b style="color:#0f0" id="status">ON</b>Sistema</div>
+<h1>⚡ TAKI AGENDA PRO 2.0 ⚡</h1>
+<div class="top">
+<div class="box"><b id="tMes">R$ 0</b>Invest Mês</div>
+<div class="box"><b id="tSem">R$ 0</b>Semana</div>
+<div class="box"><b id="tHoje">R$ 0</b>Hoje</div>
 </div>
 
 <div class="card">
-<h3 style="color:#FFD700;margin-bottom:8px">+ Novo Compromisso</h3>
-<input type="text" id="titulo" placeholder="Ex: Show na Praia">
+<h3 style="color:#FFD700">+ Novo Show</h3>
 <input type="date" id="data">
-<input type="time" id="hora">
-<select id="tipo"><option>🎤 Show</option><option>📅 Reunião</option><option>💰 Pagamento</option><option>🎂 Aniversário</option><option>📌 Outro</option></select>
-<textarea id="desc" placeholder="Detalhes, local, valor..."></textarea>
-<button onclick="add()">💾 SALVAR NA AGENDA</button>
+<div style="display:flex;gap:6px">
+<select id="turno" style="flex:1"><option value="ALMOÇO">☀️ ALMOÇO</option><option value="JANTAR">🌙 JANTAR</option></select>
+<select id="local" style="flex:1"><option>P1</option><option>P2</option><option>P3</option><option>P4</option><option>P5</option><option>P6</option></select>
+</div>
+<select id="musico">
+<option>ANDERSON</option><option>VAT 60</option><option>VAT 60 DUO</option><option>RICK DUP</option><option>RICK TRIO</option><option>RICK SOLO</option><option>GERVÁSIO</option><option>EDILL</option><option>LUCIANO</option><option>YGOR</option><option>MARTIN</option><option>ISRAEL</option><option>ROBSON</option><option>ROBSON DUO</option><option>DUO CLASSIC ROCK</option><option>DOUGLAS</option><option>ANDRÉ TAKI</option>
+</select>
+<input type="number" id="valor" placeholder="Valor R$ - Ex: 250">
+<input type="text" id="obs" placeholder="Obs: substituído, etc...">
+<button onclick="add()">💾 SALVAR SHOW</button>
 </div>
 
 <div class="card">
-<h3 style="color:#FFD700">📅 Minha Agenda</h3>
-<div id="lista" style="margin-top:10px"></div>
-<button onclick="if(confirm('Apagar tudo?')){localStorage.clear();ev=[];render()}" style="background:#222;color:#888;margin-top:15px;border:1px solid #333">🗑️ Limpar Tudo</button>
+<div class="tabs">
+<div class="tab active" onclick="setTab('dia')" id="tab-dia">DIÁRIO</div>
+<div class="tab" onclick="setTab('sem')" id="tab-sem">SEMANAL</div>
+<div class="tab" onclick="setTab('mes')" id="tab-mes">MENSAL</div>
+<div class="tab" onclick="setTab('all')" id="tab-all">TODOS</div>
+</div>
+<input type="date" id="filtroData" onchange="render()">
+<div id="lista"></div>
 </div>
 
 <script>
-let ev=JSON.parse(localStorage.getItem('taki_pro')||'[]');
+let ev=JSON.parse(localStorage.getItem('taki2')||'[]');
+let tab='dia';
+let musicos=["ANDERSON","VAT 60","VAT 60 DUO","RICK DUP","RICK TRIO","RICK SOLO","GERVÁSIO","EDILL","LUCIANO","YGOR","MARTIN","ISRAEL","ROBSON","ROBSON DUO","DUO CLASSIC ROCK","DOUGLAS","ANDRÉ TAKI"];
 function add(){
- let t=titulo.value.trim(), d=data.value, h=hora.value, tp=tipo.value, de=desc.value.trim();
- if(!t||!d){alert('Coloca título e data!');return}
- ev.push({id:Date.now(),t,d,h,tp,de});
- localStorage.setItem('taki_pro',JSON.stringify(ev));
- titulo.value='';desc.value='';data.value='';hora.value='';
+ let d=data.value, t=turno.value, l=local.value, m=musico.value, v=parseFloat(valor.value)||0, o=obs.value;
+ if(!d||!v){alert('Coloca data e valor!');return}
+ ev.push({id:Date.now(),d,t,l,m,v,o});
+ localStorage.setItem('taki2',JSON.stringify(ev));
+ valor.value='';obs.value='';
  render();
- alert('Salvo! 🔥');
 }
+function setTab(s){tab=s;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+s).classList.add('active');render()}
+function substituir(id){
+ let novo=prompt('Substituir por qual músico?\n\n'+musicos.join('\n'));
+ if(!novo)return;
+ let item=ev.find(x=>x.id==id);
+ if(item){item.mAnt=item.m;item.m=novo.toUpperCase();item.o=(item.o||'')+' [Substituiu '+item.mAnt+']';localStorage.setItem('taki2',JSON.stringify(ev));render()}
+}
+function del(id){if(confirm('Excluir?')){ev=ev.filter(x=>x.id!=id);localStorage.setItem('taki2',JSON.stringify(ev));render()}}
 function render(){
- let l=document.getElementById('lista');
  let hoje=new Date().toISOString().split('T')[0];
- document.getElementById('total').innerText=ev.length;
- document.getElementById('hoje').innerText=ev.filter(x=>x.d===hoje).length;
- if(!ev.length){l.innerHTML='<p style="color:#666;text-align:center;padding:20px">Nenhum compromisso.<br>Adicione seu primeiro show!</p>';return}
- ev.sort((a,b)=>a.d.localeCompare(b.d));
- l.innerHTML=ev.map(x=>`<div class="event"><div style="display:flex;justify-content:space-between"><b style="color:#FFD700">${x.tp} - ${x.t}</b><span style="font-size:12px;color:#888">${x.d.split('-').reverse().join('/') } ${x.h||''}</span></div><div style="margin-top:6px;color:#ccc">${x.de||''}</div><button onclick="del(${x.id})" style="width:auto;padding:6px 12px;margin-top:8px;background:#ff2222;color:#fff;font-size:12px">Excluir</button></div>`).join('');
+ let filtro=document.getElementById('filtroData').value||hoje;
+ let lista=ev.slice();
+ if(tab==='dia') lista=lista.filter(x=>x.d===filtro);
+ if(tab==='sem'){
+   let d=new Date(filtro);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);
+   lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});
+ }
+ if(tab==='mes'){let m=filtro.slice(0,7);lista=lista.filter(x=>x.d.startsWith(m));}
+ lista.sort((a,b)=>a.d.localeCompare(b.d)||a.t.localeCompare(b.t));
+ let somaHoje=ev.filter(x=>x.d===hoje).reduce((s,x)=>s+x.v,0);
+ let ini=new Date(hoje);ini.setDate(new Date(hoje).getDate()-new Date(hoje).getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);
+ let somaSem=ev.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim}).reduce((s,x)=>s+x.v,0);
+ let somaMes=ev.filter(x=>x.d.startsWith(hoje.slice(0,7))).reduce((s,x)=>s+x.v,0);
+ document.getElementById('tHoje').innerText='R$ '+somaHoje;
+ document.getElementById('tSem').innerText='R$ '+somaSem;
+ document.getElementById('tMes').innerText='R$ '+somaMes;
+ let somaLista=lista.reduce((s,x)=>s+x.v,0);
+ let html=`<div style="text-align:right;color:#0f0;margin:8px 0;font-weight:bold">Total desta visão: R$ ${somaLista} | ${lista.length} shows</div>`;
+ html+=lista.map(x=>`<div class="event"><div style="display:flex;justify-content:space-between"><b style="color:#FFD700">${x.m}</b><span class="valor">R$ ${x.v}</span></div><div style="margin:5px 0"><span class="badge ${x.t==='ALMOÇO'?'b-almoco':'b-jantar'}">${x.t}</span><span class="badge" style="background:#333">${x.l}</span><span style="color:#888">${x.d.split('-').reverse().join('/')} </span>${x.mAnt?`<span style="color:orange">[Era: ${x.mAnt}]</span>`:''}</div><div style="color:#aaa">${x.o||''}</div><div style="display:flex;gap:6px;margin-top:6px"><button onclick="substituir(${x.id})" style="flex:1;background:#222;color:#FFD700;border:1px solid #FFD700;padding:6px;font-size:12px">🔄 SUBSTITUIR</button><button onclick="del(${x.id})" style="flex:0.5;background:#300;color:#f55;border:1px solid #500;padding:6px;font-size:12px">X</button></div></div>`).join('');
+ if(!lista.length) html+='<p style="text-align:center;color:#555;padding:20px">Nenhum show nesta data.</p>';
+ document.getElementById('lista').innerHTML=html;
 }
-function del(id){ev=ev.filter(x=>x.id!=id);localStorage.setItem('taki_pro',JSON.stringify(ev));render()}
+document.getElementById('filtroData').valueAsDate=new Date();
+data.valueAsDate=new Date();
 render();
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 </script>
 </body>
 </html>
