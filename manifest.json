@@ -1,2 +1,15 @@
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ffb700">
+{
+  "name": "TAKI AGENDA 8.4",
+  "short_name": "TAKI",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ffb700",
+  "start_url": "./?v=84",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/138/138406.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
