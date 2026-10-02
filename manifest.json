@@ -1,10 +1,10 @@
 {
-  "name": "TAKI AGENDA 8.4",
-  "short_name": "TAKI",
+  "name": "TAKI PRO - Cifras",
+  "short_name": "TAKI PRO",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#ffb700",
-  "start_url": "./?v=84",
+  "theme_color": "#000000",
+  "start_url": "./",
   "icons": [
     {
       "src": "https://cdn-icons-png.flaticon.com/512/138/138406.png",
