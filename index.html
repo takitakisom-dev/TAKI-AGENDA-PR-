@@ -1,51 +1,47 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TAKI 8.0 CRONOGRAMA</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}body{background:#000;color:#fff;padding:10px;padding-bottom:90px}h1{text-align:center;padding:10px;font-size:10px;letter-spacing:3px;color:#444}.card{background:#101010;border:1px solid #222;border-radius:16px;padding:14px;margin:8px 0}label{font-size:9px;color:#666;letter-spacing:1px;margin:5px 0 3px 4px;display:block}input,select{width:100%;padding:12px;background:#0a0a0a;border:1px solid #222;border-radius:10px;color:#fff;font-size:14px}button{background:#fff;color:#000;border:none;padding:12px;border-radius:10px;font-weight:700;width:100%;margin-top:6px;font-size:12px}button.sec{background:#181818;color:#ccc;border:1px solid #222}button.yellow{background:#ffb700;color:#000}button.green{background:#25D366;color:#000}button.blue{background:#111;color:#777;border:1px solid #222}.tabs{display:flex;gap:3px;margin:10px 0;background:#0a0a0a;padding:3px;border-radius:10px;border:1px solid #1a1a1a}.tab{flex:1;padding:8px;text-align:center;font-size:10px;color:#555;border-radius:7px}.tab.active{background:#222;color:#fff}.top{display:flex;gap:5px}.box{flex:1;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:10px;padding:8px;text-align:center}.box b{font-size:11px;display:block}.box small{color:#444;font-size:8px}.event{background:#0e0e0e;border:1px solid #1a1a1a;padding:10px;margin:6px 0;border-radius:12px}.muted{color:#555;font-size:11px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:18px;z-index:99}.modal.show{display:flex}.modal.card{width:100%;max-width:340px;background:#111}
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TAKI 8.1 ZAP DIRETO</title>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}body{background:#000;color:#fff;padding:10px;padding-bottom:90px}h1{text-align:center;padding:10px;font-size:10px;letter-spacing:3px;color:#444}.card{background:#101010;border:1px solid #222;border-radius:16px;padding:14px;margin:8px 0}label{font-size:9px;color:#666;letter-spacing:1px;margin:5px 0 3px 4px;display:block}input,select{width:100%;padding:12px;background:#0a0a0a;border:1px solid #222;border-radius:10px;color:#fff;font-size:14px}button{background:#fff;color:#000;border:none;padding:14px;border-radius:12px;font-weight:800;width:100%;margin-top:7px;font-size:13px}button.sec{background:#181818;color:#ccc;border:1px solid #222}button.yellow{background:#ffb700;color:#000}button.green{background:#25D366;color:#000;font-size:14px}button.blue{background:#111;color:#777;border:1px solid #222}.tabs{display:flex;gap:3px;margin:10px 0;background:#0a0a0a;padding:3px;border-radius:10px;border:1px solid #1a1a1a}.tab{flex:1;padding:8px;text-align:center;font-size:10px;color:#555;border-radius:7px}.tab.active{background:#222;color:#fff}.top{display:flex;gap:5px}.box{flex:1;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:10px;padding:8px;text-align:center}.box b{font-size:11px;display:block}.box small{color:#444;font-size:8px}.event{background:#0e0e0e;border:1px solid #1a1a1a;padding:10px;margin:6px 0;border-radius:12px}.muted{color:#555;font-size:11px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:18px;z-index:99}.modal.show{display:flex}.modal.card{width:100%;max-width:340px;background:#111}
 #cronograma{position:fixed;inset:0;background:#f2f2f2;display:none;z-index:200;overflow:auto}#cronograma.show{display:block}
 .crono-header{background:#0f1f35;padding:14px 16px;border-bottom:4px solid #ffb700}
-.crono-header h2{color:#ffb700;font-size:18px;font-weight:900;letter-spacing:.5px;margin:0}
+.crono-header h2{color:#ffb700;font-size:18px;font-weight:900;margin:0}
 .crono-header p{color:#8aa0b8;font-size:12px;margin:2px 0 0 0}
-.dia-header{background:#1a2f4a;color:#fff;padding:8px 12px;font-weight:800;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.dia-header{background:#1a2f4a;color:#fff;padding:8px 12px;font-weight:800;font-size:13px;display:flex;justify-content:space-between}
 .dia-header.sabdom{background:#ffb700;color:#000}
-.dia-header small{font-size:10px;font-weight:700}
 .linha{background:#fff;color:#000;display:flex;align-items:center;padding:7px 10px;border-bottom:1px solid #e8e8e8;font-size:13px}
 .linha:nth-child(even){background:#fafafa}
 .pbox{background:#1a1a1a;color:#fff;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:900;margin-right:8px;min-width:28px;text-align:center}
 .pbox.sabdom{background:#b86a00;color:#fff}
-.linha.nome{flex:1;font-weight:600}
-.linha.turno{font-size:10px;color:#888}
 </style></head><body>
-<h1>TAKI 8.0 - CRONOGRAMA COMPLETO</h1>
+<h1>TAKI 8.1 - ZAP DIRETO FUNCIONANDO</h1>
 <div class="top"><div class="box"><b id="tDia">R$0</b><small>DIA</small></div><div class="box"><b id="tSem">R$0</b><small>SEM</small></div><div class="box"><b id="tQui">R$0</b><small>QUINZ</small></div><div class="box"><b id="tMes">R$0</b><small>MÊS</small></div></div>
 <div class="card"><label>NOVA ESCALA</label><input type="date" id="data"><div style="display:flex;gap:6px"><div style="flex:1"><label>TURNO</label><select id="turno"><option>ALMOÇO</option><option>JANTAR</option></select></div><div style="flex:1"><label>LOCAL</label><select id="local"><option>P1</option><option>P2</option><option>P3</option><option>P4</option><option>P5</option><option>P6</option></select></div></div><label>MÚSICO A-Z</label><select id="musico"></select><label>VALOR SÓ VOCÊ</label><input type="number" id="valor"><button onclick="add()">SALVAR</button>
 <div style="height:1px;background:#222;margin:10px 0"></div>
-<button class="yellow" onclick="abrirCronograma()">📋 CRONOGRAMA COMPLETO - IGUAL A FOTO</button>
-<button class="green" onclick="zapCronograma()">💬 ENVIAR CRONOGRAMA NO ZAP</button>
+<button class="yellow" onclick="abrirCronograma()">📋 VER CRONOGRAMA IGUAL FOTO</button>
+<button class="green" onclick="zapDireto()">💬 ENVIAR DIRETO NO WHATSAPP - AGORA VAI!</button>
 <button class="blue" onclick="pdfAdmin()">🔒 MEU FINANCEIRO COM VALOR</button></div>
 <div class="card"><div class="tabs"><div class="tab" onclick="setTab('dia')" id="tab-dia">DIA</div><div class="tab active" onclick="setTab('sem')" id="tab-sem">SEMANA</div><div class="tab" onclick="setTab('qui')" id="tab-qui">QUINZ</div><div class="tab" onclick="setTab('mes')" id="tab-mes">MÊS</div><div class="tab" onclick="setTab('all')" id="tab-all">TUDO</div></div><input type="date" id="filtroData" onchange="render()"><div id="lista"></div></div>
 <div id="modalSub" class="modal"><div class="card"><label>SUBSTITUIR</label><select id="subMusico"></select><button onclick="confirmaSub()">CONFIRMAR</button><button class="sec" onclick="closeM('modalSub')">CANCELAR</button></div></div>
-<div id="cronograma"><div id="cronoContent"></div><div style="padding:12px;display:flex;gap:8px;max-width:500px;margin:0 auto"><button onclick="document.getElementById('cronograma').classList.remove('show')" style="background:#222;color:#fff;flex:1">FECHAR</button><button onclick="window.print()" style="background:#000;color:#fff;flex:1">🖨️ IMPRIMIR / SALVAR PDF</button></div><p style="text-align:center;color:#888;font-size:11px;padding:8px">Dica: Clique em Imprimir > Salvar como PDF > Mande no grupo dos músicos. Fica igual a foto!</p></div>
+<div id="cronograma"><div id="cronoContent"></div><div style="padding:12px;display:flex;gap:8px;max-width:500px;margin:0 auto;flex-wrap:wrap"><button onclick="zapDireto()" style="background:#25D366;color:#000;flex:1">💬 ENVIAR ESSE CRONOGRAMA NO ZAP</button><button onclick="compartilharImagem()" style="background:#fff;color:#000;flex:1">📸 ENVIAR COMO IMAGEM NO ZAP</button><button onclick="document.getElementById('cronograma').classList.remove('show')" style="background:#222;color:#fff;flex:1">FECHAR</button></div></div>
 <script>
 let precosPadrao={"ANDERSON":300,"ANDRÉ TAKI":300,"DOUGLAS":300,"DUO CLASSIC ROCK":450,"EDILL":300,"GERVÁSIO":200,"ISRAEL":300,"LUCIANO":300,"MARTIN":300,"ROBSON":300,"ROBSON DUO":400,"RICK DUO":400,"RICK SOLO":300,"RICK TRIO":450,"VAT 60":450,"VAT 60 DUO":400,"YGOR":300};
 let precos=JSON.parse(localStorage.getItem('taki_precos')||'null')||precosPadrao;
-let ev=JSON.parse(localStorage.getItem('taki80')||localStorage.getItem('taki74')||localStorage.getItem('taki73')||'[]');let tab='sem';let subId=null;
+let ev=JSON.parse(localStorage.getItem('taki81')||localStorage.getItem('taki80')||localStorage.getItem('taki74')||'[]');let tab='sem';let subId=null;
 function refresh(){let k=Object.keys(precos).sort((a,b)=>a.localeCompare(b,'pt-BR'));let h='<option value="">— SELECIONE —</option>';for(let x of k)h+=`<option value="${x}">${x} — R$ ${precos[x]}</option>`;musico.innerHTML=h;subMusico.innerHTML=h;}
 refresh();musico.onchange=()=>{if(precos[musico.value])valor.value=precos[musico.value]};
 function closeM(id){document.getElementById(id).classList.remove('show')}
-function add(){let d=data.value,t=turno.value,l=local.value,m=musico.value,v=parseFloat(valor.value)||0;if(!d||!m||!v)return alert('Preencha');ev.push({id:Date.now(),d,t,l,m,v});localStorage.setItem('taki80',JSON.stringify(ev));render();}
+function add(){let d=data.value,t=turno.value,l=local.value,m=musico.value,v=parseFloat(valor.value)||0;if(!d||!m||!v)return alert('Preencha');ev.push({id:Date.now(),d,t,l,m,v});localStorage.setItem('taki81',JSON.stringify(ev));render();}
 function setTab(s){tab=s;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+s).classList.add('active');render()}
 function abrirSub(id){subId=id;modalSub.classList.add('show')}
-function confirmaSub(){let n=subMusico.value;if(!n)return;let it=ev.find(x=>x.id==subId);it.m=n;it.v=precos[n];localStorage.setItem('taki80',JSON.stringify(ev));closeM('modalSub');render();}
-function del(id){if(confirm('Excluir?')){ev=ev.filter(x=>x.id!=id);localStorage.setItem('taki80',JSON.stringify(ev));render()}}
+function confirmaSub(){let n=subMusico.value;if(!n)return;let it=ev.find(x=>x.id==subId);it.m=n;it.v=precos[n];localStorage.setItem('taki81',JSON.stringify(ev));closeM('modalSub');render();}
+function del(id){if(confirm('Excluir?')){ev=ev.filter(x=>x.id!=id);localStorage.setItem('taki81',JSON.stringify(ev));render()}}
 function getLista(){let f=filtroData.value||new Date().toISOString().split('T')[0];let lista=ev.slice();if(tab==='dia')lista=lista.filter(x=>x.d===f);if(tab==='sem'){let d=new Date(f);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='qui'){let d=new Date(f);let ini=new Date(d),fim=new Date(d);if(d.getDate()<=15){ini.setDate(1);fim.setDate(15);}else{ini.setDate(16);fim.setMonth(fim.getMonth()+1);fim.setDate(0);}lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='mes')lista=lista.filter(x=>x.d.startsWith(f.slice(0,7)));lista.sort((a,b)=>a.d.localeCompare(b.d)||a.l.localeCompare(b.l));return {lista,filtro:f};}
 function buildCronogramaHTML(){
-let {lista,filtro}=getLista();if(!lista.length)return '<div style="padding:20px;text-align:center">VAZIO - Adicione escalas na semana</div>';
-// Agrupa por data
+let {lista}=getLista();if(!lista.length)return '<div style="padding:20px;text-align:center;background:#fff;color:#000">VAZIO - Adicione escalas na semana</div>';
 let porData={};lista.forEach(x=>{if(!porData[x.d])porData[x.d]=[];porData[x.d].push(x);});
 let datas=Object.keys(porData).sort();
-let primeira=datas[0];let ultima=datas[datas.length-1];
 let fmt=d=>d.split('-').reverse().slice(0,2).join('/');
-let range=`${fmt(primeira)} a ${fmt(ultima)} - Musical ao Vivo`;
+let range=`${fmt(datas[0])} a ${fmt(datas[datas.length-1])} - Musical ao Vivo`;
 let html=`<div class="crono-header"><h2>CRONOGRAMA COMPLETO</h2><p>${range}</p></div>`;
 datas.forEach(data=>{
 let eventos=porData[data];
@@ -55,44 +51,27 @@ let diaNum=String(dt.getDate()).padStart(2,'0');
 let mesNum=String(dt.getMonth()+1).padStart(2,'0');
 let isSabDom=dt.getDay()===6||dt.getDay()===0;
 let classe=isSabDom?'sabdom':'';
-let labelSabDom=isSabDom?'ALMOÇO E JANTAR':'';
-// Ordena P1..P6
-eventos.sort((a,b)=>a.l.localeCompare(b.l));
-// Agrupa por local P
-let porLocal={};
-eventos.forEach(e=>{
-if(!porLocal[e.l])porLocal[e.l]=[];
-porLocal[e.l].push(e);
-});
-html+=`<div class="dia-header ${classe}"><span>${diaSem} - ${diaNum}/${mesNum}</span>${isSabDom?`<small>${labelSabDom}</small>`:''}</div>`;
+html+=`<div class="dia-header ${classe}"><span>${diaSem} - ${diaNum}/${mesNum}</span>${isSabDom?`<small>ALMOÇO E JANTAR</small>`:''}</div>`;
+let porLocal={};eventos.forEach(e=>{if(!porLocal[e.l])porLocal[e.l]=[];porLocal[e.l].push(e);});
 ['P1','P2','P3','P4','P5','P6'].forEach(p=>{
 if(porLocal[p]){
-let evs=porLocal[p];
-let nome=evs[0].m;
-let turnoTxt='';
-if(evs.length>=2)turnoTxt='Almoço e Jantar';
-else{
-let t=evs[0].t;
-if(isSabDom)turnoTxt=t==='ALMOÇO'&&evs.length===1? (p==='P6'?'Almoço':'Almoço e Jantar') : (evs[0].t==='ALMOÇO'?'Almoço':'Almoço e Jantar');
-else turnoTxt='';
-if(isSabDom && evs.length===1 && evs[0].t==='ALMOÇO' && p!=='P6')turnoTxt='Almoço e Jantar';
-if(isSabDom && evs.length===1 && evs[0].t==='JANTAR')turnoTxt='Almoço e Jantar';
-}
-let showTurno=isSabDom?`<span class="turno">${turnoTxt||'Almoço e Jantar'}</span>`:'';
-html+=`<div class="linha"><span class="pbox ${classe}">${p}</span><span class="nome">${nome}</span>${showTurno}</div>`;
+let nome=porLocal[p][0].m;
+let isDuplo=porLocal[p].length>=2;
+let turnoTxt=isSabDom?(isDuplo?'Almoço e Jantar':'Almoço e Jantar'):'';
+if(!isSabDom)turnoTxt='';
+html+=`<div class="linha"><span class="pbox ${classe}">${p}</span><span style="flex:1;font-weight:600">${nome}</span>${isSabDom?`<span style="font-size:10px;color:#888">${turnoTxt}</span>`:''}</div>`;
 }
 });
 });
 return html;
 }
-function abrirCronograma(){let html=buildCronogramaHTML();document.getElementById('cronoContent').innerHTML=html;document.getElementById('cronograma').classList.add('show');window.scrollTo(0,0);}
-function zapCronograma(){
-let {lista}=getLista();if(!lista.length)return alert('Vazio');
+function abrirCronograma(){document.getElementById('cronoContent').innerHTML=buildCronogramaHTML();document.getElementById('cronograma').classList.add('show');}
+function zapDireto(){
+let {lista}=getLista();if(!lista.length)return alert('Adicione escalas primeiro! Vá em SEMANA e adicione');
 let porData={};lista.forEach(x=>{if(!porData[x.d])porData[x.d]=[];porData[x.d].push(x);});
 let datas=Object.keys(porData).sort();
-let primeira=datas[0];let ultima=datas[datas.length-1];
 let fmt=d=>d.split('-').reverse().slice(0,2).join('/');
-let texto=`*CRONOGRAMA COMPLETO*\n${fmt(primeira)} a ${fmt(ultima)} - Musical ao Vivo\n\n`;
+let texto=`*CRONOGRAMA COMPLETO*\n${fmt(datas[0])} a ${fmt(datas[datas.length-1])} - Musical ao Vivo\n\n`;
 datas.forEach(data=>{
 let dt=new Date(data+'T12:00:00');
 let diaSem=dt.toLocaleDateString('pt-BR',{weekday:'long'}).toUpperCase();
@@ -100,14 +79,33 @@ let diaNum=String(dt.getDate()).padStart(2,'0');
 let mesNum=String(dt.getMonth()+1).padStart(2,'0');
 let evs=porData[data].sort((a,b)=>a.l.localeCompare(b.l));
 texto+=`*${diaSem} - ${diaNum}/${mesNum}*\n`;
-evs.forEach(e=>{
-texto+=`${e.l} ${e.m}\n`;
-});
+evs.forEach(e=>{texto+=`${e.l} ${e.m}\n`;});
 texto+=`\n`;
 });
-window.open("https://wa.me/?text="+encodeURIComponent(texto),'_blank');
+texto+=`_Escala sujeita a alteração_`;
+let url="https://wa.me/?text="+encodeURIComponent(texto);
+window.open(url,'_blank');
+}
+async function compartilharImagem(){
+let el=document.getElementById('cronoContent');
+if(!el.innerHTML)return alert('Abra o cronograma primeiro');
+try{
+let canvas=await html2canvas(el,{scale:2,backgroundColor:'#f2f2f2'});
+canvas.toBlob(async (blob)=>{
+if(navigator.share && navigator.canShare && navigator.canShare({files:[new File([blob],'cronograma.png',{type:'image/png'})]})){
+let file=new File([blob],'cronograma.png',{type:'image/png'});
+await navigator.share({files:[file],title:'Cronograma Completo',text:'Cronograma Musical ao Vivo'});
+}else{
+let link=document.createElement('a');
+link.download='cronograma-'+new Date().toISOString().slice(0,10)+'.png';
+link.href=canvas.toDataURL();
+link.click();
+alert('Imagem salva! Agora vai na galeria e manda no WhatsApp como foto. Fica igual a foto que você mandou!');
+}
+},'image/png');
+}catch(e){alert('Erro: '+e.message+' - Use o botão de texto que funciona 100%');}
 }
 function pdfAdmin(){let {lista,filtro}=getLista();let tot=lista.reduce((s,x)=>s+x.v,0);let h=`<html><head><meta charset="UTF-8"><style>body{font-family:Arial;padding:20px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #000;padding:6px;font-size:12px}</style></head><body><h2>FINANCEIRO ${filtro} TOTAL R$ ${tot}</h2><table><tr><th>DATA</th><th>TURNO</th><th>LOCAL</th><th>MÚSICO</th><th>VALOR</th></tr>${lista.map(x=>`<tr><td>${x.d.split('-').reverse().join('/')}</td><td>${x.t}</td><td>${x.l}</td><td>${x.m}</td><td>R$ ${x.v}</td></tr>`).join('')}</table><script>window.print()<\/script></body></html>`;let w=window.open('','_blank');w.document.write(h);w.document.close();}
-function render(){let hoje=new Date().toISOString().split('T')[0];let f=filtroData.value||hoje;let lista=ev.slice();if(tab==='dia')lista=lista.filter(x=>x.d===f);if(tab==='sem'){let d=new Date(f);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='qui'){let d=new Date(f);let ini=new Date(d),fim=new Date(d);if(d.getDate()<=15){ini.setDate(1);fim.setDate(15);}else{ini.setDate(16);fim.setMonth(fim.getMonth()+1);fim.setDate(0);}lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='mes')lista=lista.filter(x=>x.d.startsWith(f.slice(0,7)));lista.sort((a,b)=>a.d.localeCompare(b.d));let calc=(fn)=>ev.filter(fn).reduce((s,x)=>s+x.v,0);let ini=new Date(hoje);ini.setDate(new Date(hoje).getDate()-new Date(hoje).getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);let d=new Date(hoje);let iniQ=new Date(d),fimQ=new Date(d);if(d.getDate()<=15){iniQ.setDate(1);fimQ.setDate(15);}else{iniQ.setDate(16);fimQ.setMonth(fimQ.getMonth()+1);fimQ.setDate(0);}tDia.innerText='R$'+calc(x=>x.d===hoje);tSem.innerText='R$'+calc(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});tQui.innerText='R$'+calc(x=>{let dx=new Date(x.d);return dx>=iniQ&&dx<=fimQ});tMes.innerText='R$'+calc(x=>x.d.startsWith(hoje.slice(0,7)));let soma=lista.reduce((s,x)=>s+x.v,0);let h=`<div style="text-align:right;color:#555;font-size:11px">R$ ${soma} • ${lista.length}</div>`;h+=lista.map(x=>`<div class="event"><div style="display:flex;justify-content:space-between"><b>${x.m}</b><span>R$ ${x.v}</span></div><div class="muted">${x.d.split('-').reverse().join('/')} • ${x.t} • ${x.l}</div><div style="display:flex;gap:8px;margin-top:8px"><div style="flex:1;padding:10px;text-align:center;border:1px solid #222;border-radius:10px;font-size:11px;color:#aaa" onclick="abrirSub(${x.id})">SUBSTITUIR</div><div style="padding:10px 14px;border:1px solid #222;border-radius:10px" onclick="del(${x.id})">✕</div></div></div>`).join('');if(!lista.length)h+='<p style="text-align:center;color:#222;padding:20px">VAZIO - Use aba SEMANA</p>';document.getElementById('lista').innerHTML=h;}
+function render(){let hoje=new Date().toISOString().split('T')[0];let f=filtroData.value||hoje;let lista=ev.slice();if(tab==='dia')lista=lista.filter(x=>x.d===f);if(tab==='sem'){let d=new Date(f);let ini=new Date(d);ini.setDate(d.getDate()-d.getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='qui'){let d=new Date(f);let ini=new Date(d),fim=new Date(d);if(d.getDate()<=15){ini.setDate(1);fim.setDate(15);}else{ini.setDate(16);fim.setMonth(fim.getMonth()+1);fim.setDate(0);}lista=lista.filter(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});}if(tab==='mes')lista=lista.filter(x=>x.d.startsWith(f.slice(0,7)));lista.sort((a,b)=>a.d.localeCompare(b.d));let calc=(fn)=>ev.filter(fn).reduce((s,x)=>s+x.v,0);let ini=new Date(hoje);ini.setDate(new Date(hoje).getDate()-new Date(hoje).getDay());let fim=new Date(ini);fim.setDate(ini.getDate()+6);let d=new Date(hoje);let iniQ=new Date(d),fimQ=new Date(d);if(d.getDate()<=15){iniQ.setDate(1);fimQ.setDate(15);}else{iniQ.setDate(16);fimQ.setMonth(fimQ.getMonth()+1);fimQ.setDate(0);}tDia.innerText='R$'+calc(x=>x.d===hoje);tSem.innerText='R$'+calc(x=>{let dx=new Date(x.d);return dx>=ini&&dx<=fim});tQui.innerText='R$'+calc(x=>{let dx=new Date(x.d);return dx>=iniQ&&dx<=fimQ});tMes.innerText='R$'+calc(x=>x.d.startsWith(hoje.slice(0,7)));let soma=lista.reduce((s,x)=>s+x.v,0);let h=`<div style="text-align:right;color:#555;font-size:11px">R$ ${soma} • ${lista.length}</div>`;h+=lista.map(x=>`<div class="event"><div style="display:flex;justify-content:space-between"><b>${x.m}</b><span>R$ ${x.v}</span></div><div class="muted">${x.d.split('-').reverse().join('/')} • ${x.t} • ${x.l}</div><div style="display:flex;gap:8px;margin-top:8px"><div style="flex:1;padding:10px;text-align:center;border:1px solid #222;border-radius:10px;font-size:11px;color:#aaa" onclick="abrirSub(${x.id})">SUBSTITUIR</div><div style="padding:10px 14px;border:1px solid #222;border-radius:10px" onclick="del(${x.id})">✕</div></div></div>`).join('');if(!lista.length)h+='<p style="text-align:center;color:#222;padding:20px">VAZIO - Use SEMANA</p>';document.getElementById('lista').innerHTML=h;}
 filtroData.valueAsDate=new Date();data.valueAsDate=new Date();render();
 </script></body></html>
