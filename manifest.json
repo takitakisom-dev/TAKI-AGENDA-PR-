@@ -1,15 +1,18 @@
 {
-  "name": "TAKI AGENDA 8.5",
-  "short_name": "TAKI",
+  "name": "TAKI AGENDA PRO P1-P6",
+  "short_name": "TAKI P1-P6",
+  "description": "Agenda P1-P6 OFFLINE - VAT60 Anderson Rick Robson",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#ffb700",
-  "start_url": "./?v=85",
+  "theme_color": "#FFD700",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/138/138406.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/3659/3659784.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
