@@ -1,1 +1,8 @@
-{"name":"TAKI AGENDA PRO","short_name":"TAKI AGENDA","start_url":"./index.html","display":"standalone","background_color":"#000000","theme_color":"#FFD700","icons":[]}
+const CACHE_NAME = 'taki-p1p6-v4-offline';
+const urlsToCache = ['./','./index.html','./manifest.json'];
+self.addEventListener('install', event => {
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
+});
+self.addEventListener('fetch', event => {
+  event.respondWith(caches.match(event.request).then(response => response || fetch(event.request)));
+});
