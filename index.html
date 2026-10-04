@@ -1,204 +1,146 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TAKI AGENDA + CIFRAS V5.1</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#d4af37">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TAKI AGENDA PRO</title>
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#000000">
 <style>
-:root{--gold:#d4af37;--bg:#0f0f0f;--card:#1c1c1c}
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}
-body{background:var(--bg);color:#fff;padding-bottom:80px}
-header{position:sticky;top:0;z-index:10;background:#000;padding:12px;border-bottom:2px solid var(--gold)}
-.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}
-.btn-gold{background:var(--gold);color:#000}
-.btn-dark{background:#2a2a2a;color:#fff;border:1px solid #444}
-.btn-green{background:#1DB954;color:#000}
-.tabs{display:flex;gap:6px;padding:10px;overflow:auto;background:#0a0a0a;border-bottom:1px solid #222}
-.tab{white-space:nowrap;padding:8px 14px;border-radius:20px;border:1px solid #333;background:#111;color:#fff;font-size:.85rem}
-.tab.active{background:var(--gold);color:#000}
-.card{background:var(--card);border:1px solid #2a2a2a;border-radius:16px;margin:10px;padding:12px}
-.row{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
-input,select,textarea{flex:1;background:#121212;color:#fff;border:1px solid #333;border-radius:10px;padding:11px;min-width:110px}
-textarea{min-height:90px}
-.libs{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
-.lib{background:var(--card);border:1px solid #2a2a2a;border-radius:14px;padding:14px;text-align:center;cursor:pointer}
-.lib.active{border-color:var(--gold);background:#2a2410}
-.item{background:#222;border-radius:12px;padding:12px;margin-bottom:6px;display:flex;justify-content:space-between;border:1px solid #2a2a2a}
-.stat{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.stat.box2{background:#111;border:1px solid #2a2a2a;border-radius:12px;padding:12px;text-align:center}
-.stat.box2 b{font-size:1.3rem;color:var(--gold);display:block}
-.stat.box2.gold{background:var(--gold);color:#000}
-.stat.box2.gold b{color:#000}
-.viewer{position:fixed;inset:0;background:#0e0e0e;z-index:20;display:none;flex-direction:column}
-.viewer.active{display:flex}
-.v-head{display:flex;flex-wrap:wrap;gap:6px;padding:10px;background:#000;border-bottom:1px solid var(--gold)}
-.v-content{flex:1;overflow:auto;padding:16px;white-space:pre-wrap;font-family:monospace;line-height:1.7}
-.c{color:var(--gold);font-weight:900}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:30;display:none;align-items:center;justify-content:center;padding:12px}
-.modal.active{display:flex}
-.box{background:#1a1a1a;border-radius:16px;padding:14px;width:100%;max-width:520px;border:1px solid #333;max-height:92vh;overflow:auto}
-table{width:100%;border-collapse:collapse;font-size:.85rem}
-th,td{border:1px solid #2a2a2a;padding:8px;text-align:left}
-th{background:#111;color:var(--gold)}
-.rank1{background:linear-gradient(90deg,#d4af3722,#0000)}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,Segoe UI,Arial}
+body{background:#000;color:#e8d5a3;max-width:700px;margin:0 auto;padding-bottom:80px}
+.header{background:#0a0a0a;padding:14px 12px;border-bottom:2px solid #FFD700;position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.logo{font-weight:900;letter-spacing:2px}.logo span{color:#FFD700}
+.tabs{display:flex;gap:6px;overflow:auto;padding:10px;background:#0a0a0a;border-bottom:1px solid #1a1a1a;position:sticky;top:56px;z-index:15}
+.tab{white-space:nowrap;padding:8px 14px;border-radius:20px;border:1px solid #333;background:#111;color:#e8d5a3;font-weight:bold;font-size:12px}
+.tab.active{background:#FFD700;color:#000;border-color:#FFD700}
+.card{background:#111;border:1px solid #222;border-radius:14px;margin:10px;padding:14px}
+input,select{width:100%;background:#000;border:1px solid #333;color:#e8d5a3;padding:11px;border-radius:10px;margin:6px 0}
+.btn{width:100%;padding:12px;border-radius:10px;border:1px solid #333;background:#222;color:#e8d5a3;font-weight:bold;margin-top:6px;cursor:pointer}
+.btn-gold{background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;border:none}
+.btn-sm{width:auto;display:inline-block;padding:6px 10px;font-size:11px;margin:2px}
+.row{display:flex;gap:8px}.row>*{flex:1}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12px}
+th,td{border:1px solid #222;padding:8px;text-align:left} th{background:#1a1a1a;color:#FFD700}
+.badge{padding:2px 6px;border-radius:10px;background:#222;font-size:10px;border:1px solid #333}
+.totalBox{background:#FFD700;color:#000;padding:12px;border-radius:10px;font-weight:900;text-align:center;margin-top:10px;font-size:14px}
+.hidden{display:none}
+.stat{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.stat.b{background:#0a0a0a;border:1px solid #222;border-radius:12px;padding:12px;text-align:center}
+.stat.b b{color:#FFD700;font-size:1.3rem;display:block}
+.stat.b.gold{background:#FFD700;color:#000}.stat.b.gold b{color:#000}
+.rank1{background:linear-gradient(90deg,#FFD70022,#0000)}
 </style>
 </head>
 <body>
-<header>
-<div class="top">
-<h1>TAKI <span>AGENDA + CIFRAS</span></h1>
-<div style="display:flex;gap:6px">
-<button class="btn btn-dark" onclick="toggleFull()">⛶</button>
-<button class="btn btn-green" onclick="shareApp()">📤 APP</button>
-</div>
+<div class="header">
+<div class="logo">TAKI <span>AGENDA PRO</span></div>
+<small style="opacity:.6">takitakisom@gmail.com</small>
 </div>
 <div class="tabs">
-<button class="tab active" data-t="cifras" onclick="goTab('cifras')">📚 BIBLIOTECAS</button>
-<button class="tab" data-t="agenda" onclick="goTab('agenda')">📅 AGENDA</button>
-<button class="tab" data-t="musicos" onclick="goTab('musicos')">🎸 MÚSICOS</button>
-<button class="tab" data-t="cronograma" onclick="goTab('cronograma')">🗓️ CRONOGRAMA</button>
-<button class="tab" data-t="pagamento" onclick="goTab('pagamento')">💰 PAGAMENTOS</button>
-<button class="tab" data-t="relatorio" onclick="goTab('relatorio')">📊 RELATÓRIO</button>
+<button class="tab active" onclick="show('agenda')">📅 AGENDA</button>
+<button class="tab" onclick="show('musicos')">🎸 MUSICOS</button>
+<button class="tab" onclick="show('cronograma')">🗓️ CRONOGRAMA</button>
+<button class="tab" onclick="show('pagamento')">💰 PAGAMENTOS</button>
+<button class="tab" onclick="show('relatorio')">📊 RELATÓRIO BONITÃO</button>
 </div>
-<div class="row" style="padding:0 10px">
-<input id="q" placeholder="🔍 Buscar..." oninput="renderAll()">
+<div id="agenda" class="sec">
+<div class="card">
+<b>NOVO SHOW / EVENTO</b>
+<div class="row"><input id="agData" type="date"><input id="agLocal" placeholder="Local"></div>
+<div class="row"><input id="agCouver" type="number" placeholder="Couver total R$"><input id="agDespesa" type="number" placeholder="Despesa extra R$"></div>
+<input id="agObs" placeholder="Obs">
+<button class="btn btn-gold" onclick="addAgenda()">SALVAR EVENTO</button>
 </div>
-</header>
-<div id="sec-cifras"><div class="libs" id="libs"></div><div style="padding:10px"><div id="listCifras"></div><button class="btn btn-gold" style="width:100%;margin-top:8px" onclick="abrirModalCifra()">+ NOVA CIFRA</button></div></div>
-<div id="sec-agenda" style="display:none">
-<div class="card"><b>NOVO SHOW</b><div class="row"><input id="agData" type="date"><input id="agLocal" placeholder="Local"></div><div class="row"><input id="agCouver" type="number" placeholder="Couver R$"><input id="agDesp" type="number" placeholder="Despesa R$"></div><input id="agObs" placeholder="Obs"><button class="btn btn-gold" style="width:100%;margin-top:6px" onclick="addAgenda()">SALVAR</button></div>
-<div class="card"><b>EVENTOS</b><div id="listaAgenda"></div></div>
+<div class="card"><b>AGENDA CADASTRADA</b><div id="listaAgenda"></div></div>
 </div>
-<div id="sec-musicos" style="display:none">
-<div class="card"><b>CADASTRAR MÚSICO</b><div class="row"><input id="mNome" placeholder="Nome"><input id="mInst" placeholder="Instrumento"></div><div class="row"><input id="mCache" type="number" placeholder="Cachê R$"><input id="mWhats" placeholder="WhatsApp"></div><button class="btn btn-gold" style="width:100%" onclick="addMusico()">SALVAR MÚSICO</button></div>
-<div class="card"><b>MÚSICOS</b><div id="listaMusicos"></div></div>
+<div id="musicos" class="sec hidden">
+<div class="card">
+<b>CADASTRAR MUSICO</b>
+<div class="row"><input id="mNome" placeholder="Nome"><input id="mInst" placeholder="Instrumento"></div>
+<div class="row"><input id="mCache" type="number" placeholder="Cache diario R$"><input id="mWhats" placeholder="WhatsApp"></div>
+<button class="btn btn-gold" onclick="addMusico()">SALVAR MUSICO</button>
 </div>
-<div id="sec-cronograma" style="display:none">
-<div class="card"><b>ESCALAR MÚSICOS</b><select id="crEvento"></select><select id="crMusico"></select><button class="btn btn-gold" style="width:100%;margin-top:6px" onclick="addEscala()">ADICIONAR NA ESCALA</button></div>
+<div class="card"><b>MUSICOS CADASTRADOS</b><div id="listaMusicos"></div></div>
+</div>
+<div id="cronograma" class="sec hidden">
+<div class="card">
+<b>ESCALAR MUSICOS NO EVENTO</b>
+<select id="crEvento"></select>
+<select id="crMusico"></select>
+<button class="btn btn-gold" onclick="addEscala()">ADICIONAR NA ESCALA</button>
+</div>
 <div class="card"><b>CRONOGRAMA POR DATA</b><div id="listaCronograma"></div></div>
 </div>
-<div id="sec-pagamento" style="display:none">
-<div class="card"><b>PAGAMENTO SEMANAL</b><div class="row"><input id="pgIni" type="date"><input id="pgFim" type="date"></div><button class="btn btn-gold" style="width:100%;margin-top:6px" onclick="calcPagamento()">CALCULAR SEMANA</button><div id="resPagamento"></div></div>
-</div>
-<div id="sec-relatorio" style="display:none">
+<div id="pagamento" class="sec hidden">
 <div class="card">
-<b>📊 RELATÓRIO BONITÃO</b>
+<b>PAGAMENTO SEMANAL</b>
+<div class="row"><input id="pgInicio" type="date"><input id="pgFim" type="date"></div>
+<button class="btn btn-gold" onclick="calcPagamento()">CALCULAR SEMANA</button>
+<div id="resultadoPagamento"></div>
+</div>
+</div>
+<div id="relatorio" class="sec hidden">
+<div class="card">
+<b>📊 RELATÓRIO BONITÃO - COM FILTRO DE PERÍODO</b>
 <div class="row" style="margin-top:8px">
 <input id="relIni" type="date"><input id="relFim" type="date">
-<button class="btn btn-gold" onclick="filtrarRelatorio()">🔍 FILTRAR PERÍODO</button>
-<button class="btn btn-dark" onclick="limparFiltro()">TUDO</button>
 </div>
-<div class="stat" style="margin-top:10px">
-<div class="box2"><small>Total Couver</small><b id="rCouver">R$ 0</b></div>
-<div class="box2"><small>Total Cachês</small><b id="rCache">R$ 0</b></div>
-<div class="box2"><small>Despesas</small><b id="rDesp">R$ 0</b></div>
-<div class="box2 gold"><small>LUCRO LÍQUIDO</small><b id="rLucro">R$ 0</b></div>
+<div class="row">
+<button class="btn btn-gold" onclick="filtrarRelatorio()">🔍 FILTRAR PERÍODO</button>
+<button class="btn" onclick="limparFiltro()">VER TUDO</button>
 </div>
 <small id="periodoInfo" style="opacity:.6;display:block;margin-top:6px"></small>
+<div class="stat">
+<div class="b"><small>Total Couver</small><b id="rCouver">R$ 0</b></div>
+<div class="b"><small>Total Cachês</small><b id="rCache">R$ 0</b></div>
+<div class="b"><small>Despesas</small><b id="rDesp">R$ 0</b></div>
+<div class="b gold"><small>LUCRO LÍQUIDO</small><b id="rLucro">R$ 0</b></div>
 </div>
-<div class="card"><b>🏆 RANKING 1º AO ÚLTIMO</b><small style="opacity:.6"> No período selecionado</small><div id="ranking" style="margin-top:8px"></div></div>
-<div class="card"><b>📅 CRONOGRAMA DO PERÍODO</b><small id="cronCount" style="opacity:.6"></small><div id="relCronograma" style="margin-top:8px"></div></div>
-<div class="card"><div class="row"><button class="btn btn-dark" style="flex:1" onclick="exportCSV()">📄 CSV do período</button><button class="btn btn-dark" style="flex:1;background:#600;color:#fff" onclick="if(confirm('Zerar?')){localStorage.clear();location.reload()}">🗑️ Zerar</button></div></div>
 </div>
-<div class="viewer" id="viewer"><div class="v-head"><button class="btn btn-dark" onclick="fechar()">⬅ Voltar</button><button class="btn btn-dark" onclick="transpor(-1)">- Tom</button><button class="btn btn-dark" onclick="transpor(1)">+ Tom</button><button class="btn btn-gold" id="simpBtn" onclick="toggleSimp()">🎸 Simp OFF</button><button class="btn btn-gold" id="playBtn" onclick="togglePlay()">▶️ INICIAR</button><button class="btn btn-green" onclick="shareCifra()">📤 COMPARTILHAR</button><button class="btn btn-dark" onclick="toggleFull()">⛶</button></div><div class="v-content" id="vc"></div></div>
-<div class="modal" id="modalCifra"><div class="box"><h3 style="color:var(--gold)">+ Nova Cifra</h3><div style="display:flex;flex-direction:column;gap:6px;margin-top:8px"><input id="cNome" placeholder="Música"><input id="cArt" placeholder="Artista"><select id="cBib"><option>Samba</option><option>Pagode</option><option>Sertanejo</option><option>Forró</option><option>Rock Nacional</option><option>MPB</option><option>Gospel</option><option>Pop</option><option>Outros</option></select><textarea id="cTexto" placeholder="Cole cifra com [G] [C]..."></textarea><div class="row"><button class="btn btn-dark" style="flex:1" onclick="fecharModalCifra()">Cancelar</button><button class="btn btn-gold" style="flex:1" onclick="salvarCifra()">💾 SALVAR</button></div></div></div></div>
+<div class="card">
+<b>🏆 RANKING - PRIMEIRO AO ÚLTIMO <small id="rankInfo"></small></b>
+<div id="ranking" style="margin-top:8px"></div>
+</div>
+<div class="card">
+<b>📅 CRONOGRAMA DO PERÍODO <small id="cronCount"></small></b>
+<div id="relCronograma" style="margin-top:8px"></div>
+</div>
+<div class="card">
+<div class="row"><button class="btn" onclick="exportCSV()">📄 Exportar CSV do período</button><button class="btn" style="background:#600;color:#fff" onclick="if(confirm('Apagar tudo?')){localStorage.clear();location.reload()}">🗑️ Zerar</button></div>
+</div>
+</div>
 <script>
-const BIB=["TUDO","Samba","Pagode","Sertanejo","Forró","Rock Nacional","MPB","Gospel","Pop","Outros"];
-let bibAtiva="TUDO",tom=0,simp=false,playing=false,scInt=null;
-let db=JSON.parse(localStorage.getItem('taki_unificado_v5')||'{"cifras":[],"musicos":[],"agenda":[],"escala":[]}');
+let db = JSON.parse(localStorage.getItem('taki_agenda_v1')||'{"musicos":[],"agenda":[],"escala":[]}');
+let db2 = JSON.parse(localStorage.getItem('taki_unificado_v5')||'null');
+if(db2 && db.agenda.length===0 && db2.agenda.length>0){ db=db2; localStorage.setItem('taki_agenda_v1',JSON.stringify(db)); }
 let filtroIni=null,filtroFim=null;
-function save(){localStorage.setItem('taki_unificado_v5',JSON.stringify(db));renderAll();}
-function goTab(t){document.querySelectorAll('[id^=sec-]').forEach(s=>s.style.display='none');document.getElementById('sec-'+t).style.display='block';document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));document.querySelector(`[data-t=${t}]`).classList.add('active');renderAll();}
-function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}
-function shareApp(){const u=location.href;if(navigator.share)navigator.share({title:'TAKI AGENDA + CIFRAS',url:u});else{navigator.clipboard.writeText(u);alert('Link copiado!');}}
-function agendaFiltrada(){if(!filtroIni||!filtroFim) return db.agenda; return db.agenda.filter(a=>a.data>=filtroIni && a.data<=filtroFim);}
-function filtrarRelatorio(){filtroIni=relIni.value||null;filtroFim=relFim.value||null;if(!filtroIni||!filtroFim){alert('Selecione início e fim');return;}renderAll();goTab('relatorio');}
-function limparFiltro(){filtroIni=null;filtroFim=null;relIni.value='';relFim.value='';renderAll();}
-function renderLibs(){const el=document.getElementById('libs');el.innerHTML='';BIB.forEach(b=>{const c=b==="TUDO"?db.cifras.length:db.cifras.filter(x=>x.bib===b).length;const d=document.createElement('div');d.className='lib'+(bibAtiva===b?' active':'');d.innerHTML=`<b>${b}</b><small>${c} cifras</small>`;d.onclick=()=>{bibAtiva=b;renderLibs();renderCifras();};el.appendChild(d);});}
-function renderCifras(){const q=(document.getElementById('q').value||'').toLowerCase();const L=document.getElementById('listCifras');L.innerHTML='';if(db.cifras.length===0){L.innerHTML='<div style=text-align:center;opacity:.6;padding:20px>📚 Bibliotecas vazias</div>';return;}let f=db.cifras.map((x,i)=>{x._i=i;return x;});if(bibAtiva!=="TUDO")f=f.filter(x=>x.bib===bibAtiva);if(q)f=f.filter(x=>x.n.toLowerCase().includes(q)||x.a.toLowerCase().includes(q));f.forEach(x=>{const d=document.createElement('div');d.className='item';d.innerHTML=`<div><b style=color:var(--gold)>${x.n}</b><br><small>${x.a} • ${x.bib}</small></div><div>🎸</div>`;d.onclick=()=>abrirCifra(x._i);L.appendChild(d);});}
-function abrirModalCifra(){modalCifra.classList.add('active');}function fecharModalCifra(){modalCifra.classList.remove('active');}
-function salvarCifra(){const n=cNome.value.trim(),a=cArt.value.trim(),b=cBib.value,t=cTexto.value.trim();if(!n||!t)return alert('Nome e cifra!');db.cifras.push({n,a:a||'Desconhecido',bib:b,t});cNome.value=cArt.value=cTexto.value='';fecharModalCifra();save();renderLibs();}
-let cifraAtual=null;
-function abrirCifra(i){cifraAtual=i;tom=0;renderCifraTexto();viewer.classList.add('active');}
-function fechar(){viewer.classList.remove('active');stopPlay();}
-const NOTAS=["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
-function transporChord(ch,s){return ch.replace(/\[([^\]]+)\]/g,(m,p)=>{let b=p.match(/^[A-G][#b]?/);if(!b)return m;let idx=NOTAS.indexOf(b[0]);if(idx<0)return m;return m.replace(b[0],NOTAS[(idx+s+12)%12]);});}
-function simplificar(txt){return txt.replace(/\[([^\]]+)\]/g,(m,i)=>{let r=i.match(/^[A-G][#b]?m?/);return r?"["+r[0]+"]":m;});}
-function renderCifraTexto(){let txt=db.cifras[cifraAtual].t;if(simp)txt=simplificar(txt);if(tom)txt=transporChord(txt,tom);let html=txt.replace(/\[([^\]]+)\]/g,'<span class=c>[$1]</span>');vc.innerHTML=`<h2 style=color:var(--gold)>${db.cifras[cifraAtual].n}</h2><small>${db.cifras[cifraAtual].a} • ${db.cifras[cifraAtual].bib}</small><br><br>`+html;}
-function transpor(d){tom+=d;renderCifraTexto();}
-function toggleSimp(){simp=!simp;simpBtn.textContent=simp?"🎸 Simp ON":"🎸 Simp OFF";renderCifraTexto();}
-function togglePlay(){if(playing){stopPlay();return}playing=true;playBtn.textContent="⏸️ PAUSAR";const el=vc;scInt=setInterval(()=>{el.scrollTop+=1;if(el.scrollTop+el.clientHeight>=el.scrollHeight)stopPlay()},35);}
-function stopPlay(){playing=false;playBtn.textContent="▶️ INICIAR";clearInterval(scInt);}
-function shareCifra(){const txt=`${db.cifras[cifraAtual].n} - ${db.cifras[cifraAtual].a}\n\n${db.cifras[cifraAtual].t}`;if(navigator.share)navigator.share({title:db.cifras[cifraAtual].n,text:txt});else{navigator.clipboard.writeText(txt);alert('Copiado!');}}
-function addMusico(){const m={id:Date.now(),nome:mNome.value,inst:mInst.value,cache:Number(mCache.value)||0,whats:mWhats.value};if(!m.nome)return alert('Nome!');db.musicos.push(m);mNome.value=mInst.value=mCache.value=mWhats.value='';save();}
-function addAgenda(){const a={id:Date.now(),data:agData.value,local:agLocal.value,couver:Number(agCouver.value)||0,desp:Number(agDesp.value)||0,obs:agObs.value};if(!a.data||!a.local)return alert('Data e local');db.agenda.push(a);agData.value=agLocal.value=agCouver.value=agDesp.value=agObs.value='';save();}
-function addEscala(){const eid=Number(crEvento.value),mid=Number(crMusico.value);if(!eid||!mid)return alert('Selecione');db.escala.push({id:Date.now(),eventoId:eid,musicoId:mid});save();}
-function del(tipo,id){db[tipo]=db[tipo].filter(x=>x.id!==id);if(tipo==='agenda'||tipo==='musicos')db.escala=db.escala.filter(e=>e.eventoId!==id&&e.musicoId!==id);save();}
+function save(){localStorage.setItem('taki_agenda_v1',JSON.stringify(db)); renderAll();}
+function show(id){document.querySelectorAll('.sec').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));event.target.classList.add('active'); renderAll();}
+function agendaFiltrada(){ if(!filtroIni||!filtroFim) return db.agenda; return db.agenda.filter(a=>a.data>=filtroIni && a.data<=filtroFim); }
+function filtrarRelatorio(){ filtroIni=relIni.value; filtroFim=relFim.value; if(!filtroIni||!filtroFim) return alert('Selecione as duas datas'); renderAll(); }
+function limparFiltro(){ filtroIni=null; filtroFim=null; relIni.value=''; relFim.value=''; renderAll(); }
+function addMusico(){ let m={id:Date.now(),nome:mNome.value,inst:mInst.value,cache:Number(mCache.value)||0,whats:mWhats.value}; if(!m.nome) return alert('Nome obrigatorio'); db.musicos.push(m); mNome.value=mInst.value=mCache.value=mWhats.value=''; save(); }
+function addAgenda(){ let a={id:Date.now(),data:agData.value,[STRIPPED] if(!a.data||!a.local) return alert('Data e Local obrigatorio'); db.agenda.push(a); agData.value=agLocal.value=agCouver.value=agDespesa.value=agObs.value=''; save(); }
+function addEscala(){ let eid=Number(crEvento.value), mid=Number(crMusico.value); if(!eid||!mid) return alert('Selecione evento e musico'); db.escala.push({id:Date.now(),eventoId:eid,musicoId:mid}); save(); }
+function del(tipo,id){db[tipo]=db[tipo].filter(x=>x.id!==id); if(tipo==='agenda'||tipo==='musicos') db.escala=db.escala.filter(e=>e.eventoId!==id && e.musicoId!==id); save();}
 function renderAll(){
-renderLibs();renderCifras();
-const q=(document.getElementById('q').value||'').toLowerCase();
-listaMusicos.innerHTML=db.musicos.filter(m=>!q||m.nome.toLowerCase().includes(q)).map(m=>`<div style=display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #222><span><b>${m.nome}</b> <small>${m.inst}</small><br><small>R$ ${m.cache}/dia</small></span><button class="btn btn-dark" onclick="del('musicos',${m.id})">X</button></div>`).join('')||'<small>Nenhum músico</small>';
-listaAgenda.innerHTML=db.agenda.filter(a=>!q||a.local.toLowerCase().includes(q)).sort((a,b)=>a.data.localeCompare(b.data)).map(a=>`<div style=padding:6px 0;border-bottom:1px solid #222><b>${a.data}</b> - ${a.local} <small style=color:var(--gold)>R$${a.couver}</small><br><small>${a.obs} | Desp R$${a.desp}</small> <button class="btn btn-dark" onclick="del('agenda',${a.id})">X</button></div>`).join('')||'<small>Nenhum evento</small>';
-crEvento.innerHTML=db.agenda.map(a=>`<option value=${a.id}>${a.data} - ${a.local}</option>`).join('');
-crMusico.innerHTML=db.musicos.map(m=>`<option value=${m.id}>${m.nome} - R$${m.cache}</option>`).join('');
-let agFil=agendaFiltrada();
-let idsFil=agFil.map(a=>a.id);
-let escFil=db.escala.filter(es=>idsFil.includes(es.eventoId));
-let grouped={};
-escFil.forEach(es=>{let ev=agFil.find(a=>a.id===es.eventoId);if(!ev)return;let key=ev.data+'|'+ev.local+'|'+ev.id;if(!grouped[key])grouped[key]={ev,lista:[]};let mus=db.musicos.find(m=>m.id===es.musicoId);grouped[key].lista.push({esId:es.id,mus});});
-listaCronograma.innerHTML=Object.values(grouped).sort((a,b)=>a.ev.data.localeCompare(b.ev.data)).map(g=>{
-const total=g.lista.reduce((s,x)=>s+(x.mus?x.mus.cache:0),0);
-return `<div class=card style=margin:6px 0;background:#111><b>📅 ${g.ev.data} - ${g.ev.local}</b> <small style=color:var(--gold)>Couver R$${g.ev.couver}</small><br>${g.lista.map(x=>`• ${x.mus?x.mus.nome:'?'} R$${x.mus?x.mus.cache:0}`).join('<br>')}<br><b style=color:var(--gold)>Total: R$${total} | Líquido: R$${g.ev.couver-total-g.ev.desp}</b></div>`;
-}).join('')||'<small>Nenhuma escala</small>';
-let totalCouver=agFil.reduce((s,a)=>s+a.couver,0);
-let totalDesp=agFil.reduce((s,a)=>s+a.desp,0);
-let totalCache=escFil.reduce((s,es)=>{let m=db.musicos.find(x=>x.id===es.musicoId);return s+(m?m.cache:0)},0);
-let lucro=totalCouver-totalDesp-totalCache;
-rCouver.textContent='R$ '+totalCouver;
-rCache.textContent='R$ '+totalCache;
-rDesp.textContent='R$ '+totalDesp;
-rLucro.textContent='R$ '+lucro;
-periodoInfo.textContent=filtroIni?`Período: ${filtroIni.split('-').reverse().join('/')} até ${filtroFim.split('-').reverse().join('/')} - ${agFil.length} eventos`:`Todos - ${agFil.length} eventos`;
-cronCount.textContent=` (${agFil.length} eventos)`;
-let rank={};db.musicos.forEach(m=>rank[m.id]={nome:m.nome,inst:m.inst,qtd:0,total:0});
-escFil.forEach(es=>{if(rank[es.musicoId]){rank[es.musicoId].qtd++;let m=db.musicos.find(x=>x.id===es.musicoId);rank[es.musicoId].total+=(m?m.cache:0)}});
-let rankArr=Object.values(rank).sort((a,b)=>b.qtd-a.qtd||b.total-a.total);
-ranking.innerHTML=`<table><tr><th>#</th><th>Músico</th><th>Shows</th><th>Total</th><th>Média</th></tr>${rankArr.map((r,i)=>`<tr class=${i===0?'rank1':''}><td>${i+1}º ${i===0?'🏆':''}</td><td><b>${r.nome}</b><br><small>${r.inst}</small></td><td>${r.qtd}</td><td><b>R$ ${r.total}</b></td><td>R$ ${r.qtd?Math.round(r.total/r.qtd):0}</td></tr>`).join('')}</table>`;
-relCronograma.innerHTML=Object.values(grouped).sort((a,b)=>a.ev.data.localeCompare(b.ev.data)).map(g=>{
-const total=g.lista.reduce((s,x)=>s+(x.mus?x.mus.cache:0),0);
-return `<div style=border-bottom:1px solid #222;padding:8px 0><b>${g.ev.data} - ${g.ev.local}</b> - Couver R$${g.ev.couver}<br><small>${g.lista.map(x=>x.mus?x.mus.nome:'?').join(', ')} | Cachês R$${total} | Lucro R$${g.ev.couver-total-g.ev.desp}</small></div>`;
-}).join('')||'<small>Sem dados no período</small>';
+ listaMusicos.innerHTML=db.musicos.map(m=>`<div style="display:flex;justify-content:space-between;border-bottom:1px solid #1a1a1a;padding:8px 0"><span><b>${m.nome}</b> <span class=badge>${m.inst}</span><br><small>R$ ${m.cache}/dia - ${m.whats}</small></span><button class=btn-sm onclick="del('musicos',${m.id})">X</button></div>`).join('')||'<small>Nenhum musico</small>';
+ listaAgenda.innerHTML=db.agenda.slice().sort((a,b)=>a.data.localeCompare(b.data)).map(a=>`<div style="border-bottom:1px solid #1a1a1a;padding:8px 0"><b>${a.data}</b> - ${a.local} <span class=badge>Couver R$${a.couver}</span><br><small>${a.obs} | Despesa R$${a.despesa}</small> <button class=btn-sm onclick="del('agenda',${a.id})">X</button></div>`).join('')||'<small>Nenhum evento</small>';
+ crEvento.innerHTML=db.agenda.map(a=>`<option value="${a.id}">${a.data} - ${a.local} (R$${a.couver})</option>`).join('');
+ crMusico.innerHTML=db.musicos.map(m=>`<option value="${m.id}">${m.nome} - ${m.inst} - R$${m.cache}</option>`).join('');
+ let agFil=agendaFiltrada(); let idsFil=agFil.map(a=>a.id); let escFil=db.escala.filter(es=>idsFil.includes(es.eventoId));
+ let grouped={}; escFil.forEach(es=>{let ev=agFil.find(a=>a.id===es.eventoId); if(!ev) return; let key=ev.data+'|'+ev.local+'|'+ev.id; if(!grouped[key]) grouped[key]={ev,lista:[]}; let mus=db.musicos.find(m=>m.id===es.musicoId); grouped[key].lista.push({esId:es.id,mus});});
+ listaCronograma.innerHTML=Object.values(grouped).sort((a,b)=>a.ev.data.localeCompare(b.ev.data)).map(g=>{ const total=g.lista.reduce((s,x)=>s+(x.mus?x.mus.cache:0),0); return `<div style="margin-top:10px;background:#0a0a0a;padding:10px;border-radius:10px;border:1px solid #1a1a1a"><b>📅 ${g.ev.data} - ${g.ev.local}</b> <span class=badge>Couver R$${g.ev.couver}</span><br>${g.lista.map(x=>`${x.mus?x.mus.nome:'?'} <small>R$${x.mus?x.mus.cache:0}</small> <button class=btn-sm onclick="del('escala',${x.esId})">X</button>`).join(' | ')}<br><b style="color:#FFD700">Total cachês: R$${total} | Líquido: R$${g.ev.couver-total-g.ev.despesa}</b></div>`; }).join('')||'<small>Nenhuma escala no período</small>';
+ let totalCouver=agFil.reduce((s,a)=>s+a.couver,0); let totalDespesa=agFil.reduce((s,a)=>s+a.despesa,0); let totalCache=escFil.reduce((s,es)=>{let m=db.musicos.find(x=>x.id===es.musicoId); return s+(m?m.cache:0)},0); let lucro=totalCouver-totalDespesa-totalCache;
+ rCouver.textContent='R$ '+totalCouver; rDesp.textContent='R$ '+totalDespesa; rCache.textContent='R$ '+totalCache; rLucro.textContent='R$ '+lucro;
+ periodoInfo.textContent=filtroIni?`Período: ${filtroIni.split('-').reverse().join('/')} até ${filtroFim.split('-').reverse().join('/')} - ${agFil.length} eventos`:`Todos os períodos - ${agFil.length} eventos`;
+ cronCount.textContent=`(${agFil.length} eventos)`; rankInfo.textContent=filtroIni?`(${agFil.length} filtrados)`:'';
+ let rank={}; db.musicos.forEach(m=>rank[m.id]={nome:m.nome,inst:m.inst,qtd:0,total:0}); escFil.forEach(es=>{if(rank[es.musicoId]){rank[es.musicoId].qtd++; let m=db.musicos.find(x=>x.id===es.musicoId); rank[es.musicoId].total+=(m?m.cache:0)}});
+ let rankArr=Object.values(rank).sort((a,b)=>b.qtd-a.qtd||b.total-a.total);
+ ranking.innerHTML=`<table><tr><th>#</th><th>Musico</th><th>Shows</th><th>Total Recebido</th><th>Média</th></tr>${rankArr.map((r,i)=>`<tr class=${i===0?'rank1':''}><td>${i+1}º ${i===0?'🏆':''}</td><td>${r.nome} <small>${r.inst}</small></td><td>${r.qtd}</td><td><b>R$ ${r.total}</b></td><td>R$ ${r.qtd?Math.round(r.total/r.qtd):0}</td></tr>`).join('')}</table>`;
+ relCronograma.innerHTML=Object.values(grouped).sort((a,b)=>a.ev.data.localeCompare(b.ev.data)).map(g=>{ const total=g.lista.reduce((s,x)=>s+(x.mus?x.mus.cache:0),0); return `<div style="border-bottom:1px solid #1a1a1a;padding:8px 0"><b>${g.ev.data} - ${g.ev.local}</b> - Couver R$${g.ev.couver}<br><small>${g.lista.map(x=>x.mus?x.mus.nome:'?').join(', ')} | Cachês R$${total} | Lucro R$${g.ev.couver-total-g.ev.despesa}</small></div>`; }).join('')||'<small>Sem dados no período</small>';
 }
-function calcPagamento(){
-const ini=pgIni.value,fim=pgFim.value;
-if(!ini||!fim)return alert('Datas!');
-let evs=db.agenda.filter(a=>a.data>=ini&&a.data<=fim);
-let ids=evs.map(e=>e.id);
-let esc=db.escala.filter(es=>ids.includes(es.eventoId));
-let por={};
-esc.forEach(es=>{let m=db.musicos.find(x=>x.id===es.musicoId);if(!m)return;if(!por[m.id])por[m.id]={nome:m.nome,qtd:0,total:0,cache:m.cache};por[m.id].qtd++;por[m.id].total+=m.cache;});
-let tot=Object.values(por).reduce((s,p)=>s+p.total,0);
-resPagamento.innerHTML=`<div style=margin-top:10px><b>Semana ${ini} a ${fim}</b> - ${evs.length} eventos<table><tr><th>Músico</th><th>Dias</th><th>Dia</th><th>Semana</th></tr>${Object.values(por).map(p=>`<tr><td>${p.nome}</td><td>${p.qtd}</td><td>R$${p.cache}</td><td><b>R$${p.total}</b></td></tr>`).join('')}</table><div style=background:var(--gold);color:#000;padding:10px;border-radius:10px;font-weight:900;text-align:center;margin-top:8px>TOTAL FOLHA: R$ ${tot}</div></div>`;
-}
-function exportCSV(){
-let ag=agendaFiltrada();
-let csv='Data,Local,Couver,Despesa,Musicos,CacheTotal,Lucro\n';
-ag.forEach(a=>{
-let es=db.escala.filter(e=>e.eventoId===a.id);
-let nomes=es.map(e=>{let m=db.musicos.find(x=>x.id===e.musicoId);return m?m.nome:''}).join(' | ');
-let tot=es.reduce((s,e)=>{let m=db.musicos.find(x=>x.id===e.musicoId);return s+(m?m.cache:0)},0);
-csv+=`${a.data},${a.local},${a.couver},${a.desp},"${nomes}",${tot},${a.couver-tot-a.desp}\n`;
-});
-let blob=new Blob([csv],{type:'text/csv'});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download='taki_relatorio_periodo.csv';a.click();
-}
-window.addEventListener('load',()=>{
-const p=new URLSearchParams(location.search);
-const shared=p.get('text')||p.get('title');
-if(shared){goTab('cifras');cTexto.value=shared;cNome.value=p.get('title')||'Compartilhada';abrirModalCifra();}
-});
+function calcPagamento(){ let ini=pgInicio.value, fim=pgFim.value; if(!ini||!fim) return alert('Selecione inicio e fim'); let evFiltrados=db.agenda.filter(a=>a.data>=ini && a.data<=fim); let ids=evFiltrados.map(e=>e.id); let esc= db.escala.filter(es=>ids.includes(es.eventoId)); let porMusico={}; esc.forEach(es=>{let m=db.musicos.find(x=>x.id===es.musicoId); if(!m) return; if(!porMusico[m.id]) porMusico[m.id]={nome:m.nome,qtd:0,total:0,cache:m.cache}; porMusico[m.id].qtd++; porMusico[m.id].total+=m.cache;}); let html=`<div style="margin-top:10px"><b>Semana ${ini} a ${fim}</b><br><small>${evFiltrados.length} eventos</small><table><tr><th>Musico</th><th>Dias</th><th>Cache/Dia</th><th>Total Semana</th></tr>${Object.values(porMusico).map(p=>`<tr><td>${p.nome}</td><td>${p.qtd}</td><td>R$${p.cache}</td><td><b>R$${p.total}</b></td></tr>`).join('')}</table>`; let totSemana=Object.values(porMusico).reduce((s,p)=>s+p.total,0); html+=`<div class=totalBox>TOTAL FOLHA SEMANA: R$ ${totSemana}</div></div>`; resultadoPagamento.innerHTML=html; }
+function exportCSV(){ let ag=agendaFiltrada(); let csv='Data,Local,Couver,Despesa,Musico,CacheTotal,Lucro\n'; ag.forEach(a=>{ let es=db.escala.filter(e=>e.eventoId===a.id); let musicosEsc=es.map(e=>{let m=db.musicos.find(x=>x.id===e.musicoId); return m?m.nome+' R$'+m.cache:''}).join(' | '); let tot=es.reduce((s,e)=>{let m=db.musicos.find(x=>x.id===e.musicoId);return s+(m?m.cache:0)},0); csv+=`${a.data},${a.local},${a.couver},${a.despesa},"${musicosEsc}",${tot},${a.couver-tot-a.despesa}\n`; }); let blob=new Blob([csv],{type:'text/csv'}); let url=URL.createObjectURL(blob); let a=document.createElement('a'); a.href=url; a.download='taki_relatorio_periodo.csv'; a.click(); }
 renderAll();
 </script>
 </body>
