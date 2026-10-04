@@ -1,21 +1,205 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TAKI AGENDA PRO</title><style>:root{--gold:#D4AF37;--bg:#0A0A0A;--card:#1E1E1E;--b:#2a2a2a}*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}body{background:var(--bg);color:#fff;max-width:760px;margin:0 auto;padding-bottom:120px}.header{background:#111;padding:18px;border-bottom:3px solid var(--gold)}.logo{font-weight:900;font-size:22px}.logo span{color:var(--gold)}.tabs{display:flex;gap:6px;overflow:auto;padding:10px;background:var(--bg);border-bottom:1px solid var(--b);position:sticky;top:0;z-index:9}.tab{white-space:nowrap;padding:10px 16px;border-radius:20px;border:1px solid #333;background:var(--card);color:#fff;font-weight:700;font-size:12px}.tab.active{background:var(--gold);color:#000}.card{background:var(--card);border:1px solid var(--b);border-radius:14px;margin:10px;padding:12px}.card b{color:var(--gold)}input,select{width:100%;background:#000;border:1px solid #333;color:#fff;padding:12px;border-radius:10px;margin:5px 0}.btn{width:100%;padding:13px;border-radius:10px;border:1px solid #333;background:#222;color:#fff;font-weight:800;margin-top:6px}.btn-gold{background:var(--gold);color:#000;border:0}.btn-zap{background:#25D366;color:#000;border:0}.btn-sm{padding:6px 10px;font-size:11px;border-radius:6px;border:1px solid #333;background:#222;color:#fff;margin-left:4px}.row{display:flex;gap:6px}.row>*{flex:1}table{width:100%;border-collapse:collapse;margin-top:8px;font-size:11px}th,td{border:1px solid #333;padding:6px}th{background:#111;color:var(--gold)}.hidden{display:none}.item{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222;padding:10px 0}</style></head><body><div class="header"><div class="logo">TAKI <span>AGENDA PRO</span> <small style="color:#888">V13 RESUMO</small></div></div><div class="tabs"><button class="tab active" onclick="showTab('agenda',this)">MENSAL</button><button class="tab" onclick="showTab('musicos',this)">MÚSICOS</button><button class="tab" onclick="showTab('cronograma',this)">CRONOGRAMA</button><button class="tab" onclick="showTab('pagamento',this)">A RECEBER</button><button class="tab" onclick="showTab('relatorio',this)">RELATÓRIO</button></div><div id="agenda" class="sec"><div class="card"><b>📅 AGENDAMENTO SIMPLES</b><div class="row"><input id="agData" type="date"><select id="agCasa"><option>P1</option><option>P2</option><option>P3</option><option>P4</option><option>P5</option><option>P6</option></select></div><div class="row"><select id="agMusico"></select><select id="agTurno"><option>ALMOÇO</option><option>JANTAR</option><option>ALMOÇO E JANTAR</option></select></div><button class="btn btn-gold" onclick="addAgenda()">+ ADICIONAR SHOW</button></div><div class="card"><div id="listaAgenda"></div></div></div><div id="musicos" class="sec hidden"><div class="card"><b>🎸 MÚSICO</b><div class="row"><input id="mNome" placeholder="Nome"><input id="mInst" placeholder="Inst"></div><div class="row"><input id="mCache" type="number" placeholder="Cachê"><input id="mWhats" placeholder="Whats"></div><button class="btn btn-gold" onclick="addMusico()">SALVAR</button></div><div class="card"><div id="listaMusicos"></div></div></div><div id="cronograma" class="sec hidden"><div class="card"><div id="listaCronograma"></div></div></div><div id="pagamento" class="sec hidden"><div class="card"><b>💰 A RECEBER - RESUMO POR MÚSICO</b><div class="row"><input id="pgInicio" type="date"><input id="pgFim" type="date"></div><div class="row"><button class="btn btn-gold" onclick="setPeriodo(7)">7 DIAS</button><button class="btn btn-gold" onclick="setPeriodo(15)">15 DIAS</button><button class="btn btn-gold" onclick="setPeriodo(30)">30 DIAS</button></div><button class="btn btn-gold" onclick="calcPag()">CALCULAR</button><div id="resPag"></div><div id="areaPag" style="display:none"><div class="row"><button class="btn" onclick="imprimirPag()">🖨️ IMPRIMIR / PDF</button><button class="btn btn-zap" onclick="zapPag()">📲 COMPARTILHAR ZAP</button></div><button class="btn" style="background:linear-gradient(135deg,#D4AF37,#FFD700);color:#000" onclick="gerarCard('pag')">🎨 CARD BONITÃO</button><div id="previewPag" style="text-align:center"></div></div></div></div><div id="relatorio" class="sec hidden"><div class="card"><b>📊 RELATÓRIO COMPLETO</b><div class="row"><input id="relInicio" type="date"><input id="relFim" type="date"></div><div class="row"><button class="btn btn-gold" onclick="setPeriodo(7)">7 DIAS</button><button class="btn btn-gold" onclick="setPeriodo(15)">15 DIAS</button><button class="btn btn-gold" onclick="setPeriodo(30)">30 DIAS</button></div><button class="btn btn-gold" onclick="calcRelatorio()">GERAR RELATÓRIO</button><div id="resRel"></div><div id="areaRel" style="display:none"><div class="row"><button class="btn" onclick="imprimirRel()">🖨️ IMPRIMIR / PDF</button><button class="btn btn-zap" onclick="zapRel()">📲 COMPARTILHAR ZAP</button></div><button class="btn" style="background:linear-gradient(135deg,#D4AF37,#FFD700);color:#000" onclick="gerarCard('rel')">🎨 CARD BONITÃO</button><div id="previewRel" style="text-align:center"></div></div></div><div class="card"><div id="relCasa"></div></div></div><script>
-let db={musicos:[],agenda:[]};let dadosAP={};let dadosRel={};
-try{let r=localStorage.getItem('taki_v4');if(r){let p=JSON.parse(r);if(p.musicos)db.musicos=p.musicos;if(p.agenda)db.agenda=p.agenda}}catch(e){}
-function save(){localStorage.setItem('taki_v4',JSON.stringify(db));render()}
-function showTab(id,el){document.querySelectorAll('.sec').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');render()}
-function baseNome(n){if(!n)return'';let u=n.toUpperCase().trim();u=u.replace(/\s+DA\s+VAT\s+60|\s+DO\s+VAT\s+60|\s+DA\s+VAT|\s+DO\s+VAT|\s+VAT\s+60|\s+VAT/g,'');u=u.replace(/\s+60\s+ANOS|\s+60\b/g,'');u=u.replace(/\bDUO\b|\bTRIO\b|\bSOLO\b|\bACUSTICO\b|\bACÚSTICO\b/g,'');u=u.replace(/\s+/g,' ').trim();if(u.startsWith('DUO '))u=u.replace(/^DUO\s+/,'');return u||n.toUpperCase().trim()}
-function addMusico(){let nome=document.getElementById('mNome').value.trim();if(!nome)return alert('Nome');db.musicos.push({id:Date.now(),nome:nome,inst:document.getElementById('mInst').value.trim(),cache:Number(document.getElementById('mCache').value)||0,whats:document.getElementById('mWhats').value.trim()});document.getElementById('mNome').value='';document.getElementById('mInst').value='';document.getElementById('mCache').value='';document.getElementById('mWhats').value='';save()}
-function addAgenda(){let data=document.getElementById('agData').value;let casa=document.getElementById('agCasa').value;let musicoId=document.getElementById('agMusico').value;let turno=document.getElementById('agTurno').value;if(!data||!musicoId)return alert('Data e músico');if(turno==='ALMOÇO E JANTAR'){db.agenda.push({id:Date.now(),data:data,casa:casa,musicoId:Number(musicoId),turno:'ALMOÇO'});db.agenda.push({id:Date.now()+1,data:data,casa:casa,musicoId:Number(musicoId),turno:'JANTAR'})}else{db.agenda.push({id:Date.now(),data:data,casa:casa,musicoId:Number(musicoId),turno:turno})}save()}
-function del(t,id){if(!confirm('Excluir?'))return;db[t]=db[t].filter(x=>x.id!=id);save()}
-function editMusico(id){let m=db.musicos.find(x=>x.id==id);let n=prompt('Nome:',m.nome);if(n!==null&&n.trim())m.nome=n.trim();let c=prompt('Cachê:',m.cache);if(c!==null)m.cache=Number(c)||0;save()}
-function setPeriodo(dias){let fim=new Date();let ini=new Date();ini.setDate(fim.getDate()-dias+1);let i=ini.toISOString().slice(0,10);let f=fim.toISOString().slice(0,10);document.getElementById('relInicio').value=i;document.getElementById('relFim').value=f;document.getElementById('pgInicio').value=i;document.getElementById('pgFim').value=f;calcRelatorio();calcPag()}
-function render(){let sel=document.getElementById('agMusico');sel.innerHTML=db.musicos.map(m=>'<option value="'+m.id+'">'+m.nome+' R$'+m.cache+'</option>').join('')||'<option value="">Cadastre musicos</option>';document.getElementById('listaMusicos').innerHTML=db.musicos.map(m=>'<div class="item"><span><b>'+m.nome+'</b><br><small>R$'+m.cache+' | Base:<b style="color:#D4AF37">'+baseNome(m.nome)+'</b></small></span><span><button class="btn-sm" onclick="editMusico('+m.id+')">✏️</button><button class="btn-sm" onclick="del(\'musicos\','+m.id+')">X</button></span></div>').join('')||'Vazio';let s=db.agenda.slice().sort((a,b)=>a.data.localeCompare(b.data));document.getElementById('listaAgenda').innerHTML=s.map(a=>{let m=db.musicos.find(x=>x.id==a.musicoId);return '<div class="item"><span><b>'+a.data+'</b> <span style="background:#D4AF37;color:#000;padding:2px 6px;border-radius:4px;font-weight:900">'+a.casa+'</span> '+a.turno+'<br><small>'+(m?m.nome:'?')+' R$'+(m?m.cache:0)+'</small></span><span><button class="btn-sm" onclick="del(\'agenda\','+a.id+')">X</button></span></div>'}).join('')||'Vazio';let g={};db.agenda.forEach(a=>{if(!g[a.data])g[a.data]=[];g[a.data].push(a)});let hc='';Object.keys(g).sort().forEach(d=>{hc+='<div style="margin-top:8px;border-left:3px solid #D4AF37;padding-left:6px"><b>'+d+'</b></div>';let pc={};g[d].forEach(a=>{if(!pc[a.casa])pc[a.casa]=[];pc[a.casa].push(a)});Object.keys(pc).sort().forEach(c=>{hc+='<div style="margin:3px 0 3px 6px;background:#111;padding:6px;border-radius:8px"><span style="background:#D4AF37;color:#000;padding:2px 6px;border-radius:4px;font-weight:900">'+c+'</span> ';pc[c].forEach(a=>{let m=db.musicos.find(x=>x.id==a.musicoId);hc+='<span style="display:inline-block;padding:2px 6px;border-radius:10px;background:#222;border:1px solid #333;font-size:10px;margin:2px">'+(m?m.nome:'?')+' '+a.turno+'</span>'});hc+='</div>'})});document.getElementById('listaCronograma').innerHTML=hc||'Vazio'}
-function calcPag(){let i=document.getElementById('pgInicio').value;let f=document.getElementById('pgFim').value;if(!i||!f)return alert('Periodo');let fl=db.agenda.filter(a=>a.data>=i&&a.data<=f);let ap={};fl.forEach(a=>{let m=db.musicos.find(x=>x.id==a.musicoId);if(!m)return;let b=baseNome(m.nome);let v=Number(m.cache)||0;if(!ap[b])ap[b]={b:b,q:0,total:0,d:[]};ap[b].q+=1;ap[b].total+=v;ap[b].d.push(a.data+' '+a.casa+' '+a.turno)});let tot=Object.values(ap).reduce((s,x)=>s+x.total,0);let q=Object.values(ap).reduce((s,x)=>s+x.q,0);dadosAP={periodo:i+' a '+f,lista:Object.values(ap),total:tot,qtd:q};let h='<div style="background:#111;border:2px solid #D4AF37;padding:12px;border-radius:12px;margin-top:10px"><b style="color:#D4AF37;font-size:16px">💰 RESUMO POR MÚSICO - A RECEBER</b><table><tr><th>Músico</th><th>Shows</th><th>Valor Final</th></tr>'+Object.values(ap).map(x=>'<tr><td><b style="color:#D4AF37;font-size:13px">'+x.b+'</b><br><small style="color:#888">'+x.d.join('<br>')+'</small></td><td style="text-align:center"><b>'+x.q+'</b></td><td style="text-align:center;background:#D4AF37;color:#000;font-weight:900;font-size:14px">R$ '+x.total+'</td></tr>').join('')+'</table><div style="background:#D4AF37;color:#000;padding:12px;border-radius:8px;margin-top:10px;text-align:center;font-weight:900;font-size:18px">TOTAL GERAL: R$ '+tot+' - '+q+' SHOWS</div></div>';document.getElementById('resPag').innerHTML=h;document.getElementById('areaPag').style.display='block';}
-function calcRelatorio(){let i=document.getElementById('relInicio').value;let f=document.getElementById('relFim').value;if(!i||!f){let hoje=new Date();let ini=new Date();ini.setDate(hoje.getDate()-6);i=ini.toISOString().slice(0,10);f=hoje.toISOString().slice(0,10);document.getElementById('relInicio').value=i;document.getElementById('relFim').value=f;}let fl=db.agenda.filter(a=>a.data>=i&&a.data<=f).sort((a,b)=>a.data.localeCompare(b.data));let tot=0;fl.forEach(a=>{let m=db.musicos.find(x=>x.id==a.musicoId);if(m)tot+=Number(m.cache)||0});let ap={};fl.forEach(a=>{let m=db.musicos.find(x=>x.id==a.musicoId);if(!m)return;let b=baseNome(m.nome);if(!ap[b])ap[b]={b:b,q:0,total:0};ap[b].q+=1;ap[b].total+=Number(m.cache)||0});dadosRel={periodo:i+' a '+f,shows:fl,total:tot,qtd:fl.length,resumo:Object.values(ap)};let h='<div style="margin-top:10px"><b style="color:#D4AF37">📋 SHOWS DETALHADOS ('+fl.length+')</b><table><tr><th>Data</th><th>Casa</th><th>Músico</th><th>Turno</th><th>Cachê</th></tr>'+fl.map(a=>{let m=db.musicos.find(x=>x.id==a.musicoId);return '<tr><td>'+a.data.slice(5)+'</td><td>'+a.casa+'</td><td>'+(m?m.nome:'?')+'</td><td>'+a.turno+'</td><td>R$'+(m?m.cache:0)+'</td></tr>'}).join('')+'</table></div>';h+='<div style="background:#111;border:2px solid #D4AF37;padding:12px;border-radius:12px;margin-top:12px"><b style="color:#D4AF37;font-size:16px">💰 RESUMO POR MÚSICO - VALOR FINAL</b><table><tr><th>Músico</th><th>Qtd</th><th>Valor Final</th></tr>'+Object.values(ap).map(x=>'<tr><td><b style="color:#D4AF37;font-size:13px">'+x.b+'</b></td><td style="text-align:center"><b>'+x.q+'</b></td><td style="text-align:center;background:#D4AF37;color:#000;font-weight:900">R$ '+x.total+'</td></tr>').join('')+'</table><div style="background:#D4AF37;color:#000;padding:10px;border-radius:8px;margin-top:8px;text-align:center;font-weight:900">TOTAL: R$ '+tot+' - '+fl.length+' SHOWS</div></div>';document.getElementById('resRel').innerHTML=h;document.getElementById('areaRel').style.display=fl.length?'block':'none';let porCasa={};fl.forEach(a=>{if(!porCasa[a.casa])porCasa[a.casa]=[];porCasa[a.casa].push(a)});document.getElementById('relCasa').innerHTML='<b style="color:#D4AF37">POR CASA</b><table><tr><th>Casa</th><th>Shows</th></tr>'+Object.keys(porCasa).sort().map(c=>'<tr><td>'+c+'</td><td>'+porCasa[c].map(a=>{let m=db.musicos.find(x=>x.id==a.musicoId);return (m?baseNome(m.nome):'?')+' '+a.turno}).join(' | ')+'</td></tr>').join('')+'</table>';}
-function imprimirPag(){let h='<html><head><title>A Receber '+dadosAP.periodo+'</title><style>body{font-family:Arial;padding:20px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{border:1px solid #000;padding:8px}th{background:#D4AF37}.total{background:#D4AF37;padding:10px;font-weight:900;margin-top:10px;text-align:center}</style></head><body><h2>TAKI - A RECEBER</h2><p>Periodo: '+dadosAP.periodo+'</p>'+document.getElementById('resPag').innerHTML+'</body></html>';let w=window.open('','_blank');w.document.write(h);w.document.close();w.print()}
-function imprimirRel(){let h='<html><head><title>Relatorio '+dadosRel.periodo+'</title><style>body{font-family:Arial;padding:20px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{border:1px solid #000;padding:6px}th{background:#D4AF37}</style></head><body><h2>TAKI - RELATORIO</h2><p>Periodo: '+dadosRel.periodo+'</p>'+document.getElementById('resRel').innerHTML+'<br>'+document.getElementById('relCasa').innerHTML+'</body></html>';let w=window.open('','_blank');w.document.write(h);w.document.close();w.print()}
-function zapPag(){if(!dadosAP.lista)return;let txt='*TAKI - A RECEBER*%0APeriodo: '+dadosAP.periodo+'%0A%0A*RESUMO POR MUSICO*%0A';dadosAP.lista.forEach(x=>{txt+='*'+x.b+'* - '+x.q+' shows - R$'+x.total+'%0A';});txt+='%0A*TOTAL GERAL: R$'+dadosAP.total+' - '+dadosAP.qtd+' SHOWS*';window.open('https://wa.me/?text='+txt,'_blank')}
-function zapRel(){if(!dadosRel.resumo)return;let txt='*TAKI - RELATORIO*%0APeriodo: '+dadosRel.periodo+' - '+dadosRel.qtd+' shows%0A%0A*DETALHADO*%0A';dadosRel.shows.forEach(a=>{let m=db.musicos.find(x=>x.id==a.musicoId);txt+=a.data.slice(5)+' '+a.casa+' '+(m?baseNome(m.nome):'?')+' '+a.turno+' R$'+(m?m.cache:0)+'%0A';});txt+='%0A*RESUMO POR MUSICO - VALOR FINAL*%0A';dadosRel.resumo.forEach(x=>{txt+='*'+x.b+'* - '+x.q+' shows = R$'+x.total+'%0A';});txt+='%0A*TOTAL: R$'+dadosRel.total+'*';window.open('https://wa.me/?text='+txt,'_blank')}
-function gerarCard(tipo){let dados=tipo==='rel'?dadosRel:dadosAP;let canvas=document.createElement('canvas');canvas.width=1080;canvas.height=1920;let ctx=canvas.getContext('2d');let W=1080;ctx.fillStyle='#0A0A0A';ctx.fillRect(0,0,W,1920);ctx.fillStyle='#111';ctx.fillRect(0,0,W,180);ctx.fillStyle='#D4AF37';ctx.fillRect(0,170,W,10);ctx.fillStyle='#fff';ctx.font='900 60px system-ui';ctx.fillText('TAKI',40,110);ctx.fillStyle='#D4AF37';ctx.fillText('AGENDA PRO',200,110);ctx.fillStyle='#888';ctx.font='20px system-ui';ctx.fillText((tipo==='rel'?'RELATORIO':'A RECEBER')+' - '+dados.periodo,40,150);let y=250;if(tipo==='rel'){ctx.fillStyle='#D4AF37';ctx.font='900 28px system-ui';ctx.fillText('RESUMO POR MUSICO - VALOR FINAL',40,y);y+=40;dados.resumo.forEach(it=>{ctx.fillStyle='#1E1E1E';ctx.beginPath();ctx.roundRect(30,y,W-60,80,12);ctx.fill();ctx.fillStyle='#fff';ctx.font='900 28px system-ui';ctx.fillText(it.b+' - '+it.q+' shows',50,y+50);ctx.fillStyle='#D4AF37';ctx.fillText('R$'+it.total,800,y+50);y+=90});}else{dados.lista.forEach(it=>{ctx.fillStyle='#1E1E1E';ctx.beginPath();ctx.roundRect(30,y,W-60,80,12);ctx.fill();ctx.fillStyle='#fff';ctx.font='900 28px system-ui';ctx.fillText(it.b+' - '+it.q+' shows',50,y+50);ctx.fillStyle='#D4AF37';ctx.fillText('R$'+it.total,800,y+50);y+=90});}ctx.fillStyle='#D4AF37';ctx.beginPath();ctx.roundRect(30,1720,W-60,120,15);ctx.fill();ctx.fillStyle='#000';ctx.font='900 40px system-ui';ctx.textAlign='center';ctx.fillText('TOTAL R$'+dados.total+' - '+dados.qtd+' SHOWS',W/2,1795);ctx.textAlign='left';let img=canvas.toDataURL('image/png');document.getElementById(tipo==='rel'?'previewRel':'previewPag').innerHTML='<img src="'+img+'" style="width:100%;max-width:360px;border-radius:12px;border:2px solid #D4AF37;margin-top:10px"><br><a href="'+img+'" download="'+tipo+'-'+dados.periodo+'.png" class="btn" style="display:block;text-align:center;margin-top:6px;background:#25D366;color:#000;text-decoration:none;padding:12px;border-radius:10px;font-weight:900">💾 SALVAR IMAGEM</a>';}
-render();
-</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAKI AGENDA + CIFRAS V5.1</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#d4af37">
+<style>
+:root{--gold:#d4af37;--bg:#0f0f0f;--card:#1c1c1c}
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}
+body{background:var(--bg);color:#fff;padding-bottom:80px}
+header{position:sticky;top:0;z-index:10;background:#000;padding:12px;border-bottom:2px solid var(--gold)}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}
+.btn-gold{background:var(--gold);color:#000}
+.btn-dark{background:#2a2a2a;color:#fff;border:1px solid #444}
+.btn-green{background:#1DB954;color:#000}
+.tabs{display:flex;gap:6px;padding:10px;overflow:auto;background:#0a0a0a;border-bottom:1px solid #222}
+.tab{white-space:nowrap;padding:8px 14px;border-radius:20px;border:1px solid #333;background:#111;color:#fff;font-size:.85rem}
+.tab.active{background:var(--gold);color:#000}
+.card{background:var(--card);border:1px solid #2a2a2a;border-radius:16px;margin:10px;padding:12px}
+.row{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+input,select,textarea{flex:1;background:#121212;color:#fff;border:1px solid #333;border-radius:10px;padding:11px;min-width:110px}
+textarea{min-height:90px}
+.libs{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+.lib{background:var(--card);border:1px solid #2a2a2a;border-radius:14px;padding:14px;text-align:center;cursor:pointer}
+.lib.active{border-color:var(--gold);background:#2a2410}
+.item{background:#222;border-radius:12px;padding:12px;margin-bottom:6px;display:flex;justify-content:space-between;border:1px solid #2a2a2a}
+.stat{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat.box2{background:#111;border:1px solid #2a2a2a;border-radius:12px;padding:12px;text-align:center}
+.stat.box2 b{font-size:1.3rem;color:var(--gold);display:block}
+.stat.box2.gold{background:var(--gold);color:#000}
+.stat.box2.gold b{color:#000}
+.viewer{position:fixed;inset:0;background:#0e0e0e;z-index:20;display:none;flex-direction:column}
+.viewer.active{display:flex}
+.v-head{display:flex;flex-wrap:wrap;gap:6px;padding:10px;background:#000;border-bottom:1px solid var(--gold)}
+.v-content{flex:1;overflow:auto;padding:16px;white-space:pre-wrap;font-family:monospace;line-height:1.7}
+.c{color:var(--gold);font-weight:900}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:30;display:none;align-items:center;justify-content:center;padding:12px}
+.modal.active{display:flex}
+.box{background:#1a1a1a;border-radius:16px;padding:14px;width:100%;max-width:520px;border:1px solid #333;max-height:92vh;overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{border:1px solid #2a2a2a;padding:8px;text-align:left}
+th{background:#111;color:var(--gold)}
+.rank1{background:linear-gradient(90deg,#d4af3722,#0000)}
+</style>
+</head>
+<body>
+<header>
+<div class="top">
+<h1>TAKI <span>AGENDA + CIFRAS</span></h1>
+<div style="display:flex;gap:6px">
+<button class="btn btn-dark" onclick="toggleFull()">⛶</button>
+<button class="btn btn-green" onclick="shareApp()">📤 APP</button>
+</div>
+</div>
+<div class="tabs">
+<button class="tab active" data-t="cifras" onclick="goTab('cifras')">📚 BIBLIOTECAS</button>
+<button class="tab" data-t="agenda" onclick="goTab('agenda')">📅 AGENDA</button>
+<button class="tab" data-t="musicos" onclick="goTab('musicos')">🎸 MÚSICOS</button>
+<button class="tab" data-t="cronograma" onclick="goTab('cronograma')">🗓️ CRONOGRAMA</button>
+<button class="tab" data-t="pagamento" onclick="goTab('pagamento')">💰 PAGAMENTOS</button>
+<button class="tab" data-t="relatorio" onclick="goTab('relatorio')">📊 RELATÓRIO</button>
+</div>
+<div class="row" style="padding:0 10px">
+<input id="q" placeholder="🔍 Buscar..." oninput="renderAll()">
+</div>
+</header>
+<div id="sec-cifras"><div class="libs" id="libs"></div><div style="padding:10px"><div id="listCifras"></div><button class="btn btn-gold" style="width:100%;margin-top:8px" onclick="abrirModalCifra()">+ NOVA CIFRA</button></div></div>
+<div id="sec-agenda" style="display:none">
+<div class="card"><b>NOVO SHOW</b><div class="row"><input id="agData" type="date"><input id="agLocal" placeholder="Local"></div><div class="row"><input id="agCouver" type="number" placeholder="Couver R$"><input id="agDesp" type="number" placeholder="Despesa R$"></div><input id="agObs" placeholder="Obs"><button class="btn btn-gold" style="width:100%;margin-top:6px" onclick="addAgenda()">SALVAR</button></div>
+<div class="card"><b>EVENTOS</b><div id="listaAgenda"></div></div>
+</div>
+<div id="sec-musicos" style="display:none">
+<div class="card"><b>CADASTRAR MÚSICO</b><div class="row"><input id="mNome" placeholder="Nome"><input id="mInst" placeholder="Instrumento"></div><div class="row"><input id="mCache" type="number" placeholder="Cachê R$"><input id="mWhats" placeholder="WhatsApp"></div><button class="btn btn-gold" style="width:100%" onclick="addMusico()">SALVAR MÚSICO</button></div>
+<div class="card"><b>MÚSICOS</b><div id="listaMusicos"></div></div>
+</div>
+<div id="sec-cronograma" style="display:none">
+<div class="card"><b>ESCALAR MÚSICOS</b><select id="crEvento"></select><select id="crMusico"></select><button class="btn btn-gold" style="width:100%;margin-top:6px" onclick="addEscala()">ADICIONAR NA ESCALA</button></div>
+<div class="card"><b>CRONOGRAMA POR DATA</b><div id="listaCronograma"></div></div>
+</div>
+<div id="sec-pagamento" style="display:none">
+<div class="card"><b>PAGAMENTO SEMANAL</b><div class="row"><input id="pgIni" type="date"><input id="pgFim" type="date"></div><button class="btn btn-gold" style="width:100%;margin-top:6px" onclick="calcPagamento()">CALCULAR SEMANA</button><div id="resPagamento"></div></div>
+</div>
+<div id="sec-relatorio" style="display:none">
+<div class="card">
+<b>📊 RELATÓRIO BONITÃO</b>
+<div class="row" style="margin-top:8px">
+<input id="relIni" type="date"><input id="relFim" type="date">
+<button class="btn btn-gold" onclick="filtrarRelatorio()">🔍 FILTRAR PERÍODO</button>
+<button class="btn btn-dark" onclick="limparFiltro()">TUDO</button>
+</div>
+<div class="stat" style="margin-top:10px">
+<div class="box2"><small>Total Couver</small><b id="rCouver">R$ 0</b></div>
+<div class="box2"><small>Total Cachês</small><b id="rCache">R$ 0</b></div>
+<div class="box2"><small>Despesas</small><b id="rDesp">R$ 0</b></div>
+<div class="box2 gold"><small>LUCRO LÍQUIDO</small><b id="rLucro">R$ 0</b></div>
+</div>
+<small id="periodoInfo" style="opacity:.6;display:block;margin-top:6px"></small>
+</div>
+<div class="card"><b>🏆 RANKING 1º AO ÚLTIMO</b><small style="opacity:.6"> No período selecionado</small><div id="ranking" style="margin-top:8px"></div></div>
+<div class="card"><b>📅 CRONOGRAMA DO PERÍODO</b><small id="cronCount" style="opacity:.6"></small><div id="relCronograma" style="margin-top:8px"></div></div>
+<div class="card"><div class="row"><button class="btn btn-dark" style="flex:1" onclick="exportCSV()">📄 CSV do período</button><button class="btn btn-dark" style="flex:1;background:#600;color:#fff" onclick="if(confirm('Zerar?')){localStorage.clear();location.reload()}">🗑️ Zerar</button></div></div>
+</div>
+<div class="viewer" id="viewer"><div class="v-head"><button class="btn btn-dark" onclick="fechar()">⬅ Voltar</button><button class="btn btn-dark" onclick="transpor(-1)">- Tom</button><button class="btn btn-dark" onclick="transpor(1)">+ Tom</button><button class="btn btn-gold" id="simpBtn" onclick="toggleSimp()">🎸 Simp OFF</button><button class="btn btn-gold" id="playBtn" onclick="togglePlay()">▶️ INICIAR</button><button class="btn btn-green" onclick="shareCifra()">📤 COMPARTILHAR</button><button class="btn btn-dark" onclick="toggleFull()">⛶</button></div><div class="v-content" id="vc"></div></div>
+<div class="modal" id="modalCifra"><div class="box"><h3 style="color:var(--gold)">+ Nova Cifra</h3><div style="display:flex;flex-direction:column;gap:6px;margin-top:8px"><input id="cNome" placeholder="Música"><input id="cArt" placeholder="Artista"><select id="cBib"><option>Samba</option><option>Pagode</option><option>Sertanejo</option><option>Forró</option><option>Rock Nacional</option><option>MPB</option><option>Gospel</option><option>Pop</option><option>Outros</option></select><textarea id="cTexto" placeholder="Cole cifra com [G] [C]..."></textarea><div class="row"><button class="btn btn-dark" style="flex:1" onclick="fecharModalCifra()">Cancelar</button><button class="btn btn-gold" style="flex:1" onclick="salvarCifra()">💾 SALVAR</button></div></div></div></div>
+<script>
+const BIB=["TUDO","Samba","Pagode","Sertanejo","Forró","Rock Nacional","MPB","Gospel","Pop","Outros"];
+let bibAtiva="TUDO",tom=0,simp=false,playing=false,scInt=null;
+let db=JSON.parse(localStorage.getItem('taki_unificado_v5')||'{"cifras":[],"musicos":[],"agenda":[],"escala":[]}');
+let filtroIni=null,filtroFim=null;
+function save(){localStorage.setItem('taki_unificado_v5',JSON.stringify(db));renderAll();}
+function goTab(t){document.querySelectorAll('[id^=sec-]').forEach(s=>s.style.display='none');document.getElementById('sec-'+t).style.display='block';document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));document.querySelector(`[data-t=${t}]`).classList.add('active');renderAll();}
+function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}
+function shareApp(){const u=location.href;if(navigator.share)navigator.share({title:'TAKI AGENDA + CIFRAS',url:u});else{navigator.clipboard.writeText(u);alert('Link copiado!');}}
+function agendaFiltrada(){if(!filtroIni||!filtroFim) return db.agenda; return db.agenda.filter(a=>a.data>=filtroIni && a.data<=filtroFim);}
+function filtrarRelatorio(){filtroIni=relIni.value||null;filtroFim=relFim.value||null;if(!filtroIni||!filtroFim){alert('Selecione início e fim');return;}renderAll();goTab('relatorio');}
+function limparFiltro(){filtroIni=null;filtroFim=null;relIni.value='';relFim.value='';renderAll();}
+function renderLibs(){const el=document.getElementById('libs');el.innerHTML='';BIB.forEach(b=>{const c=b==="TUDO"?db.cifras.length:db.cifras.filter(x=>x.bib===b).length;const d=document.createElement('div');d.className='lib'+(bibAtiva===b?' active':'');d.innerHTML=`<b>${b}</b><small>${c} cifras</small>`;d.onclick=()=>{bibAtiva=b;renderLibs();renderCifras();};el.appendChild(d);});}
+function renderCifras(){const q=(document.getElementById('q').value||'').toLowerCase();const L=document.getElementById('listCifras');L.innerHTML='';if(db.cifras.length===0){L.innerHTML='<div style=text-align:center;opacity:.6;padding:20px>📚 Bibliotecas vazias</div>';return;}let f=db.cifras.map((x,i)=>{x._i=i;return x;});if(bibAtiva!=="TUDO")f=f.filter(x=>x.bib===bibAtiva);if(q)f=f.filter(x=>x.n.toLowerCase().includes(q)||x.a.toLowerCase().includes(q));f.forEach(x=>{const d=document.createElement('div');d.className='item';d.innerHTML=`<div><b style=color:var(--gold)>${x.n}</b><br><small>${x.a} • ${x.bib}</small></div><div>🎸</div>`;d.onclick=()=>abrirCifra(x._i);L.appendChild(d);});}
+function abrirModalCifra(){modalCifra.classList.add('active');}function fecharModalCifra(){modalCifra.classList.remove('active');}
+function salvarCifra(){const n=cNome.value.trim(),a=cArt.value.trim(),b=cBib.value,t=cTexto.value.trim();if(!n||!t)return alert('Nome e cifra!');db.cifras.push({n,a:a||'Desconhecido',bib:b,t});cNome.value=cArt.value=cTexto.value='';fecharModalCifra();save();renderLibs();}
+let cifraAtual=null;
+function abrirCifra(i){cifraAtual=i;tom=0;renderCifraTexto();viewer.classList.add('active');}
+function fechar(){viewer.classList.remove('active');stopPlay();}
+const NOTAS=["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+function transporChord(ch,s){return ch.replace(/\[([^\]]+)\]/g,(m,p)=>{let b=p.match(/^[A-G][#b]?/);if(!b)return m;let idx=NOTAS.indexOf(b[0]);if(idx<0)return m;return m.replace(b[0],NOTAS[(idx+s+12)%12]);});}
+function simplificar(txt){return txt.replace(/\[([^\]]+)\]/g,(m,i)=>{let r=i.match(/^[A-G][#b]?m?/);return r?"["+r[0]+"]":m;});}
+function renderCifraTexto(){let txt=db.cifras[cifraAtual].t;if(simp)txt=simplificar(txt);if(tom)txt=transporChord(txt,tom);let html=txt.replace(/\[([^\]]+)\]/g,'<span class=c>[$1]</span>');vc.innerHTML=`<h2 style=color:var(--gold)>${db.cifras[cifraAtual].n}</h2><small>${db.cifras[cifraAtual].a} • ${db.cifras[cifraAtual].bib}</small><br><br>`+html;}
+function transpor(d){tom+=d;renderCifraTexto();}
+function toggleSimp(){simp=!simp;simpBtn.textContent=simp?"🎸 Simp ON":"🎸 Simp OFF";renderCifraTexto();}
+function togglePlay(){if(playing){stopPlay();return}playing=true;playBtn.textContent="⏸️ PAUSAR";const el=vc;scInt=setInterval(()=>{el.scrollTop+=1;if(el.scrollTop+el.clientHeight>=el.scrollHeight)stopPlay()},35);}
+function stopPlay(){playing=false;playBtn.textContent="▶️ INICIAR";clearInterval(scInt);}
+function shareCifra(){const txt=`${db.cifras[cifraAtual].n} - ${db.cifras[cifraAtual].a}\n\n${db.cifras[cifraAtual].t}`;if(navigator.share)navigator.share({title:db.cifras[cifraAtual].n,text:txt});else{navigator.clipboard.writeText(txt);alert('Copiado!');}}
+function addMusico(){const m={id:Date.now(),nome:mNome.value,inst:mInst.value,cache:Number(mCache.value)||0,whats:mWhats.value};if(!m.nome)return alert('Nome!');db.musicos.push(m);mNome.value=mInst.value=mCache.value=mWhats.value='';save();}
+function addAgenda(){const a={id:Date.now(),data:agData.value,local:agLocal.value,couver:Number(agCouver.value)||0,desp:Number(agDesp.value)||0,obs:agObs.value};if(!a.data||!a.local)return alert('Data e local');db.agenda.push(a);agData.value=agLocal.value=agCouver.value=agDesp.value=agObs.value='';save();}
+function addEscala(){const eid=Number(crEvento.value),mid=Number(crMusico.value);if(!eid||!mid)return alert('Selecione');db.escala.push({id:Date.now(),eventoId:eid,musicoId:mid});save();}
+function del(tipo,id){db[tipo]=db[tipo].filter(x=>x.id!==id);if(tipo==='agenda'||tipo==='musicos')db.escala=db.escala.filter(e=>e.eventoId!==id&&e.musicoId!==id);save();}
+function renderAll(){
+renderLibs();renderCifras();
+const q=(document.getElementById('q').value||'').toLowerCase();
+listaMusicos.innerHTML=db.musicos.filter(m=>!q||m.nome.toLowerCase().includes(q)).map(m=>`<div style=display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #222><span><b>${m.nome}</b> <small>${m.inst}</small><br><small>R$ ${m.cache}/dia</small></span><button class="btn btn-dark" onclick="del('musicos',${m.id})">X</button></div>`).join('')||'<small>Nenhum músico</small>';
+listaAgenda.innerHTML=db.agenda.filter(a=>!q||a.local.toLowerCase().includes(q)).sort((a,b)=>a.data.localeCompare(b.data)).map(a=>`<div style=padding:6px 0;border-bottom:1px solid #222><b>${a.data}</b> - ${a.local} <small style=color:var(--gold)>R$${a.couver}</small><br><small>${a.obs} | Desp R$${a.desp}</small> <button class="btn btn-dark" onclick="del('agenda',${a.id})">X</button></div>`).join('')||'<small>Nenhum evento</small>';
+crEvento.innerHTML=db.agenda.map(a=>`<option value=${a.id}>${a.data} - ${a.local}</option>`).join('');
+crMusico.innerHTML=db.musicos.map(m=>`<option value=${m.id}>${m.nome} - R$${m.cache}</option>`).join('');
+let agFil=agendaFiltrada();
+let idsFil=agFil.map(a=>a.id);
+let escFil=db.escala.filter(es=>idsFil.includes(es.eventoId));
+let grouped={};
+escFil.forEach(es=>{let ev=agFil.find(a=>a.id===es.eventoId);if(!ev)return;let key=ev.data+'|'+ev.local+'|'+ev.id;if(!grouped[key])grouped[key]={ev,lista:[]};let mus=db.musicos.find(m=>m.id===es.musicoId);grouped[key].lista.push({esId:es.id,mus});});
+listaCronograma.innerHTML=Object.values(grouped).sort((a,b)=>a.ev.data.localeCompare(b.ev.data)).map(g=>{
+const total=g.lista.reduce((s,x)=>s+(x.mus?x.mus.cache:0),0);
+return `<div class=card style=margin:6px 0;background:#111><b>📅 ${g.ev.data} - ${g.ev.local}</b> <small style=color:var(--gold)>Couver R$${g.ev.couver}</small><br>${g.lista.map(x=>`• ${x.mus?x.mus.nome:'?'} R$${x.mus?x.mus.cache:0}`).join('<br>')}<br><b style=color:var(--gold)>Total: R$${total} | Líquido: R$${g.ev.couver-total-g.ev.desp}</b></div>`;
+}).join('')||'<small>Nenhuma escala</small>';
+let totalCouver=agFil.reduce((s,a)=>s+a.couver,0);
+let totalDesp=agFil.reduce((s,a)=>s+a.desp,0);
+let totalCache=escFil.reduce((s,es)=>{let m=db.musicos.find(x=>x.id===es.musicoId);return s+(m?m.cache:0)},0);
+let lucro=totalCouver-totalDesp-totalCache;
+rCouver.textContent='R$ '+totalCouver;
+rCache.textContent='R$ '+totalCache;
+rDesp.textContent='R$ '+totalDesp;
+rLucro.textContent='R$ '+lucro;
+periodoInfo.textContent=filtroIni?`Período: ${filtroIni.split('-').reverse().join('/')} até ${filtroFim.split('-').reverse().join('/')} - ${agFil.length} eventos`:`Todos - ${agFil.length} eventos`;
+cronCount.textContent=` (${agFil.length} eventos)`;
+let rank={};db.musicos.forEach(m=>rank[m.id]={nome:m.nome,inst:m.inst,qtd:0,total:0});
+escFil.forEach(es=>{if(rank[es.musicoId]){rank[es.musicoId].qtd++;let m=db.musicos.find(x=>x.id===es.musicoId);rank[es.musicoId].total+=(m?m.cache:0)}});
+let rankArr=Object.values(rank).sort((a,b)=>b.qtd-a.qtd||b.total-a.total);
+ranking.innerHTML=`<table><tr><th>#</th><th>Músico</th><th>Shows</th><th>Total</th><th>Média</th></tr>${rankArr.map((r,i)=>`<tr class=${i===0?'rank1':''}><td>${i+1}º ${i===0?'🏆':''}</td><td><b>${r.nome}</b><br><small>${r.inst}</small></td><td>${r.qtd}</td><td><b>R$ ${r.total}</b></td><td>R$ ${r.qtd?Math.round(r.total/r.qtd):0}</td></tr>`).join('')}</table>`;
+relCronograma.innerHTML=Object.values(grouped).sort((a,b)=>a.ev.data.localeCompare(b.ev.data)).map(g=>{
+const total=g.lista.reduce((s,x)=>s+(x.mus?x.mus.cache:0),0);
+return `<div style=border-bottom:1px solid #222;padding:8px 0><b>${g.ev.data} - ${g.ev.local}</b> - Couver R$${g.ev.couver}<br><small>${g.lista.map(x=>x.mus?x.mus.nome:'?').join(', ')} | Cachês R$${total} | Lucro R$${g.ev.couver-total-g.ev.desp}</small></div>`;
+}).join('')||'<small>Sem dados no período</small>';
+}
+function calcPagamento(){
+const ini=pgIni.value,fim=pgFim.value;
+if(!ini||!fim)return alert('Datas!');
+let evs=db.agenda.filter(a=>a.data>=ini&&a.data<=fim);
+let ids=evs.map(e=>e.id);
+let esc=db.escala.filter(es=>ids.includes(es.eventoId));
+let por={};
+esc.forEach(es=>{let m=db.musicos.find(x=>x.id===es.musicoId);if(!m)return;if(!por[m.id])por[m.id]={nome:m.nome,qtd:0,total:0,cache:m.cache};por[m.id].qtd++;por[m.id].total+=m.cache;});
+let tot=Object.values(por).reduce((s,p)=>s+p.total,0);
+resPagamento.innerHTML=`<div style=margin-top:10px><b>Semana ${ini} a ${fim}</b> - ${evs.length} eventos<table><tr><th>Músico</th><th>Dias</th><th>Dia</th><th>Semana</th></tr>${Object.values(por).map(p=>`<tr><td>${p.nome}</td><td>${p.qtd}</td><td>R$${p.cache}</td><td><b>R$${p.total}</b></td></tr>`).join('')}</table><div style=background:var(--gold);color:#000;padding:10px;border-radius:10px;font-weight:900;text-align:center;margin-top:8px>TOTAL FOLHA: R$ ${tot}</div></div>`;
+}
+function exportCSV(){
+let ag=agendaFiltrada();
+let csv='Data,Local,Couver,Despesa,Musicos,CacheTotal,Lucro\n';
+ag.forEach(a=>{
+let es=db.escala.filter(e=>e.eventoId===a.id);
+let nomes=es.map(e=>{let m=db.musicos.find(x=>x.id===e.musicoId);return m?m.nome:''}).join(' | ');
+let tot=es.reduce((s,e)=>{let m=db.musicos.find(x=>x.id===e.musicoId);return s+(m?m.cache:0)},0);
+csv+=`${a.data},${a.local},${a.couver},${a.desp},"${nomes}",${tot},${a.couver-tot-a.desp}\n`;
+});
+let blob=new Blob([csv],{type:'text/csv'});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download='taki_relatorio_periodo.csv';a.click();
+}
+window.addEventListener('load',()=>{
+const p=new URLSearchParams(location.search);
+const shared=p.get('text')||p.get('title');
+if(shared){goTab('cifras');cTexto.value=shared;cNome.value=p.get('title')||'Compartilhada';abrirModalCifra();}
+});
+renderAll();
+</script>
+</body>
+</html>
