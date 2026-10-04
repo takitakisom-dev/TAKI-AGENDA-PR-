@@ -1,2 +1,91 @@
-[ De: 📅 ] [ Até: 📅 ]
-[ 🔍 FILTRAR PERÍODO ] [ VER TUDO ]
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TAKI AGENDA PRO</title>
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#000000">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,Segoe UI,Arial}
+body{background:#000;color:#e8d5a3;max-width:700px;margin:0 auto;padding-bottom:80px}
+.header{background:#0a0a0a;padding:14px 12px;border-bottom:2px solid #FFD700;position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.logo{font-weight:900;letter-spacing:2px}.logo span{color:#FFD700}
+.tabs{display:flex;gap:6px;overflow:auto;padding:10px;background:#0a0a0a;border-bottom:1px solid #1a1a1a;position:sticky;top:56px;z-index:15}
+.tab{white-space:nowrap;padding:8px 14px;border-radius:20px;border:1px solid #333;background:#111;color:#e8d5a3;font-weight:bold;font-size:12px}
+.tab.active{background:#FFD700;color:#000;border-color:#FFD700}
+.card{background:#111;border:1px solid #222;border-radius:14px;margin:10px;padding:14px}
+input,select{width:100%;background:#000;border:1px solid #333;color:#e8d5a3;padding:11px;border-radius:10px;margin:6px 0}
+.btn{width:100%;padding:12px;border-radius:10px;border:1px solid #333;background:#222;color:#e8d5a3;font-weight:bold;margin-top:6px;cursor:pointer}
+.btn-gold{background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;border:none}
+.btn-sm{width:auto;display:inline-block;padding:6px 10px;font-size:11px;margin:2px}
+.row{display:flex;gap:8px}.row>*{flex:1}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12px}
+th,td{border:1px solid #222;padding:8px;text-align:left} th{background:#1a1a1a;color:#FFD700}
+.badge{padding:2px 6px;border-radius:10px;background:#222;font-size:10px;border:1px solid #333}
+.totalBox{background:#FFD700;color:#000;padding:12px;border-radius:10px;font-weight:900;text-align:center;margin-top:10px;font-size:14px}
+.hidden{display:none}
+.stat{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.stat .b{background:#0a0a0a;border:1px solid #222;border-radius:12px;padding:12px;text-align:center}
+.stat .b b{color:#FFD700;font-size:1.3rem;display:block}
+.stat .b.gold{background:#FFD700;color:#000} .stat .b.gold b{color:#000}
+.rank1{background:linear-gradient(90deg,#FFD70022,#0000)}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo">TAKI <span>AGENDA PRO</span></div>
+<small style="opacity:.6">takitakisom@gmail.com</small>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="show('agenda')">📅 AGENDA</button>
+<button class="tab" onclick="show('musicos')">🎸 MUSICOS</button>
+<button class="tab" onclick="show('cronograma')">🗓️ CRONOGRAMA</button>
+<button class="tab" onclick="show('pagamento')">💰 PAGAMENTOS</button>
+<button class="tab" onclick="show('relatorio')">📊 RELATÓRIO BONITÃO</button>
+</div>
+<div id="agenda" class="sec">
+<div class="card">
+<b>NOVO SHOW / EVENTO</b>
+<div class="row"><input id="agData" type="date"><input id="agLocal" placeholder="Local"></div>
+<div class="row"><input id="agCouver" type="number" placeholder="Couver total R$"><input id="agDespesa" type="number" placeholder="Despesa extra R$"></div>
+<input id="agObs" placeholder="Obs">
+<button class="btn btn-gold" onclick="addAgenda()">SALVAR EVENTO</button>
+</div>
+<div class="card"><b>AGENDA CADASTRADA</b><div id="listaAgenda"></div></div>
+</div>
+<div id="musicos" class="sec hidden">
+<div class="card">
+<b>CADASTRAR MUSICO</b>
+<div class="row"><input id="mNome" placeholder="Nome"><input id="mInst" placeholder="Instrumento"></div>
+<div class="row"><input id="mCache" type="number" placeholder="Cache diario R$"><input id="mWhats" placeholder="WhatsApp"></div>
+<button class="btn btn-gold" onclick="addMusico()">SALVAR MUSICO</button>
+</div>
+<div class="card"><b>MUSICOS CADASTRADOS</b><div id="listaMusicos"></div></div>
+</div>
+<div id="cronograma" class="sec hidden">
+<div class="card">
+<b>ESCALAR MUSICOS NO EVENTO</b>
+<select id="crEvento"></select>
+<select id="crMusico"></select>
+<button class="btn btn-gold" onclick="addEscala()">ADICIONAR NA ESCALA</button>
+</div>
+<div class="card"><b>CRONOGRAMA POR DATA</b><div id="listaCronograma"></div></div>
+</div>
+<div id="pagamento" class="sec hidden">
+<div class="card">
+<b>PAGAMENTO SEMANAL</b>
+<div class="row"><input id="pgInicio" type="date"><input id="pgFim" type="date"></div>
+<button class="btn btn-gold" onclick="calcPagamento()">CALCULAR SEMANA</button>
+<div id="resultadoPagamento"></div>
+</div>
+</div>
+<div id="relatorio" class="sec hidden">
+<div class="card">
+<b>📊 RELATÓRIO BONITÃO - COM FILTRO DE PERÍODO</b>
+<div class="row" style="margin-top:8px">
+<input id="relIni" type="date"><input id="relFim" type="date">
+</div>
+<div class="row">
+<button class="btn btn-gold" onclick="filtrarRelatorio()">🔍 FILTRAR PERÍODO</button>
+<button class="btn" onclick="limparFiltro()">VER TUDO</button>
+</div>
+<small id="periodoInfo" style="opacity:.6;display:block;margin-top:6px"></small>
