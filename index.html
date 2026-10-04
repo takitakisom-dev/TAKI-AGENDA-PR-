@@ -2,87 +2,102 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>TAKI AGENDA PRO BLINDADO</title>
+<title>TAKI AGENDA PRO - P1-P6 OFFLINE</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#FFD700">
+<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3659/3659784.png">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,Segoe UI,Arial}
-body{background:#000;color:#e8d5a3;max-width:700px;margin:0 auto;padding-bottom:80px}
-.header{background:#0a0a0a;padding:14px 12px;border-bottom:2px solid #FFD700;position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:900;letter-spacing:2px}.logo span{color:#FFD700}
-.tabs{display:flex;gap:6px;overflow:auto;padding:10px;background:#0a0a0a;border-bottom:1px solid #1a1a1a;position:sticky;top:56px;z-index:15}
-.tab{white-space:nowrap;padding:8px 14px;border-radius:20px;border:1px solid #333;background:#111;color:#e8d5a3;font-weight:bold;font-size:12px}
+body{background:#000;color:#e8d5a3;max-width:800px;margin:0 auto;padding-bottom:90px}
+.header{background:#0a0a0a;padding:14px;border-bottom:2px solid #FFD700;position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.logo{font-weight:900;letter-spacing:1px}.logo span{color:#FFD700}
+.tabs{display:flex;gap:6px;overflow:auto;padding:10px;background:#0a0a0a;border-bottom:1px solid #1a1a1a;position:sticky;top:54px;z-index:25}
+.tab{white-space:nowrap;padding:8px 12px;border-radius:20px;border:1px solid #333;background:#111;color:#e8d5a3;font-weight:bold;font-size:11px}
 .tab.active{background:#FFD700;color:#000;border-color:#FFD700}
 .card{background:#111;border:1px solid #222;border-radius:14px;margin:10px;padding:14px}
-input,select{width:100%;background:#000;border:1px solid #333;color:#e8d5a3;padding:11px;border-radius:10px;margin:6px 0}
-.btn{width:100%;padding:12px;border-radius:10px;border:1px solid #333;background:#222;color:#e8d5a3;font-weight:bold;margin-top:6px;cursor:pointer}
+input,select{width:100%;background:#000;border:1px solid #333;color:#e8d5a3;padding:10px;border-radius:10px;margin:5px 0;font-size:13px}
+.btn{width:100%;padding:11px;border-radius:10px;border:1px solid #333;background:#222;color:#e8d5a3;font-weight:bold;margin-top:6px;cursor:pointer;font-size:13px}
 .btn-gold{background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;border:none}
-.btn-sm{width:auto;display:inline-block;padding:6px 10px;font-size:11px;margin:2px}
+.btn-sm{padding:5px 9px;font-size:11px;width:auto;display:inline-block;margin:2px;border-radius:8px}
 .row{display:flex;gap:8px}.row>*{flex:1}
 table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12px}
-th,td{border:1px solid #222;padding:8px;text-align:left} th{background:#1a1a1a;color:#FFD700}
+th,td{border:1px solid #222;padding:7px;text-align:left} th{background:#1a1a1a;color:#FFD700;font-size:11px}
 .badge{padding:2px 6px;border-radius:10px;background:#222;font-size:10px;border:1px solid #333}
-.totalBox{background:#FFD700;color:#000;padding:12px;border-radius:10px;font-weight:900;text-align:center;margin-top:10px;font-size:14px}
+.pbox{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px}
+.pitem{background:#0a0a0a;border:1px solid #222;border-radius:10px;padding:8px;text-align:center}
+.pitem b{display:block;color:#FFD700;font-size:11px}
 .hidden{display:none}
-.stat{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-.stat.b{background:#0a0a0a;border:1px solid #222;border-radius:12px;padding:12px;text-align:center}
-.stat.b b{color:#FFD700;font-size:1.3rem;display:block}
-.stat.b.gold{background:#FFD700;color:#000}.stat.b.gold b{color:#000}
+.totalBox{background:#FFD700;color:#000;padding:12px;border-radius:10px;font-weight:900;text-align:center;margin-top:10px}
+.weekend{border-color:#FFD700!important; box-shadow:0 0 0 1px #FFD70044}
 </style>
 </head>
 <body>
-<div class="header"><div class="logo">TAKI <span>AGENDA PRO BLINDADO</span></div><small>backup seguro</small></div>
+<div class="header"><div class="logo">TAKI <span>AGENDA PRO P1-P6 OFFLINE</span></div><small style="opacity:.7">VAT60→Anderson • RICK DUO/TRIO→RICK • ROBSON DUO→ROBSON</small></div>
 <div class="tabs">
-<button class="tab active" onclick="show('agenda')">📅 AGENDA</button>
+<button class="tab active" onclick="show('agenda')">📅 SEMANAL P1-P6</button>
 <button class="tab" onclick="show('musicos')">🎸 MUSICOS</button>
-<button class="tab" onclick="show('cronograma')">🗓️ CRONOGRAMA</button>
-<button class="tab" onclick="show('pagamento')">💰 PAGAMENTOS</button>
-<button class="tab" onclick="show('relatorio')">📊 RELATÓRIO</button>
+<button class="tab" onclick="show('pagamento')">💰 PAGAMENTO</button>
+<button class="tab" onclick="show('relatorio')">📊 MENSAL</button>
 </div>
-<div id="agenda" class="sec"><div class="card"><b>NOVO SHOW</b><div class="row"><input id="agData" type="date"><input id="agLocal" placeholder="Local"></div><div class="row"><input id="agCouver" type="number" placeholder="Couver R$"><input id="agDespesa" type="number" placeholder="Despesa R$"></div><input id="agObs" placeholder="Obs"><button class="btn btn-gold" onclick="addAgenda()">SALVAR EVENTO</button></div><div class="card"><b>AGENDA</b><div id="listaAgenda"></div></div></div>
-<div id="musicos" class="sec hidden"><div class="card"><b>CADASTRAR MUSICO</b><div class="row"><input id="mNome" placeholder="Nome"><input id="mInst" placeholder="Instrumento"></div><div class="row"><input id="mCache" type="number" placeholder="Cache R$"><input id="mWhats" placeholder="WhatsApp"></div><button class="btn btn-gold" onclick="addMusico()">SALVAR MUSICO</button></div><div class="card"><b>MUSICOS - com proteção agora</b><div id="listaMusicos"></div></div></div>
-<div id="cronograma" class="sec hidden"><div class="card"><b>ESCALAR</b><select id="crEvento"></select><select id="crMusico"></select><button class="btn btn-gold" onclick="addEscala()">ADICIONAR NA ESCALA</button></div><div class="card"><b>CRONOGRAMA POR DATA</b><div id="listaCronograma"></div></div></div>
-<div id="pagamento" class="sec hidden"><div class="card"><b>PAGAMENTO SEMANAL</b><div class="row"><input id="pgInicio" type="date"><input id="pgFim" type="date"></div><button class="btn btn-gold" onclick="calcPagamento()">CALCULAR SEMANA</button><div id="resultadoPagamento"></div></div></div>
+<div id="agenda" class="sec">
+<div class="card">
+<b>📅 MONTAR SEMANA - P1 P2 P3 P4 P5 P6</b>
+<small style="display:block;opacity:.6;margin:4px 0">P1=Almoço P2=Jantar P3-P6 Extra | SÁB/DOM: cada P = 1 cachê (André P1 almoço + P2 jantar = 2 shows = 2 cachês)</small>
+<div class="row"><input id="semDataIni" type="date"><button class="btn btn-gold" style="max-width:140px" onclick="gerarSemana()">GERAR SEMANA</button></div>
+<div id="gradeSemana"></div>
+</div>
+<div class="card"><b>AGENDA SALVA</b><div id="listaAgenda"></div></div>
+</div>
+<div id="musicos" class="sec hidden">
+<div class="card">
+<b>CADASTRAR MUSICO - COM GRUPO AUTOMÁTICO</b>
+<div class="row"><input id="mNome" placeholder="Nome ex: Anderson, VAT 60, Rick, Rick DUO, Rick TRIO, Robson, Robson DUO"><input id="mInst" placeholder="Instrumento"></div>
+<div class="row"><input id="mCache" type="number" placeholder="Cache por show R$"><input id="mWhats" placeholder="WhatsApp"><select id="mGrupo"><option value="">Grupo auto (VAT60→ANDERSON, RICK*→RICK, ROBSON*→ROBSON)</option><option value="ANDERSON">ANDERSON (inclui VAT 60)</option><option value="RICK">RICK (inclui DUO/TRIO)</option><option value="ROBSON">ROBSON (inclui DUO)</option><option value="ANDRE TAKI">ANDRE TAKI</option><option value="EDILL">EDILL</option><option value="">Outro / Individual</option></select></div>
+<button class="btn btn-gold" onclick="addMusico()">SALVAR MUSICO</button>
+</div>
+<div class="card"><b>MUSICOS E GRUPOS</b><div id="listaMusicos"></div></div>
+</div>
+<div id="pagamento" class="sec hidden">
+<div class="card">
+<b>💰 PAGAMENTO SEMANAL/MENSAL - SAB/DOM 2 CACHÊS</b>
+<div class="row"><input id="pgInicio" type="date"><input id="pgFim" type="date"></div>
+<button class="btn btn-gold" onclick="calcPagamento()">CALCULAR PERÍODO</button>
+<div id="resultadoPagamento"></div>
+</div>
+</div>
 <div id="relatorio" class="sec hidden">
-<div class="card"><b>📊 RELATÓRIO + BACKUP</b><div class="row"><input id="relIni" type="date"><input id="relFim" type="date"></div><div class="row"><button class="btn btn-gold" onclick="filtrarRelatorio()">🔍 FILTRAR</button><button class="btn" onclick="limparFiltro()">VER TUDO</button></div><small id="periodoInfo" style="opacity:.6;display:block;margin-top:6px"></small><div class="stat"><div class="b"><small>Total Couver</small><b id="rCouver">R$ 0</b></div><div class="b"><small>Total Cachês</small><b id="rCache">R$ 0</b></div><div class="b"><small>Despesas</small><b id="rDesp">R$ 0</b></div><div class="b gold"><small>LUCRO LÍQUIDO</small><b id="rLucro">R$ 0</b></div></div></div>
-<div class="card"><b>🏆 RANKING</b><div id="ranking"></div></div>
-<div class="card"><b>📅 CRONOGRAMA DO PERÍODO</b><div id="relCronograma"></div></div>
-<div class="card" style="border:2px solid #FFD700"><b>💾 SEGURANÇA - BACKUP</b><small style="display:block;margin:6px 0">Salve toda semana!</small><div class="row"><button class="btn btn-gold" onclick="backupJSON()">💾 FAZER BACKUP</button><label class="btn" style="display:flex;align-items:center;justify-content:center">📥 RESTAURAR<input type="file" style="display:none" onchange="restoreJSON(this)" accept=".json"></label></div><div class="row" style="margin-top:6px"><button class="btn" onclick="exportCSV()">📄 CSV</button><button class="btn" style="background:#300;color:#ffb3b3" onclick="if(confirm('ZERAR TUDO? Tem backup?')){localStorage.clear();location.reload()}">🗑️ Zerar</button></div></div>
+<div class="card">
+<b>📊 RELATÓRIO MENSAL AGRUPADO</b>
+<div class="row"><input id="relIni" type="date"><input id="relFim" type="date"></div>
+<div class="row"><button class="btn btn-gold" onclick="filtrarRelatorio()">🔍 FILTRAR MÊS</button><button class="btn" onclick="limparFiltro()">VER TUDO</button></div>
+<small id="periodoInfo" style="opacity:.6;display:block;margin-top:6px"></small>
+<div id="resumoMensal"></div>
+</div>
+<div class="card"><b>🏆 RANKING - VAT60+Anderson / Rick DUO/TRIO+Rick / Robson DUO+Robson</b><div id="ranking"></div></div>
+<div class="card" style="border:2px solid #FFD700"><b>💾 BACKUP BLINDADO + INSTALÁVEL</b><small style="display:block;margin:6px 0">Funciona offline! Salve backup toda semana</small><div class="row"><button class="btn btn-gold" onclick="backupJSON()">💾 FAZER BACKUP</button><label class="btn" style="display:flex;align-items:center;justify-content:center">📥 RESTAURAR<input type="file" style="display:none" onchange="restoreJSON(this)" accept=".json"></label></div><button class="btn" id="btnInstalar" style="display:none;background:#fff;color:#000;margin-top:10px" onclick="instalarPWA()">📲 INSTALAR APP NO CELULAR</button></div>
 </div>
 <script>
 let db = JSON.parse(localStorage.getItem('taki_agenda_v1')||'{"musicos":[],"agenda":[],"escala":[]}');
-let filtroIni=null,filtroFim=null;
+let filtroIni=null,filtroFim=null;let semanaAtual=[];let deferredPrompt=null;
 function save(){localStorage.setItem('taki_agenda_v1',JSON.stringify(db)); renderAll();}
 function show(id){document.querySelectorAll('.sec').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));event.target.classList.add('active'); renderAll();}
+function getGrupo(m){ if(m.grupo) return m.grupo; let n=m.nome.toUpperCase(); if(n.includes('VAT')||n.includes('60')) return 'ANDERSON'; if(n.includes('RICK')) return 'RICK'; if(n.includes('ROBSON')) return 'ROBSON'; return m.nome.toUpperCase();}
+function addMusico(){ let nome=mNome.value.trim(); if(!nome) return alert('Nome obrigatorio'); let m={id:Date.now(),nome:nome,inst:mInst.value,cache:Number(mCache.value)||0,whats:mWhats.value,grupo:mGrupo.value}; db.musicos.push(m); mNome.value=mInst.value=mCache.value=mWhats.value=''; mGrupo.value=''; save();}
+function gerarSemana(){ let ini=semDataIni.value; if(!ini) return alert('Selecione data inicial (segunda)'); let d=new Date(ini+'T12:00:00'); semanaAtual=[]; for(let i=0;i<7;i++){ let dt=new Date(d); dt.setDate(d.getDate()+i); let iso=dt.toISOString().slice(0,10); let diaSem=dt.getDay(); let nomeDia=['DOM','SEG','TER','QUA','QUI','SEX','SAB'][diaSem]; semanaAtual.push({data:iso,[STRIPPED] } renderGrade();}
+function renderGrade(){ if(semanaAtual.length===0){ gradeSemana.innerHTML='<small>Selecione a segunda da semana</small>'; return; } let opts=db.musicos.map(m=>`<option value="${m.id}">${m.nome} - R$${m.cache}</option>`).join(''); let html=''; semanaAtual.forEach((dia)=>{ let isWeekend=dia.diaSem===0||dia.diaSem===6; html+=`<div class="card" style="margin:8px 0;padding:10px;${isWeekend?'border:1px solid #FFD700':''}"><b>${dia.diaNome} ${dia.data.split('-').reverse().join('/')} ${isWeekend?'🔥 SAB/DOM - cada show = 1 cachê (2 shows = 2 cachês)':''}</b><div class="pbox">`; for(let p=1;p<=6;p++){ let selId=`sel_${dia.data}_P${p}`; html+=`<div class="pitem ${isWeekend?'weekend':''}"><b>P${p} ${p==1?'ALMOÇO':p==2?'JANTAR':'EXTRA'+p}</b><select id="${selId}"><option value="">--</option>${opts}</select></div>`; } html+=`</div></div>`; }); html+=`<button class="btn btn-gold" onclick="salvarGrade()">💾 SALVAR SEMANA P1-P6</button>`; gradeSemana.innerHTML=html; semanaAtual.forEach(dia=>{ for(let p=1;p<=6;p++){ let esc=db.escala.find(e=>e.data===dia.data && e.periodo==='P'+p); if(esc){ let el=document.getElementById(`sel_${dia.data}_P${p}`); if(el) el.value=esc.musicoId; } } });}
+function salvarGrade(){ if(semanaAtual.length===0) return; let count=0; semanaAtual.forEach(dia=>{ for(let p=1;p<=6;p++){ let el=document.getElementById(`sel_${dia.data}_P${p}`); if(!el) continue; let mid=Number(el.value); db.escala=db.escala.filter(e=>!(e.data===dia.data && e.periodo==='P'+p)); if(mid){ db.escala.push({id:Date.now()+Math.random(),data:dia.data,[STRIPPED] if(!db.agenda.find(a=>a.data===dia.data)){ db.agenda.push({id:Date.now()+Math.random(),data:dia.data,[STRIPPED] P1-P6',couver:0,despesa:0,obs:'Auto P1-P6'}); } count++; } } }); save(); alert(`Semana salva! ${count} shows. Ex: André P1 almoço + P2 jantar = 2 cachês no SÁB/DOM contado!`);}
+function del(tipo,id){ if(tipo==='musicos'){ let m=db.musicos.find(x=>x.id===id); if(!confirm('Apagar músico '+m.nome+'? Vai remover todas as escalas P1-P6 dele!')) return; db.musicos=db.musicos.filter(x=>x.id!==id); db.escala=db.escala.filter(e=>e.musicoId!==id); } if(tipo==='escala'){ db.escala=db.escala.filter(e=>e.id!==id); } if(tipo==='agenda'){ db.agenda=db.agenda.filter(a=>a.id!==id); } save();}
 function agendaFiltrada(){ if(!filtroIni||!filtroFim) return db.agenda; return db.agenda.filter(a=>a.data>=filtroIni && a.data<=filtroFim); }
-function filtrarRelatorio(){ filtroIni=relIni.value; filtroFim=relFim.value; if(!filtroIni||!filtroFim) return alert('Selecione as duas datas'); renderAll(); }
+function filtrarRelatorio(){ filtroIni=relIni.value; filtroFim=relFim.value; if(!filtroIni||!filtroFim) return alert('Selecione datas'); renderAll(); }
 function limparFiltro(){ filtroIni=null; filtroFim=null; relIni.value=''; relFim.value=''; renderAll(); }
-function addMusico(){ let m={id:Date.now(),nome:mNome.value,inst:mInst.value,cache:Number(mCache.value)||0,whats:mWhats.value}; if(!m.nome) return alert('Nome obrigatorio'); db.musicos.push(m); mNome.value=mInst.value=mCache.value=mWhats.value=''; save(); }
-function addAgenda(){ let a={id:Date.now(),data:agData.value,local:agLocal.value,couver:Number(agCouver.value)||0,despesa:Number(agDespesa.value)||0,obs:agObs.value}; if(!a.data||!a.local) return alert('Data e Local obrigatorio'); db.agenda.push(a); agData.value=agLocal.value=agCouver.value=agDespesa.value=agObs.value=''; save(); }
-function addEscala(){ let eid=Number(crEvento.value), mid=Number(crMusico.value); if(!eid||!mid) return alert('Selecione evento e musico'); db.escala.push({id:Date.now(),eventoId:eid,musicoId:mid}); save(); }
-function del(tipo,id){
-  if(tipo==='musicos'){ let m=db.musicos.find(x=>x.id===id); if(!m) return; if(!confirm('⚠️ Tem certeza que quer APAGAR o músico '+m.nome+'? Isso vai remover ele de TODAS as escalas!')) return; }
-  if(tipo==='agenda'){ let a=db.agenda.find(x=>x.id===id); if(!confirm('Apagar o evento '+(a?a.local:'')+'?')) return; }
-  if(tipo==='escala'){ if(!confirm('Remover da escala?')) return; }
-  db[tipo]=db[tipo].filter(x=>x.id!==id); if(tipo==='agenda'||tipo==='musicos') db.escala=db.escala.filter(e=>e.eventoId!==id && e.musicoId!==id); save();
-}
-function backupJSON(){ let data=JSON.stringify(db); let blob=new Blob([data],{type:'application/json'}); let url=URL.createObjectURL(blob); let a=document.createElement('a'); a.href=url; a.download='taki_backup_'+new Date().toISOString().slice(0,10)+'.json'; a.click(); alert('BACKUP SALVO! Manda pro WhatsApp!'); }
-function restoreJSON(input){ let file=input.files[0]; if(!file) return; let reader=new FileReader(); reader.onload=function(e){ try{ let d=JSON.parse(e.target.result); if(confirm('Restaurar backup com '+d.musicos.length+' musicos? Substituir atual?')){ db=d; save(); alert('Restaurado!'); } }catch(err){ alert('Arquivo inválido'); } }; reader.readAsText(file); }
-function renderAll(){
- listaMusicos.innerHTML=db.musicos.map(m=>`<div style="display:flex;justify-content:space-between;border-bottom:1px solid #1a1a1a;padding:8px 0"><span><b>${m.nome}</b> <span style="font-size:10px;border:1px solid #333;padding:2px 6px;border-radius:10px">${m.inst}</span><br><small>R$ ${m.cache}/dia</small></span><button style="padding:6px 10px;background:#300;color:#ffb3b3;border:1px solid #500;border-radius:8px" onclick="del('musicos',${m.id})">🗑️</button></div>`).join('')||'<small>Nenhum musico</small>';
- listaAgenda.innerHTML=db.agenda.slice().sort((a,b)=>a.data.localeCompare(b.data)).map(a=>`<div style="border-bottom:1px solid #1a1a1a;padding:8px 0"><b>${a.data}</b> - ${a.local} Couver R$${a.couver} <button onclick="del('agenda',${a.id})" style="padding:4px 8px">🗑️</button></div>`).join('')||'<small>Nenhum evento</small>';
- crEvento.innerHTML=db.agenda.map(a=>`<option value="${a.id}">${a.data} - ${a.local}</option>`).join('');
- crMusico.innerHTML=db.musicos.map(m=>`<option value="${m.id}">${m.nome} - ${m.inst}</option>`).join('');
- let agFil=agendaFiltrada(); let idsFil=agFil.map(a=>a.id); let escFil=db.escala.filter(es=>idsFil.includes(es.eventoId));
- let grouped={}; escFil.forEach(es=>{let ev=agFil.find(a=>a.id===es.eventoId); if(!ev) return; let key=ev.data+'|'+ev.local+'|'+ev.id; if(!grouped[key]) grouped[key]={ev,lista:[]}; let mus=db.musicos.find(m=>m.id===es.musicoId); grouped[key].lista.push({esId:es.id,mus});});
- listaCronograma.innerHTML=Object.values(grouped).sort((a,b)=>a.ev.data.localeCompare(b.ev.data)).map(g=>{ const total=g.lista.reduce((s,x)=>s+(x.mus?x.mus.cache:0),0); return `<div style="margin-top:10px;background:#0a0a0a;padding:10px;border-radius:10px;border:1px solid #1a1a1a"><b>${g.ev.data} - ${g.ev.local}</b><br>${g.lista.map(x=>`${x.mus?x.mus.nome:'?'} <button onclick="del('escala',${x.esId})">X</button>`).join(' | ')}<br><b style="color:#FFD700">Total R$${total}</b></div>`; }).join('')||'<small>Sem escala</small>';
- let totalCouver=agFil.reduce((s,a)=>s+a.couver,0); let totalDespesa=agFil.reduce((s,a)=>s+a.despesa,0); let totalCache=escFil.reduce((s,es)=>{let m=db.musicos.find(x=>x.id===es.musicoId); return s+(m?m.cache:0)},0); let lucro=totalCouver-totalDespesa-totalCache;
- rCouver.textContent='R$ '+totalCouver; rDesp.textContent='R$ '+totalDespesa; rCache.textContent='R$ '+totalCache; rLucro.textContent='R$ '+lucro;
- let rank={}; db.musicos.forEach(m=>rank[m.id]={nome:m.nome,inst:m.inst,qtd:0,total:0}); escFil.forEach(es=>{if(rank[es.musicoId]){rank[es.musicoId].qtd++; let m=db.musicos.find(x=>x.id===es.musicoId); rank[es.musicoId].total+=(m?m.cache:0)}});
- ranking.innerHTML=`<table><tr><th>Musico</th><th>Shows</th><th>Total</th></tr>${Object.values(rank).sort((a,b)=>b.qtd-a.qtd).map(r=>`<tr><td>${r.nome}</td><td>${r.qtd}</td><td>R$ ${r.total}</td></tr>`).join('')}</table>`;
- relCronograma.innerHTML=Object.values(grouped).map(g=>`<div style="border-bottom:1px solid #1a1a1a;padding:6px 0"><b>${g.ev.data} - ${g.ev.local}</b> - ${g.lista.map(x=>x.mus?x.mus.nome:'?').join(', ')}</div>`).join('')||'Sem dados';
-}
-function calcPagamento(){ let ini=pgInicio.value, fim=pgFim.value; if(!ini||!fim) return alert('Selecione'); let evFiltrados=db.agenda.filter(a=>a.data>=ini && a.data<=fim); let ids=evFiltrados.map(e=>e.id); let esc= db.escala.filter(es=>ids.includes(es.eventoId)); let porMusico={}; esc.forEach(es=>{let m=db.musicos.find(x=>x.id===es.musicoId); if(!m) return; if(!porMusico[m.id]) porMusico[m.id]={nome:m.nome,qtd:0,total:0,cache:m.cache}; porMusico[m.id].qtd++; porMusico[m.id].total+=m.cache;}); let html=`<b>Semana ${ini} a ${fim}</b><table><tr><th>Musico</th><th>Dias</th><th>Total</th></tr>${Object.values(porMusico).map(p=>`<tr><td>${p.nome}</td><td>${p.qtd}</td><td>R$${p.total}</td></tr>`).join('')}</table>`; let tot=Object.values(porMusico).reduce((s,p)=>s+p.total,0); html+=`<div class=totalBox>TOTAL: R$ ${tot}</div>`; resultadoPagamento.innerHTML=html; }
-function exportCSV(){ let ag=agendaFiltrada(); let csv='Data,Local,Couver\\n'; ag.forEach(a=>{ csv+=`${a.data},${a.local},${a.couver}\\n`; }); let blob=new Blob([csv],{type:'text/csv'}); let url=URL.createObjectURL(blob); let a=document.createElement('a'); a.href=url; a.download='taki.csv'; a.click(); }
+function backupJSON(){ let b=new Blob([JSON.stringify(db)],{type:'application/json'}); let u=URL.createObjectURL(b); let a=document.createElement('a'); a.href=u; a.download='taki_P1P6_backup_'+new Date().toISOString().slice(0,10)+'.json'; a.click(); }
+function restoreJSON(inp){ let f=inp.files[0]; if(!f) return; let r=new FileReader(); r.onload=e=>{ try{ let d=JSON.parse(e.target.result); if(confirm('Restaurar '+d.musicos.length+' musicos e '+d.escala.length+' escalas?')){ db=d; save(); alert('Restaurado!'); } }catch(err){ alert('Arquivo inválido'); } }; r.readAsText(f); }
+function calcPagamento(){ let ini=pgInicio.value, fim=pgFim.value; if(!ini||!fim) return alert('Selecione inicio e fim'); let escFil=db.escala.filter(e=>e.data>=ini && e.data<=fim); let porGrupo={}; let detalhePorDia={}; escFil.forEach(e=>{ let m=db.musicos.find(x=>x.id===e.musicoId); if(!m) return; let grupo=getGrupo(m); if(!porGrupo[grupo]) porGrupo[grupo]={grupo:grupo,qtd:0,total:0,musicos:{},dias:{}}; porGrupo[grupo].qtd+=1; porGrupo[grupo].total+=m.cache; if(!porGrupo[grupo].musicos[m.nome]) porGrupo[grupo].musicos[m.nome]=0; porGrupo[grupo].musicos[m.nome]+=1; let key=e.data; if(!porGrupo[grupo].dias[key]) porGrupo[grupo].dias[key]=[]; porGrupo[grupo].dias[key].push(e.periodo+'('+m.nome+':'+m.cache+')'); if(!detalhePorDia[e.data]) detalhePorDia[e.data]=[]; detalhePorDia[e.data].push({grupo:grupo,mus:m.nome,periodo:e.periodo,cache:m.cache,diaSem:e.diaSem}); }); let html=`<div style="margin-top:10px"><b>Período ${ini.split('-').reverse().join('/')} a ${fim.split('-').reverse().join('/')} - ${escFil.length} shows P1-P6</b>`; html+=`<table><tr><th>GRUPO A RECEBER</th><th>Shows</th><th>Como foi (P1 Almoço P2 Jantar = 2 cachês SAB/DOM)</th><th>Total</th></tr>`; Object.values(porGrupo).sort((a,b)=>b.total-a.total).forEach(g=>{ let detalhe=Object.entries(g.musicos).map(([nome,qtd])=>`${nome}:${qtd}`).join(' | '); html+=`<tr><td><b>${g.grupo}</b><br><small>${detalhe}</small></td><td>${g.qtd}</td><td><small>${Object.entries(g.dias).map(([d,ps])=>`${d.split('-').reverse().join('/')}:${ps.join(',')}`).join('<br>')}</small></td><td><b>R$ ${g.total}</b></td></tr>`; }); html+=`</table>`; let totGeral=Object.values(porGrupo).reduce((s,g)=>s+g.total,0); html+=`<div class=totalBox>TOTAL FOLHA: R$ ${totGeral} (${escFil.length} shows)</div>`; html+=`<div style="margin-top:12px"><b>📅 Por dia - SAB/DOM 2 cachês se P1+P2</b>`; Object.keys(detalhePorDia).sort().forEach(data=>{ let dia=detalhePorDia[data]; let isWeekend=dia[0].diaSem===0||dia[0].diaSem===6; html+=`<div style="border-bottom:1px solid #222;padding:6px 0"><b>${data.split('-').reverse().join('/')} ${isWeekend?'🔥 SAB/DOM':''}</b> - ${dia.length} shows<br><small>${dia.map(d=>`${d.periodo}:${d.mus} R$${d.cache}`).join(' | ')}</small></div>`; }); html+=`</div></div>`; resultadoPagamento.innerHTML=html; }
+function renderAll(){ listaMusicos.innerHTML=db.musicos.map(m=>`<div style="display:flex;justify-content:space-between;border-bottom:1px solid #1a1a1a;padding:8px 0"><span><b>${m.nome}</b> <span class=badge>${m.inst||''}</span> <span class=badge style="background:#FFD700;color:#000">${getGrupo(m)}</span><br><small>R$${m.cache}/show</small></span><button class="btn-sm" style="background:#300;color:#ffb3b3;border:1px solid #500" onclick="del('musicos',${m.id})">🗑️</button></div>`).join('')||'<small>Cadastre: Anderson, VAT 60, Rick, Rick DUO, Rick TRIO, Robson, Robson DUO, Andre Taki, Edill...</small>'; listaAgenda.innerHTML=db.agenda.slice().sort((a,b)=>a.data.localeCompare(b.data)).map(a=>`<div style="border-bottom:1px solid #1a1a1a;padding:6px 0"><b>${a.data}</b> ${a.local} <button class="btn-sm" onclick="del('agenda',${a.id})">🗑️</button></div>`).join('')||'<small>Agenda vazia - Gere semana P1-P6</small>'; let escFil=db.escala.filter(e=>!filtroIni|| (e.data>=filtroIni && e.data<=filtroFim)); periodoInfo.textContent=filtroIni?`Período: ${filtroIni.split('-').reverse().join('/')} até ${filtroFim.split('-').reverse().join('/')} - ${escFil.length} shows`:`Total - ${escFil.length} shows P1-P6`; let porGrupo={}; escFil.forEach(e=>{ let m=db.musicos.find(x=>x.id===e.musicoId); if(!m) return; let g=getGrupo(m); if(!porGrupo[g]) porGrupo[g]={qtd:0,total:0}; porGrupo[g].qtd++; porGrupo[g].total+=m.cache; }); let totalMes=Object.values(porGrupo).reduce((s,g)=>s+g.total,0); resumoMensal.innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">${Object.entries(porGrupo).map(([g,v])=>`<div style="background:#0a0a0a;border:1px solid #222;border-radius:10px;padding:10px;text-align:center"><small>${g}</small><br><b style="color:#FFD700">R$ ${v.total}</b><br><small>${v.qtd} shows</small></div>`).join('')}</div><div class=totalBox>FOLHA: R$ ${totalMes} - ${escFil.length} shows</div>`; let rank=Object.entries(porGrupo).sort((a,b)=>b[1].total-a[1].total); ranking.innerHTML=`<table><tr><th>Grupo (a receber)</th><th>Shows</th><th>Total</th></tr>${rank.map(([grupo,dados])=>`<tr><td><b>${grupo}</b></td><td>${dados.qtd}</td><td><b>R$ ${dados.total}</b></td></tr>`).join('')}</table>`; if(semanaAtual.length>0) renderGrade();}
 renderAll();
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js').then(()=>console.log('TAKI Offline pronto!')).catch(()=>{}); }
+window.addEventListener('beforeinstallprompt', (e)=>{ e.preventDefault(); deferredPrompt=e; document.getElementById('btnInstalar').style.display='block'; });
+function instalarPWA(){ if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt.userChoice.then(()=>{ deferredPrompt=null; document.getElementById('btnInstalar').style.display='none'; }); } else { alert('Para instalar: No Chrome clique nos 3 pontinhos > Adicionar à tela inicial > Instalar. Vira APP e funciona offline!'); } }
 </script>
 </body>
 </html>
